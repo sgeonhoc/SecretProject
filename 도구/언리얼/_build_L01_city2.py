@@ -313,6 +313,117 @@ def street_life(rng):
         x += rng.uniform(2600, 4200)
 
 
+# ── 배선(문·조사·상주 NPC) ────────────────────────────────────────────
+# ★2026-07-25: 이 빌더가 맵을 다시 지으면서 _build_L01_v2.py 가 놓았던
+#   포탈 5 · 조사 5 · NPC 4 를 통째로 지워, 큰길에 "나가는 문만 있고 들어가는 문이 없던" 상태였다.
+#   v2 의 배선을 새 대로 축척(도로 |Y|<900 · 인도 900~1250 · 파사드 ~1250 · X ±14000)으로 다시 앉힌다.
+#   플레이어는 서쪽 끝(바다 쪽, STREET_X0+1200)에서 시작해 동쪽(내륙)으로 걷는다.
+WALK_NPC = 1020.0      # 인도 위 — 좌판(|Y|740) 뒤에 서서 도로를 본다
+WALK_LORE = 1080.0
+DOOR_Y = WALK_Y - 20.0  # 파사드 앞
+
+# (x, sgn, 대상레벨, 이름) — sgn +1 = 북쪽 인도, -1 = 남쪽
+DOORS = [
+    (-7000.0, -1, "L05_Eatery",        "조용한 밥집"),
+    (-2000.0, +1, "L04_Dolgan_Office", "돌간의 흥신소"),
+    (4000.0, +1, "L02_Antique_Shop",  "네사의 골동상"),   # 사건 전/후로 갈린다
+    (9000.0, -1, "L03_Backalley",     "장터 뒷골목"),
+]
+
+
+def cls(name):
+    c = getattr(unreal, name, None)
+    return c if c is not None else unreal.load_class(None, "/Script/Secret_Project." + name)
+
+
+def setp(a, k, v):
+    try:
+        a.set_editor_property(k, v)
+    except Exception as e:
+        log("  ! set %s = %s" % (k, e))
+
+
+def wire():
+    Portal, Lore, NPC = cls("PortalActor"), cls("LoreNoteActor"), cls("ANPCCharacter")
+    n_p = n_l = n_n = 0
+
+    def portal(x, sgn, tgt, label, req=None, forb=None):
+        a = acts.spawn_actor_from_class(Portal, unreal.Vector(x, sgn * DOOR_Y, 60.0))
+        setp(a, "TargetLevelName", tgt)
+        if req:
+            setp(a, "RequiredFlag", req)
+        if forb:
+            setp(a, "ForbiddenFlag", forb)
+        a.set_actor_label(label)
+
+    for x, sgn, tgt, nm in DOORS:
+        if tgt == "L02_Antique_Shop":
+            # 사건 전엔 여는 문, 셋째날 소문 뒤엔 같은 문이 '탄 뒷방'으로 간다(§10-B)
+            portal(x, sgn, tgt, "→ %s (사건 전)" % nm, forb="op_nesa_dead")
+            portal(x, sgn, "L02_Antique_Shop_Burnt", "→ %s (탄 뒤)" % nm, req="op_nesa_dead")
+            n_p += 2
+        else:
+            portal(x, sgn, tgt, "→ %s" % nm)
+            n_p += 1
+
+    def lore(x, y, z, title, body, req=None):
+        a = acts.spawn_actor_from_class(Lore, unreal.Vector(x, y, z))
+        setp(a, "Title", title)
+        setp(a, "Lines", body)
+        if req:
+            setp(a, "RequiredFlag", req)
+        a.set_actor_label("조사: " + title)
+
+    bx = -5200.0
+    lore(bx, WALK_LORE, 150.0, "벽보판",
+         ["삯일과 소문이 같은 판에 붙는다.",
+          "신항 굴착에서 지하 열여덟 자 아래 옛 석축이 나왔다는 말.",
+          "사람 구하는 쪽지가 석 장 겹쳐 붙어 있다."], req="op_day1")
+    lore(bx - 90.0, WALK_LORE, 150.0, "벽보판 — 탄 가게",
+         ["아랫장터 골동상에 불이 났다는 쪽지.",
+          "관은 새어 든 연기에 의한 사고사로 접수했다고 적혀 있다."], req="op_day3")
+    lore(bx + 90.0, WALK_LORE, 150.0, "벽보판 — 겹치는 부고",
+         ["같은 달에 부고가 넉 장. 넉 장 다 사고사.",
+          "그림을 만진 자들이라는 말이 아래에 연필로 덧적혀 있다."], req="op_day3")
+    lore(1500.0, -420.0, 30.0, "포장이 깨진 자리",
+         ["벽돌 포장이 한 뼘 깨져 그 아래가 드러났다.",
+          "밑에 깔린 것은 이 도시가 깔아 둔 돌이 아니다. 이음매가 너무 곱다."])
+    lore(6500.0, -WALK_LORE, 90.0, "우물",
+         ["구시가에서 아직 물이 나오는 우물.",
+          "두레박 줄이 새것이다. 아직 쓰는 사람이 있다."])
+    n_l = 5
+
+    DayEnum = getattr(unreal, "DayPhase", None)
+    day = getattr(DayEnum, "DAY", None) if DayEnum else None
+    night = getattr(DayEnum, "NIGHT", None) if DayEnum else None
+    # 인도에 서서 도로를 본다 — 북쪽 인도는 -Y(yaw 270), 남쪽 인도는 +Y(yaw 90)
+    specs = [
+        (-9500.0, +1, "잡화 좌판", ["오늘 물건은 좋아. 골라 봐.",
+                                 "밤엔 셔터 내리니까 낮에 와."], day, "convenience"),
+        (-4000.0, -1, "약초 좌판", ["의원 것보다 싸. 효험은 봐야 알고."], day, "convenience"),
+        (3000.0, +1, "골동 중개", ["안쪽에 진짜가 있어. 감정도 해 주고.",
+                                "삭지 않은 물건은 값을 함부로 못 매겨."], day, None),
+        (10500.0, -1, "뱃말 뜨내기", ["뱃말 섞어 쓰는 자들이 요즘 부쩍 늘었어.",
+                                   "신항 쪽에서 왔다더군."], night, None),
+    ]
+    for x, sgn, role, dl_, phase, shop in specs:
+        yaw = 270.0 if sgn > 0 else 90.0
+        a = acts.spawn_actor_from_class(NPC, unreal.Vector(x, sgn * WALK_NPC, 100.0),
+                                        unreal.Rotator(0.0, 0.0, yaw))
+        setp(a, "NPCName", role)
+        setp(a, "DialogueLines", dl_)
+        setp(a, "bCanEnterCombat", False)
+        if shop:
+            setp(a, "bIsShopkeeper", True)
+            setp(a, "ShopKind", shop)
+            setp(a, "bClosedAtNight", True)
+        if phase is not None:
+            setp(a, "ActivePhases", [phase])
+        a.set_actor_label("NPC " + role)
+        n_n += 1
+    log("[배선] 포탈 %d · 조사 %d · NPC %d" % (n_p, n_l, n_n))
+
+
 def build():
     build_materials()
     if EAL.does_asset_exist(MAP):
@@ -410,6 +521,7 @@ def build():
     st.set_editor_property("override_color_contrast", True); st.set_editor_property("color_contrast", unreal.Vector4(1.06, 1.06, 1.08, 1.0))
     pp.set_editor_property("settings", st)
 
+    wire()
     acts.spawn_actor_from_class(unreal.PlayerStart, unreal.Vector(STREET_X0 + 1200, 0, 160))
     log("[레벨] save -> %s · 액터 %d" % (les.save_current_level(), CNT["n"]))
 
