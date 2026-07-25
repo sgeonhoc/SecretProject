@@ -16,7 +16,7 @@ MAPS = [
     "/Game/Maps/Rasel/L22_Yoa_Room",
     "/Game/Maps/Rasel/L01_Jangteo_Street",
     "/Game/Maps/Rasel/L05_Eatery",
-    "/Game/Maps/Rasel/L11_Riverbank",
+    "/Game/Maps/Rasel/L07_Riverbank",
     "/Game/Maps/Rasel/L02_Antique_Shop",
     "/Game/Maps/Rasel/L03_Backalley",
     "/Game/Maps/Rasel/L04_Dolgan_Office",

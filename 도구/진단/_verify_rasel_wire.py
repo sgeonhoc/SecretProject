@@ -6,11 +6,11 @@ import unreal
 OUT = "C:/Secret_Project/Saved/rasel_wire_verify.txt"
 MAPS = [
     "L01_Jangteo_Street", "L02_Antique_Shop", "L03_Backalley", "L04_Rooftop_Room",
-    "L05_Eatery", "L06_Pawnshop_Back", "L07_Tram_Jangteo", "L08_Academy_Street",
-    "L09_Academy_Hall", "L10_Clinic", "L11_Riverbank", "L12_Selan_Court",
-    "L13_Newport_Site", "L14_Newport_Shaft", "L15_Warehouse_Roof", "L16_Tower_Lobby",
-    "L17_Sanatorium", "L18_Council_Hall", "L19_Abandoned_Platform", "L20_Sewer_Junction",
-    "L21_Underlayer_Gallery", "L22_Ruin_Gate", "L23_Ruin_Keep",
+    "L05_Eatery", "L06_Pawnshop_Back", "L07_Tram_Jangteo", "L06_Academy_Street",
+    "L09_Academy_Hall", "L08_Clinic", "L07_Riverbank", "L14_Selan_Court",
+    "L09_Newport_Site", "L10_Newport_Shaft", "L15_Warehouse_Roof", "L16_Tower_Lobby",
+    "L13_Seir_Sanatorium", "L18_Council_Hall", "L16_Abandoned_Platform", "L20_Sewer_Junction",
+    "L17_Underlayer_Gallery", "L18_Ruin_Gate", "L19_Ruin_Keep",
 ]
 MAPSET = set(MAPS)
 

@@ -41,7 +41,7 @@ const respond = (() => {
   s += `<rect x="16" y="38" width="340" height="230" rx="10" style="fill:#f6efdc;stroke:${GOLD};stroke-width:2"/>`;
   s += lbl(186, 60, '고대 — 마력이 체계에 길들여져 있었다', { size: 12, bold: true, color: '#7a6320' });
   // 넓은 깔때기(여러 입구 → 다 통과)
-  const goldIn = ['적힌 대로 밟기', '몸에 밴 손버릇', '뜻만 세우기'];
+  const goldIn = ['길든 길을 밟기', '몸에 밴 손버릇', '뜻만 세우기 (흐릿)'];
   goldIn.forEach((t, i) => {
     s += bx(36, 78 + i * 46, 130, 34, t, [], { fill: '#fdf8e8', stroke: GOLD });
     s += arrow(170, 95 + i * 46, 246, 150, { color: GOLD, w: 1.8 });
@@ -54,7 +54,7 @@ const respond = (() => {
   // 지금 패널
   s += `<rect x="384" y="38" width="340" height="230" rx="10" style="fill:#eceff2;stroke:${BLUE};stroke-width:2"/>`;
   s += lbl(554, 60, '지금 — 적힌 체계만 응답한다', { size: 12, bold: true, color: '#2f5066' });
-  const blueIn = [['적힌 대로 정확히', true], ['몸에 밴 손버릇', false], ['뜻만 세우기', false]];
+  const blueIn = [['길든 길을 밟기', true], ['새로 낸 길', false], ['뜻만 세우기', false]];
   blueIn.forEach(([t, ok], i) => {
     s += bx(404, 78 + i * 46, 130, 34, t, [], { fill: ok ? '#e6f0e6' : '#f0eeea', stroke: ok ? GREEN : GREY, dash: ok ? null : '4,3', tcolor: ok ? '#2f5c34' : '#8d8577' });
     if (ok) s += arrow(538, 95 + i * 46, 614, 150, { color: GREEN, w: 2.2 });
@@ -192,9 +192,66 @@ const opening = (() => {
   return svg(740, 342, s);
 })();
 
+// ── G. 조련의 법 세 조항 (§1-3) ──
+const taming = (() => {
+  let s = '';
+  s += lbl(370, 22, '알아듣는 것은 마력이 아니라 길이다 (조련의 법 · §1-3)', { size: 13, bold: true, color: '#3d382e' });
+  const items = [
+    ['① 오래 조련될수록 너그럽다', '만 년 길든 자르는 서툰 혀도 알아듣는다', GOLD, '#fdf8e8'],
+    ['② 잘 가르칠수록 밝다', '비전의 첫 획이 독학 십 년을 이긴다', '#6b5a86', '#f4f0f8'],
+    ['③ 똑바로 청하지 못한 것은', '못 알아듣는다 — 흐릿한 길엔 아무것도 안 온다', BLUE, '#eceff2']
+  ];
+  items.forEach(([t, u, col, fill], i) => {
+    const x = 22 + i * 240;
+    s += bx(x, 44, 220, 74, t, [u], { fill, stroke: col, tcolor: col });
+    s += arrow(x + 110, 118, 370, 152, { color: col, w: 1.6, dash: '4,3' });
+  });
+  s += `<rect x="200" y="152" width="340" height="52" rx="9" style="fill:#efe7d2;stroke:#6b5a3a;stroke-width:2.5"/>`;
+  s += lbl(370, 175, '길든 깊이가 알아듣는 깊이', { size: 14, bold: true, color: '#4a3b2a' });
+  s += lbl(370, 195, '마력 자체는 셈도 귀도 없다', { size: 10.5, color: '#6b5a3a' });
+  s += lbl(370, 232, '★그래서 체계 없는 천재보다 체계 위의 범재가 멀리 간다.', { size: 11.5, bold: true, color: '#8d3225' });
+  s += lbl(370, 250, '이 법은 능력자를 묶는 사슬이 아니라 그들이 딛는 계단이다.', { size: 10.5, color: '#6b6353' });
+  return svg(740, 262, s);
+})();
+
+// ── H. 조련의 계층 — 개막은 넓고 얕다 (§1-10) ──
+const layerDepth = (() => {
+  let s = '';
+  s += lbl(370, 22, '개막은 넓게 퍼지면서 얕다 (§1-10)', { size: 13, bold: true, color: '#3d382e' });
+  // 가로축 = 길든 깊이, 세로 = 사람 수
+  s += ln(60, 210, 700, 210, { color: '#8a7a5c', w: 2 });
+  s += ln(60, 210, 60, 50, { color: '#8a7a5c', w: 2 });
+  s += lbl(380, 236, '길든 깊이 (오래 길든 흔한 길 → 덜 길든 잊힌 갈래)', { size: 10.5, color: '#6b6353' });
+  s += `<text x="34" y="130" text-anchor="middle" transform="rotate(-90 34 130)" style="font-size:10.5px;fill:#6b6353">세우는 사람 수</text>`;
+  // 곡선 — 왼쪽 높고 오른쪽 낮음
+  s += `<path d="M70,70 C160,72 250,150 380,182 C500,200 600,206 695,208" style="fill:none;stroke:${RED};stroke-width:2.5"/>`;
+  // 구역
+  s += `<rect x="66" y="56" width="150" height="152" rx="6" style="fill:#fbf1ec;stroke:${RED};stroke-width:1.5;stroke-dasharray:5,4"/>`;
+  s += lbl(141, 96, '불·물·바람', { size: 11.5, bold: true, color: '#8d3225' });
+  s += lbl(141, 114, '만 년 길든 길', { size: 10, color: '#8d3225' });
+  s += lbl(141, 136, '낱장만 있으면', { size: 10, color: '#6b6353' });
+  s += lbl(141, 152, '서툰 혀도 선다', { size: 10, color: '#6b6353' });
+  s += lbl(141, 176, '= 요아의 한 뼘 불', { size: 10, bold: true, color: '#8d3225' });
+  s += lbl(141, 192, 'T1', { size: 10, color: '#8d3225' });
+
+  s += `<rect x="470" y="56" width="228" height="152" rx="6" style="fill:#eceff2;stroke:${BLUE};stroke-width:1.5;stroke-dasharray:5,4"/>`;
+  s += lbl(584, 96, '덜 길든 · 잊힌 갈래', { size: 11.5, bold: true, color: '#2f5066' });
+  s += lbl(584, 118, '낱장이 있어도', { size: 10, color: '#6b6353' });
+  s += lbl(584, 134, '벼림 없이는 안 선다', { size: 10, color: '#6b6353' });
+  s += lbl(584, 158, '= 셀란이 몇 해를 찾는 것', { size: 10, bold: true, color: '#2f5066' });
+  s += lbl(584, 176, '미르사가 물건보다', { size: 10, color: '#2f5066' });
+  s += lbl(584, 192, '귀한 까닭', { size: 10, color: '#2f5066' });
+
+  s += lbl(370, 272, '★넓이(도시가 눈뜨는 속도)와 깊이(판을 뒤집는 힘)가 따로 움직인다.', { size: 11.5, bold: true, color: '#4a3b2a' });
+  s += lbl(370, 290, '세이르가 태워도 확산을 못 잡는 것과, 그래도 판을 뒤집는 건 몇 사람 손인 것 — 같은 법의 양면.', { size: 10.5, color: '#6b6353' });
+  return svg(740, 302, s);
+})();
+
 module.exports = [
-  { match: '마력과 체계', html: respond, caption: '고대에도 체계는 있었다. 바뀐 것은 체계의 위상이다 — 한 방식에서 유일한 방식으로.' },
-  { match: '앞으로 도출되는 것 다섯', html: onlyDig, caption: '새로 못 쓰는 것 하나에서 현대 경제·사건·성장 구조가 전부 갈라져 나온다.' },
+  { match: '마력과 길', html: respond, caption: '고대에도 체계는 있었다. 바뀐 것은 체계의 위상이다 — 한 방식에서 유일한 방식으로.' },
+  { match: '조련의 법', html: taming, caption: '2026-07-17 사용자 확정. 현대 배경 전체가 이 세 조항 위에 앉는다.' },
+  { match: '기술은 베껴지지 않는다', html: onlyDig, caption: '새로 못 쓰는 것 하나에서 현대 경제·사건·성장 구조가 전부 갈라져 나온다.' },
+  { match: '조련의 계층', html: layerDepth, caption: '길마다 길든 깊이가 달라서, 개막은 넓게 퍼지면서 얕다.' },
   { match: '은닉 — 왜 티내지 않는가', html: hiding, caption: '이유의 비중은 사람마다 다른데, 어느 조합으로 셈해도 답이 은닉으로 나온다.' },
   { match: '세상이 아는 것', html: fourLayers, caption: '아는 사람이 적은 것은 숨겨서가 아니라 원래 몇 없어서다.' },
   { match: '물건이 실제로 오가는 길', html: leak, caption: '위층의 문화재 절차는 실제로 돌아간다. 은닉은 그 절차를 피해 가는 손으로만 성립한다.' },

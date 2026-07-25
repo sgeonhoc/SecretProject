@@ -21,6 +21,16 @@ public class VRM4ULoader : ModuleRules
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 
+		// ★2026-07-25 (UE 5.8 전환) — 이 모듈은 유니티 빌드로 합치면 깨진다.
+		//   VrmConvertModel_Description.cpp:1579 의 `auto *p` + UTF8_TO_TCHAR 가 다른 .cpp 와
+		//   한 덩어리로 묶이면서 C3536('p' cannot be used before it is initialized) /
+		//   C2512(TStringConversion 기본 생성자 없음) / C2264(CreateSwingHead) 가 난다.
+		//   처음엔 통과했는데, 그건 그 파일이 아직 깃에 없어서 UBT 의 적응형 비-유니티 작업 집합
+		//   ("Using 'git status' to determine working set")에 들어가 홀로 컴파일됐기 때문이다.
+		//   커밋해서 깃이 깨끗해지자 유니티로 묶여 깨졌다. → 이 모듈만 비-유니티로 고정한다.
+		//   ※VRM4U 를 새 판으로 갈면 이 줄이 날아간다. 그때 빌드가 깨지면 여기를 다시 볼 것.
+		bUseUnity = false;
+
 		BuildVersion Version;
 		BuildVersion.TryRead(BuildVersion.GetDefaultFileName(), out Version);
 

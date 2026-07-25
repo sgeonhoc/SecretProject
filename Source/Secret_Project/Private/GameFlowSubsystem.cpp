@@ -69,7 +69,7 @@ void UGameFlowSubsystem::BuildDefaultStages()
     const TCHAR* L_ROOM  = TEXT("/Game/Maps/Rasel/L22_Yoa_Room");
     const TCHAR* L_STREET= TEXT("/Game/Maps/Rasel/L01_Jangteo_Street");
     const TCHAR* L_EAT   = TEXT("/Game/Maps/Rasel/L05_Eatery");
-    const TCHAR* L_RIVER = TEXT("/Game/Maps/Rasel/L11_Riverbank");
+    const TCHAR* L_RIVER = TEXT("/Game/Maps/Rasel/L07_Riverbank");
 
     Stages.Reset();
 
@@ -269,8 +269,8 @@ TArray<FTravelDistrict> UGameFlowSubsystem::GetTravelDistricts()
         D(TEXT("네사의 골동상"),  TEXT("/Game/Maps/Rasel/L02_Antique_Shop"),  TEXT("옛것을 사고파는 뒷가게")),
         D(TEXT("장터 뒷골목"),    TEXT("/Game/Maps/Rasel/L03_Backalley"),     TEXT("좁고 어두운 지름길")),
         D(TEXT("조용한 밥집"),    TEXT("/Game/Maps/Rasel/L05_Eatery"),        TEXT("저녁이면 소문이 겹치는 자리")),
-        D(TEXT("학당가 거리"),    TEXT("/Game/Maps/Rasel/L08_Academy_Street"),TEXT("서생과 학인이 오가는 윗동네")),
-        D(TEXT("다리 아래 강둑"), TEXT("/Game/Maps/Rasel/L11_Riverbank"),     TEXT("물소리가 말소리를 지우는 곳")),
+        D(TEXT("학당가 거리"),    TEXT("/Game/Maps/Rasel/L06_Academy_Street"),TEXT("서생과 학인이 오가는 윗동네")),
+        D(TEXT("다리 아래 강둑"), TEXT("/Game/Maps/Rasel/L07_Riverbank"),     TEXT("물소리가 말소리를 지우는 곳")),
         D(TEXT("부두 하역장"),    TEXT("/Game/Maps/Rasel/L11_Dock_Wharf"),    TEXT("삯과 사람 수로 다투는 밤 부두")),
         D(TEXT("부두 창고"),      TEXT("/Game/Maps/Rasel/L12_Warehouse"),     TEXT("낮에 짐을 지는 일터")),
     };
@@ -336,7 +336,7 @@ TArray<FStageNpc> UGameFlowSubsystem::GetResidentNpcs(FName LevelPath)
                 TEXT("거기 뭐가 있길래 그렇게까지 잠가 뒀을까요.") }),
         };
 
-    if (Lv.Contains(TEXT("L11_Riverbank")))
+    if (Lv.Contains(TEXT("L07_Riverbank")))
         return {
             N(TEXT("빨래하는 이"), -300.f, 180.f, 120.f, {
                 TEXT("밤엔 여기 물소리가 커. 그래서 남 얘기 하기 딱 좋지."),

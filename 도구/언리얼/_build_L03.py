@@ -105,7 +105,7 @@ def props_and_wiring():
 
     # 환기구 맨홀 — 아래층(폐선 승강장)으로
     C.put_ground("Manhole", BEND_X, -1080.0, 0.0, "환기구 맨홀")
-    C.portal((BEND_X, -1080.0, 40.0), "L19_Abandoned_Platform", "→ 폐선 승강장(환기구)")
+    C.portal((BEND_X, -1080.0, 40.0), "L16_Abandoned_Platform", "→ 폐선 승강장(환기구)")
     C.portal((-60.0, 0.0, 60.0), "L01_Jangteo_Street", "→ 장터 큰길")
 
     C.lore((320.0, 0.0, 40.0), "담벼락의 진",

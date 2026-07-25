@@ -2,17 +2,28 @@
 라셀 레벨 재번호 — 맵 이름을 도면(_rasel_plan.json) 번호에 맞춘다.
 
   UnrealEditor-Cmd.exe C:/Secret_Project/Secret_Project.uproject ^
-    -ExecutePythonScript="C:/Secret_Project/도구/언리얼/_renumber_levels.py" -unattended -nosplash
+    -ExecutePythonScript="C:/Secret_Project/도구/언리얼/_renumber_levels.py" -nullrhi -unattended -nosplash
 
-★왜 파이썬(UE)이어야 하나
-  탐색기에서 .umap 파일 이름을 바꾸면 다른 맵의 문(PortalActor)이 가리키던 경로가 끊긴다.
-  UE의 rename_asset은 리다이렉터를 남겨 참조가 따라온다.
+★2026-07-25 — 왜 rename 이 아니라 복제+삭제인가
+  처음엔 `EditorAssetLibrary.rename_asset` / `AssetTools.rename_assets` 를 썼는데 **11건 전부 조용히
+  취소**됐다(로그엔 "완료 0/11"만). 엔진 소스를 뒤져 보니 `AssetRenameManager.cpp:463` 이
+      FMessageDialog::Open(EAppMsgType::OkCancel, EAppReturnType::Cancel, "... Continue with rename?")
+  를 띄우고, **기본값이 Cancel** 이라 `-unattended` 에서는 무조건 취소된다. 설정으로 못 끈다.
+  (뜨는 이유: 우리 맵은 CDO 소프트 참조 대상이다 — PortalActor.TargetLevelName 이 문자열이고
+   C++ 에도 맵 경로가 하드코딩돼 있다.)
 
-★왜 두 걸음인가
-  L10_Clinic → L08_Clinic 을 먼저 하면 아직 L08_Academy_Street 가 그 이름을 쓰고 있어 충돌한다.
-  전부 임시 이름으로 옮긴 뒤 최종 이름으로 내린다.
+  → `duplicate_asset` + `delete_asset` 은 그 대화상자를 안 탄다.
+  → 리다이렉터가 안 남지만 **어차피 우리 참조는 전부 문자열**이라 리다이렉터로는 안 고쳐진다.
+     문자열은 아래 「남은 일」대로 손으로 고친다.
+  → 라셀 맵은 OFPA(외부 액터)를 쓰지 않는 것을 확인하고 복제를 택했다
+     (Content/__ExternalActors__/Maps 없음).
 
-근거 문서: 기획/02_게임설계/2_레벨/좌표/02_모순대장과_재번호.md §2·§3
+★임시 이름 2단계가 필요 없다
+  02_모순대장과_재번호.md §3 은 "L10_Clinic → L08_Clinic 을 먼저 하면 L08_Academy_Street 와 충돌"
+  이라 적었으나, 에셋 이름은 번호가 아니라 **전체 문자열**이라 L08_Clinic ≠ L08_Academy_Street 다.
+  대상 11개를 기존 25개와 대조해 겹치는 이름이 0인 것을 확인하고 한 번에 간다.
+
+근거 문서: 기획/02_게임설계/2_레벨/좌표/02_모순대장과_재번호.md §2
 """
 import unreal
 
@@ -42,40 +53,46 @@ def log(s):
     unreal.log(s)
 
 
-def rename(src, dst):
+def move(src, dst):
     sp, dp = "%s/%s" % (DIR, src), "%s/%s" % (DIR, dst)
     if not EAL.does_asset_exist(sp):
-        log("  건너뜀 (없음): %s" % src)
+        log("  - 건너뜀 (원본 없음): %s" % src)
         return False
     if EAL.does_asset_exist(dp):
-        log("  ✗ 충돌 — 이미 있음: %s" % dst)
+        log("  X 충돌 — 이미 있음: %s" % dst)
         return False
-    ok = EAL.rename_asset(sp, dp)
-    log("  %s %s → %s" % ("✔" if ok else "✗", src, dst))
-    return ok
+    if EAL.duplicate_asset(sp, dp) is None:
+        log("  X 복제 실패: %s" % src)
+        return False
+    if not EAL.does_asset_exist(dp):
+        log("  X 복제본 없음: %s" % dst)
+        return False
+    if not EAL.delete_asset(sp):
+        log("  ! 복제는 됐으나 원본 삭제 실패 — 손으로 지울 것: %s" % src)
+        return False
+    log("  O %s -> %s" % (src, dst))
+    return True
 
 
 def main():
-    log("=== 라셀 레벨 재번호 ===")
+    log("=== 라셀 레벨 재번호 (복제+삭제) ===")
 
-    log("\n[1단계] 임시 이름으로")
-    moved = []
-    for src, dst in RENAMES:
-        tmp = "_TMP_" + dst
-        if rename(src, tmp):
-            moved.append((tmp, dst))
+    # 대상 이름이 기존과 겹치는지 먼저 전부 본다 — 하나라도 겹치면 아무것도 하지 않는다
+    clash = [d for _, d in RENAMES if EAL.does_asset_exist("%s/%s" % (DIR, d))]
+    if clash:
+        log("중단 — 대상 이름이 이미 존재: %s" % ", ".join(clash))
+        return
 
-    log("\n[2단계] 최종 이름으로")
     done = 0
-    for tmp, dst in moved:
-        if rename(tmp, dst):
+    for src, dst in RENAMES:
+        if move(src, dst):
             done += 1
 
     log("\n완료 %d / %d" % (done, len(RENAMES)))
-    log("남은 일: ①C++ 경로 수정(GameFlowSubsystem.cpp) ②빌더 경로 수정 "
-        "③_scan_links.py 재실행 ④node 도구/진단/_verify_coords.js")
+    log("남은 일: (1) C++ 경로 수정(GameFlowSubsystem.cpp) (2) 빌더 경로 수정 "
+        "(3) _scan_links.py 재실행 (4) node 도구/진단/_verify_coords.js")
 
-    EAL.save_directory(DIR, only_if_is_dirty=False, recursive=True)
+    EAL.save_directory(DIR, only_if_is_dirty=True, recursive=True)
 
     with open("C:/Secret_Project/Saved/renumber.log", "w", encoding="utf-8") as f:
         f.write("\n".join(LOG))
