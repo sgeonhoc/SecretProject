@@ -27,9 +27,18 @@ fi
 [ -f "$STAGE/VRM4U_5_8_20260722.zip" ]      && say "   VRM 5.8: 있음" || say "   VRM 5.8: ★없음"
 [ -d /c/Revvy ] && say "   Revvy  : 있음" || say "   Revvy  : ★없음"
 cd "$ROOT" || exit 1
-dirty=$(git status --porcelain | wc -l)
-say "   미커밋 : $dirty (0이어야 안전 — 5.8로 열면 5.7로 못 돌아옴)"
-[ "$dirty" -ne 0 ] && [ $GO -eq 1 ] && { say "   ★미커밋이 있어 중단. 먼저 커밋할 것."; exit 1; }
+# 되돌릴 수 없는 건 에셋(.uasset/.umap)과 빌드 대상(Source/Config)이다.
+# md·문서가 미커밋인 건 5.8 전환과 무관하므로 막지 않는다(다른 세션이 글을 쓰는 중일 수 있다).
+dirty_all=$(git status --porcelain | wc -l)
+dirty_asset=$(git status --porcelain -- Content Config Source | wc -l)
+say "   미커밋 : 전체 $dirty_all · 그중 에셋/소스 $dirty_asset"
+if [ "$dirty_asset" -ne 0 ]; then
+  say "   ★에셋·소스에 미커밋이 있다. 5.8로 열면 5.7로 못 돌아오니 먼저 커밋할 것:"
+  git status --porcelain -- Content Config Source | head -10
+  [ $GO -eq 1 ] && exit 1
+else
+  say "            → 에셋·소스는 전부 커밋됨. 되돌릴 지점 있음."
+fi
 
 say ""
 say "=== 1. 현재 플러그인 백업 ==="

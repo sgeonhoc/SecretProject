@@ -2,7 +2,7 @@
 # =============================================================================
 #  테스트 전투 아레나 자동 구성 (헤드리스) — v2 (확실한 라이팅 + 24모델 배치)
 #  실행:
-#    "C:\Program Files\Epic Games\UE_5.7\Engine\Binaries\Win64\UnrealEditor-Cmd.exe" ^
+#    "C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\Win64\UnrealEditor-Cmd.exe" ^
 #      "C:\Secret_Project\Secret_Project.uproject" ^
 #      -ExecutePythonScript="C:/Secret_Project/setup_test_battle.py" -unattended -nopause -nosplash
 #

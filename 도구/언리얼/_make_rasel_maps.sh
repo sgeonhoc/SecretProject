@@ -2,7 +2,7 @@
 # 라셀 플레이 레벨 23개 생성 — 레벨당 에디터 프로세스 하나 (한 프로세스에 여러 개는 크래시)
 # 실행: bash _make_rasel_maps.sh          (전체)
 #       bash _make_rasel_maps.sh 3 7      (3~7번만)
-UE="/c/Program Files/Epic Games/UE_5.7/Engine/Binaries/Win64/UnrealEditor-Cmd.exe"
+UE="/c/Program Files/Epic Games/UE_5.8/Engine/Binaries/Win64/UnrealEditor-Cmd.exe"
 PROJ="C:/Secret_Project/Secret_Project.uproject"
 PY="C:/Secret_Project/도구/언리얼/_make_rasel_maps.py"
 FROM=${1:-0}

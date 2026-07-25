@@ -10,7 +10,7 @@
 #   합치기: "<UE>\python.exe" grid_tool.py pack  --in <폴더> --out grid.png --json grid.json [--cell 512] [--pad 0]
 #   분할 :  "<UE>\python.exe" grid_tool.py split --grid <AI결과.png> --json grid.json --out <복원폴더>
 #   UE python 경로 예:
-#   "C:\Program Files\Epic Games\UE_5.7\Engine\Binaries\ThirdParty\Python3\Win64\python.exe"
+#   "C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\ThirdParty\Python3\Win64\python.exe"
 # =====================================================================
 import sys, os, json, argparse, math
 sys.path.insert(0, r"C:\Secret_Project\_pylibs")   # Pillow 설치 위치
