@@ -9,8 +9,9 @@ FROM=${1:-0}
 TO=${2:-22}
 > /c/Secret_Project/Saved/rasel_wire.log 2>/dev/null
 for i in $(seq "$FROM" "$TO"); do
-  # -NullRHI 금지(액터 스폰 크래시). -RenderOffScreen 사용.
-  RASEL_LEVEL=$i "$UE" "$PROJ" -ExecutePythonScript="$PY" -RenderOffScreen -unattended -nosplash -nopause > /dev/null 2>&1
+  # ★2026-07-25 UE 5.8 — -RenderOffScreen 은 StylusInputWintab(Wacom)에서 죽는다. -nullrhi 사용.
+  #   렌더가 필요한 촬영 스크립트에는 -nullrhi 를 쓰면 안 된다.
+  RASEL_LEVEL=$i "$UE" "$PROJ" -ExecutePythonScript="$PY" -nullrhi -unattended -nosplash -nopause > /dev/null 2>&1
   echo "[$i] done"
 done
 echo "=== 배선 로그 ==="

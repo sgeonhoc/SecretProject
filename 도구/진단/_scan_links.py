@@ -101,7 +101,7 @@ md = ["# 🚪 라셀 레벨 연결표 — 어느 문이 어디로",
       "",
       "> **이 파일은 손으로 적지 않는다.** `_scan_links.py`가 실제 맵의 포탈을 긁어 다시 쓴다.",
       "> 말로 적은 연결표는 금세 실제와 어긋나므로, 맵이 곧 정본이다.",
-      "> 갱신: `UnrealEditor-Cmd.exe <proj> -ExecutePythonScript=\"C:/Secret_Project/_scan_links.py\"`",
+      "> 갱신: `UnrealEditor-Cmd.exe <proj> -ExecutePythonScript=\"C:/Secret_Project/도구/진단/_scan_links.py\"`",
       "",
       "## 지은 맵과 무게", "",
       "| 맵 | 부재 | 문 | 조사 | NPC | 잠긴문 |", "|---|---:|---:|---:|---:|---:|"]
@@ -348,9 +348,9 @@ ul{margin:6px 0;padding-left:20px}li{margin:2px 0}
                      ("@@MAPCOUNT@@", str(len(names)))):
         html = html.replace(tok, val)
 
-    with open("C:/Secret_Project/게임_레벨_검수판.html", "w", encoding="utf-8") as f:
+    with open("C:/Secret_Project/웹/게임_레벨_검수판.html", "w", encoding="utf-8") as f:
         f.write(html)
-    log("검수판 HTML 저장: 게임_레벨_검수판.html")
+    log("검수판 HTML 저장: 웹/게임_레벨_검수판.html")
 
 
 try:

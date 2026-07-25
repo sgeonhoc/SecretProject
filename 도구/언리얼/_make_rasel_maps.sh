@@ -9,8 +9,11 @@ FROM=${1:-0}
 TO=${2:-22}
 ok=0
 for i in $(seq "$FROM" "$TO"); do
-  # ★ -NullRHI 금지: 그 모드에서 액터 스폰이 EXCEPTION_INT_DIVIDE_BY_ZERO로 죽는다. -RenderOffScreen 을 쓴다.
-  RASEL_LEVEL=$i "$UE" "$PROJ" -ExecutePythonScript="$PY" -RenderOffScreen -unattended -nosplash -nopause > /dev/null 2>&1
+  # ★2026-07-25 UE 5.8 — -RenderOffScreen 을 쓰면 StylusInputWintab(Wacom Wintab Coordinator)에서
+  #   EXCEPTION_ACCESS_VIOLATION 으로 에디터가 뜨지도 못한다. 그래서 -nullrhi 로 바꿨다.
+  #   5.7 시절 적어 둔 "NullRHI 는 액터 스폰이 죽는다"는 5.8 에서 재현되지 않는다(L01 액터 1834개 정상).
+  #   ※ 화면을 찍는 스크립트(_shot_*.py)는 렌더가 필요하므로 -nullrhi 를 쓰면 안 된다.
+  RASEL_LEVEL=$i "$UE" "$PROJ" -ExecutePythonScript="$PY" -nullrhi -unattended -nosplash -nopause > /dev/null 2>&1
   ok=$((ok+1))
   echo "[$i] done  (맵 누적: $(ls /c/Secret_Project/Content/Maps/Rasel/ 2>/dev/null | wc -l))"
 done
