@@ -1,0 +1,18 @@
+=== PLAY MODE CHECK ===
+SK_VRM exists? True   (False면 = 플레이모드/에디터제한. 정지 후 다시 실행할 것)
+
+=== PLAYER BP 후보 ===
+[BP] /Game/BP_Characters/NewFolder/BP_PlayerCharacter  exists=True
+     처리 예외: Blueprint: Failed to find property 'parent_class' for attribute 'parent_class' on 'Blueprint'
+[BP] /Game/BP_Characters/BP_PlayerCharacter  exists=True
+     처리 예외: Blueprint: Failed to find property 'parent_class' for attribute 'parent_class' on 'Blueprint'
+[BP] /Game/BP_PlayerCharacter  exists=True
+     처리 예외: Blueprint: Failed to find property 'parent_class' for attribute 'parent_class' on 'Blueprint'
+
+=== DIRECTIONAL LIGHT ===
+[DirLight] 'Light Source' intensity=15.0 contact_shadow_length=0.0 dynamic_shadow=True
+
+=== LEVEL의 VRM 스켈레탈 메시 액터 ===
+[Level] 'SK_VRM' mesh=SK_VRM cast_shadow=False
+[Level] 'BP_PlayerCharacter' mesh=SK_VRM cast_shadow=False
+[Level] 'BP_PlayerCharacter2' mesh=SK_VRM cast_shadow=False

@@ -1,0 +1,386 @@
+{
+ "source_dir": "C:\\Secret_Project\\_tripo\\our_chars\\test7",
+ "canvas": [
+  3072,
+  2016
+ ],
+ "pad": 0,
+ "bg": [
+  190,
+  190,
+  190
+ ],
+ "cell": 512,
+ "parts": [
+  {
+   "name": "arm_R.png",
+   "x": 0,
+   "y": 0,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "back_full.png",
+   "x": 512,
+   "y": 0,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "backpack.png",
+   "x": 1024,
+   "y": 0,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "body_back180.png",
+   "x": 1536,
+   "y": 0,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "body_bl135.png",
+   "x": 2048,
+   "y": 0,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "body_br225.png",
+   "x": 2560,
+   "y": 0,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "body_fl45.png",
+   "x": 0,
+   "y": 288,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "body_fr315.png",
+   "x": 512,
+   "y": 288,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "body_front.png",
+   "x": 1024,
+   "y": 288,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "body_left90.png",
+   "x": 1536,
+   "y": 288,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "body_right270.png",
+   "x": 2048,
+   "y": 288,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "chest_vest.png",
+   "x": 2560,
+   "y": 288,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "collar_bow.png",
+   "x": 0,
+   "y": 576,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "ear.png",
+   "x": 512,
+   "y": 576,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "eyebrow.png",
+   "x": 1024,
+   "y": 576,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "eyes.png",
+   "x": 1536,
+   "y": 576,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "face_34L.png",
+   "x": 2048,
+   "y": 576,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "face_34R.png",
+   "x": 2560,
+   "y": 576,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "face_front.png",
+   "x": 0,
+   "y": 864,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "face_left.png",
+   "x": 512,
+   "y": 864,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "face_right.png",
+   "x": 1024,
+   "y": 864,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "hair_back.png",
+   "x": 1536,
+   "y": 864,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "hair_bangs.png",
+   "x": 2048,
+   "y": 864,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "hair_side.png",
+   "x": 2560,
+   "y": 864,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "hand_L.png",
+   "x": 0,
+   "y": 1152,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "hand_R.png",
+   "x": 512,
+   "y": 1152,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "knees.png",
+   "x": 1024,
+   "y": 1152,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "legs.png",
+   "x": 1536,
+   "y": 1152,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "mouth.png",
+   "x": 2048,
+   "y": 1152,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "nose.png",
+   "x": 2560,
+   "y": 1152,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "shoes.png",
+   "x": 0,
+   "y": 1440,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "shoulder.png",
+   "x": 512,
+   "y": 1440,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "skirt_front.png",
+   "x": 1024,
+   "y": 1440,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "skirt_pleats.png",
+   "x": 1536,
+   "y": 1440,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "socks_feet.png",
+   "x": 2048,
+   "y": 1440,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "upper_torso.png",
+   "x": 2560,
+   "y": 1440,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  },
+  {
+   "name": "waist_hem.png",
+   "x": 0,
+   "y": 1728,
+   "w": 512,
+   "h": 288,
+   "orig_w": 1600,
+   "orig_h": 900,
+   "alpha": true
+  }
+ ]
+}

@@ -1,0 +1,6 @@
+loaded Showcase
+sun_fwd=<Struct 'Vector' (0x0000017062C9C1A0) {x: 0.545104, y: -0.649630, z: -0.529946}> (Light Source)
+found SK_VRM=SK_VRM npc=BP_ANPCCharacter13
+RENDER render_skvrm_lit.png | SK_VRM mesh=SK_VRM
+RENDER render_skvrm_lit15.png | SK_VRM mesh=SK_VRM
+RENDER render_npc_lit.png | BP_ANPCCharacter13 mesh=SK_test13

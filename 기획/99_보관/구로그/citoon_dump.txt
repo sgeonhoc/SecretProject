@@ -1,0 +1,131 @@
+================================================================
+MASTER MATERIAL: /Game/CiciToonCharacterShaderPak/Stage/Materials/M_CiToon_Default
+  -- Texture params (5) --
+    TEX  BaseTex
+    TEX  SSSTex
+    TEX  T_OMR
+    TEX  Matcap
+    TEX  T_SDF
+  -- Scalar params (17) --
+    SCL  RGB_Mapped
+    SCL  Tonemap
+    SCL  ShadowSmooth
+    SCL  ShadowOffset
+    SCL  Ramp
+    SCL  Opacity
+    SCL  EyeAdaptationInverse
+    SCL  EyeOffset
+    SCL  OpacityDepth
+    SCL  OpacituDis
+    SCL  AO_Smooth
+    SCL  AO_Offset
+    SCL  Matcap_Smooth
+    SCL  Matcap_Offset
+    SCL  SDF_Hardness
+    SCL  SDF_Location
+    SCL  OutlineScale
+  -- Vector params (5) --
+    VEC  MSR
+    VEC  BaseColor
+    VEC  ShadowColor
+    VEC  Transition Color
+    VEC  MatcapColor
+  -- Static switch params (9) --
+    SW   IsOutLine?
+    SW   Use SSS Tex
+    SW   UseRamp
+    SW   Use Transition Color
+    SW   UseOMR
+    SW   bUseFOVFix
+    SW   UseSDF
+    SW   UseDepthOpacity?
+    SW   UseSDFLocationMPC?
+================================================================
+MASTER MATERIAL: /Game/CiciToonCharacterShaderPak/Stage/Materials/M_Outline
+  -- Texture params (0) --
+  -- Scalar params (2) --
+    SCL  OutLineScale
+    SCL  Normal_UV
+  -- Vector params (1) --
+    VEC  OutlineColor
+  -- Static switch params (2) --
+    SW   bUseFOVFix
+    SW   Side
+================================================================
+INSTANCE: /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Materials/MI_Kawa_Body
+  parent: /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Materials/MI_Kawa_Face.MI_Kawa_Face
+    TEX  BaseTex = /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Textures/T_Body_Tex_Color.T_Body_Tex_Color
+    TEX  SSSTex = /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Textures/T_Body_Tex_ShadowColor.T_Body_Tex_ShadowColor
+    TEX  T_OMR = /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Textures/T_Body_Tex_SHC.T_Body_Tex_SHC
+    TEX  Matcap = /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Textures/T_Matcap.T_Matcap
+    TEX  T_SDF = /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Textures/T_SDF.T_SDF
+================================================================
+INSTANCE: /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Materials/MI_Kawa_Face
+  parent: /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Materials/MI_Kawa_Main.MI_Kawa_Main
+    TEX  BaseTex = /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Textures/T_Head_Tex_Color.T_Head_Tex_Color
+    TEX  SSSTex = /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Textures/T_Head_Tex_ShadowColor.T_Head_Tex_ShadowColor
+    TEX  T_OMR = /Game/CiciToonCharacterShaderPak/Stage/Textures/T_White.T_White
+    TEX  Matcap = /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Textures/T_Matcap.T_Matcap
+    TEX  T_SDF = /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Textures/T_SDF.T_SDF
+================================================================
+INSTANCE: /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Materials/MI_Kawa_Hair
+  parent: /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Materials/MI_Kawa_Main.MI_Kawa_Main
+    TEX  BaseTex = /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Textures/T_Head_Tex_Color.T_Head_Tex_Color
+    TEX  SSSTex = /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Textures/T_Head_Tex_ShadowColor.T_Head_Tex_ShadowColor
+    TEX  T_OMR = /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Textures/T_Head_Tex_SHC.T_Head_Tex_SHC
+    TEX  Matcap = /Game/CiciToonCharacterShaderPak/Stage/Materials/MaterialTools/Matcap/T_hair_s.T_hair_s
+    TEX  T_SDF = /Game/CiciToonCharacterShaderPak/Character/Hayakawa/Textures/T_SDF.T_SDF
+================================================================
+SKELETAL MESH SLOTS: /Game/TestCharacter/MAXIMO/mixamo/SK_VRM
+  slot count: 17
+  [0] slot=N00_000_00_FaceMouth_00_FACE (Instance)  mat=/Game/TestCharacter/test2/MI_N00_000_00_FaceMouth_00_FACE__Instance_.MI_N00_000_00_FaceMouth_00_FACE__Instance_
+  [1] slot=N00_000_00_EyeIris_00_EYE (Instance)  mat=/Game/TestCharacter/test2/MI_N00_000_00_EyeIris_00_EYE__Instance_.MI_N00_000_00_EyeIris_00_EYE__Instance_
+  [2] slot=N00_000_00_EyeHighlight_00_EYE (Instance)  mat=/Game/TestCharacter/test2/MI_N00_000_00_EyeHighlight_00_EYE__Instance_.MI_N00_000_00_EyeHighlight_00_EYE__Instance_
+  [3] slot=N00_000_00_Face_00_SKIN (Instance)  mat=/Game/TestCharacter/test2/MI_N00_000_00_Face_00_SKIN__Instance_.MI_N00_000_00_Face_00_SKIN__Instance_
+  [4] slot=N00_000_00_EyeWhite_00_EYE (Instance)  mat=/Game/TestCharacter/test2/MI_N00_000_00_EyeWhite_00_EYE__Instance_.MI_N00_000_00_EyeWhite_00_EYE__Instance_
+  [5] slot=N00_000_00_FaceBrow_00_FACE (Instance)  mat=/Game/TestCharacter/test2/MI_N00_000_00_FaceBrow_00_FACE__Instance_.MI_N00_000_00_FaceBrow_00_FACE__Instance_
+  [6] slot=N00_000_00_FaceEyeline_00_FACE (Instance)  mat=/Game/TestCharacter/test2/MI_N00_000_00_FaceEyeline_00_FACE__Instance_.MI_N00_000_00_FaceEyeline_00_FACE__Instance_
+  [7] slot=N00_000_00_Body_00_SKIN (Instance)  mat=/Game/TestCharacter/test2/MI_N00_000_00_Body_00_SKIN__Instance_.MI_N00_000_00_Body_00_SKIN__Instance_
+  [8] slot=N00_000_00_HairBack_00_HAIR (Instance)  mat=/Game/TestCharacter/test2/MI_N00_000_00_HairBack_00_HAIR__Instance_.MI_N00_000_00_HairBack_00_HAIR__Instance_
+  [9] slot=N00_007_01_Tops_01_CLOTH_01 (Instance)  mat=/Game/TestCharacter/test2/MI_N00_007_01_Tops_01_CLOTH_01__Instance_.MI_N00_007_01_Tops_01_CLOTH_01__Instance_
+  [10] slot=N00_005_01_Tops_01_CLOTH (Instance)  mat=/Game/TestCharacter/test2/MI_N00_005_01_Tops_01_CLOTH__Instance_.MI_N00_005_01_Tops_01_CLOTH__Instance_
+  [11] slot=N00_007_01_Tops_01_CLOTH_02 (Instance)  mat=/Game/TestCharacter/test2/MI_N00_007_01_Tops_01_CLOTH_02__Instance_.MI_N00_007_01_Tops_01_CLOTH_02__Instance_
+  [12] slot=N00_010_01_Onepiece_00_CLOTH_01 (Instance)  mat=/Game/TestCharacter/test2/MI_N00_010_01_Onepiece_00_CLOTH_01__Instance_.MI_N00_010_01_Onepiece_00_CLOTH_01__Instance_
+  [13] slot=N00_010_01_Onepiece_00_CLOTH_02 (Instance)  mat=/Game/TestCharacter/test2/MI_N00_010_01_Onepiece_00_CLOTH_02__Instance_.MI_N00_010_01_Onepiece_00_CLOTH_02__Instance_
+  [14] slot=N00_004_01_Shoes_01_CLOTH (Instance)  mat=/Game/TestCharacter/test2/MI_N00_004_01_Shoes_01_CLOTH__Instance_.MI_N00_004_01_Shoes_01_CLOTH__Instance_
+  [15] slot=N00_000_Hair_00_HAIR (Instance)  mat=/Game/TestCharacter/test2/MI_N00_000_Hair_00_HAIR__Instance_.MI_N00_000_Hair_00_HAIR__Instance_
+  [16] slot=M_Outline  mat=/Game/OUTLINE/M_Outline.M_Outline
+================================================================
+INSTANCE: /Game/TestCharacter/test1/MI_N00_000_00_Body_00_SKIN__Instance_
+  parent: /VRM4U/MaterialUtil/UE5/Material/MI_VrmMToonOptUnlitOpaque.MI_VrmMToonOptUnlitOpaque
+    TEX  mtoon_tex_Normal = /Game/TestCharacter/test1/T__11.T__11
+    TEX  NormalMapMaskTexture = /VRM4U/MaterialUtil/T_DummyWhite_Linear.T_DummyWhite_Linear
+    TEX  mtoon_tex_Normal2 = /VRM4U/MaterialUtil/T_Dummy_N.T_Dummy_N
+    TEX  mtoon_tex_UvAnimationMask = /VRM4U/MaterialUtil/T_DummyWhite.T_DummyWhite
+    TEX  gltf_tex_diffuse = /Game/TestCharacter/test1/T__10.T__10
+    TEX  mtoon_tex_Shade = /Game/TestCharacter/test1/T__10.T__10
+    TEX  alphaTexture = /VRM4U/MaterialUtil/T_DummyWhite.T_DummyWhite
+    TEX  gltf_tex_diffuse2 = /VRM4U/MaterialUtil/MaterialBackdrop.MaterialBackdrop
+    TEX  mtoon_tex_OutlineWidthMultiply = /VRM4U/MaterialUtil/T_DummyWhite.T_DummyWhite
+    TEX  Shadowmap = /VRM4U/MaterialUtil/T_DummyWhite.T_DummyWhite
+    TEX  mtoon_tex_MatCap = /Game/TestCharacter/test1/T_MatcapWarp.T_MatcapWarp
+    TEX  mtoon_tex_RimMultiply = /VRM4U/MaterialUtil/T_DummyWhite.T_DummyWhite
+    TEX  MatCapMaskTexture = /VRM4U/MaterialUtil/T_DummyWhite_Linear.T_DummyWhite_Linear
+    TEX  mtoon_tex_MatCap2 = /VRM4U/MaterialUtil/T_DummyBlack.T_DummyBlack
+    TEX  MatCapNormal = /VRM4U/MaterialUtil/T_Dummy_N.T_Dummy_N
+    TEX  mtoon_tex_Emissive = /Game/TestCharacter/test1/T_Shader_NoneBlack.T_Shader_NoneBlack
+    TEX  RoughnessTexture = /VRM4U/MaterialUtil/T_DummyBlack.T_DummyBlack
+    TEX  MetallicTexture = /VRM4U/MaterialUtil/T_DummyBlack.T_DummyBlack
+    TEX  SpecularTexture = /VRM4U/MaterialUtil/T_DummyBlack.T_DummyBlack
+    TEX  ZOffsetMaskTexture = /VRM4U/MaterialUtil/T_DummyWhite_Linear.T_DummyWhite_Linear
+    TEX  mtoon_tex_AnisoNormal = /VRM4U/MaterialUtil/UE5/MaterialFunction/T_aniso_N.T_aniso_N
+    TEX  mtoon_tex_AnisoMask = /VRM4U/MaterialUtil/T_DummyWhite.T_DummyWhite
+    TEX  ext_tex_AngelRing = /VRM4U/MaterialUtil/T_DummyBlack.T_DummyBlack
+    TEX  FlakesData = /Engine/EngineMaterials/Good64x64TilingNoiseHighFreq.Good64x64TilingNoiseHighFreq
+    TEX  SparksData = /Engine/EngineMaterials/Good64x64TilingNoiseHighFreq.Good64x64TilingNoiseHighFreq
+    TEX  RefrectionNormal = /Engine/Functions/Engine_MaterialFunctions02/ExampleContent/Textures/SphereRenderNormalsMap.SphereRenderNormalsMap
+    TEX  ReflectionTexture = /Engine/Tutorial/SubEditors/TutorialAssets/T_soft_smoke.T_soft_smoke
+    TEX  gltf_tex_normal = /VRM4U/MaterialUtil/T_Dummy_N.T_Dummy_N
+    TEX  gltf_tex_lightmap = /VRM4U/MaterialUtil/T_DummyBlack.T_DummyBlack
+    TEX  gltf_tex_emisive = /VRM4U/MaterialUtil/T_DummyBlack.T_DummyBlack
+    TEX  BumpOffsetTexture = /VRM4U/MaterialUtil/T_DummyBlack.T_DummyBlack

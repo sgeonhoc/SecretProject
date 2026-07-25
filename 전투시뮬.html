@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Secret_Project — 헥스 전투 시뮬 v0.2 (살란 칸 매커니즘)</title>
+<style>
+  :root{ --bg:#0e1116; --panel:#161b22; --line:#2b3441; --ink:#dfe6ee; --dim:#8b98a8;
+    --sis:#7fd4ff; --zar:#ff7a55; --mai:#5fb0ff; --kel:#c9a06a; --hur:#b9f2c8; --mom:#e0c96b;
+    --sori:#9ecbff; --mom2:#ffd479; --grim:#c8a2ff; --mae:#ff9ad2; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI",system-ui,sans-serif;overflow-x:hidden}
+  header{padding:8px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  header h1{font-size:15px;margin:0;font-weight:600;letter-spacing:.3px}
+  header .sub{color:var(--dim);font-size:12px}
+  #wrap{display:flex;gap:12px;padding:12px;align-items:flex-start;flex-wrap:wrap}
+  #board{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px}
+  #side{width:430px;display:flex;flex-direction:column;gap:10px}
+  .box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}
+  .box h2{margin:0 0 6px;font-size:12px;color:var(--dim);font-weight:600;text-transform:uppercase;letter-spacing:.6px}
+  .unitcard{display:flex;flex-direction:column;gap:4px}
+  .hpbar{height:12px;background:#0a0d12;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .hpfill{height:100%;transition:width .25s}
+  .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .pill{background:#0a0d12;border:1px solid var(--line);border-radius:20px;padding:1px 9px;font-size:12px}
+  .breath{color:#ffd479;font-weight:700}
+  .kan{display:inline-flex;gap:3px;vertical-align:middle}
+  .kandot{width:11px;height:11px;border-radius:3px;background:#0a0d12;border:1px solid #3a4657}
+  .kandot.on{background:#ffd479;border-color:#ffd479;box-shadow:0 0 4px #ffd47988}
+  #hand{display:flex;flex-wrap:wrap;gap:6px}
+  .card{width:132px;min-height:104px;background:#0f141b;border:1px solid var(--line);border-radius:8px;
+    padding:7px;cursor:pointer;position:relative;transition:.12s;user-select:none;border-left-width:3px}
+  .card:hover:not(.disabled){border-color:#4a90d9;transform:translateY(-2px)}
+  .card.sel{border-color:#ffd479;box-shadow:0 0 0 1px #ffd479}
+  .card.disabled{opacity:.4;cursor:not-allowed}
+  .card .nm{font-size:12px;font-weight:600;line-height:1.15}
+  .card .meta{font-size:10px;color:var(--dim);margin-top:2px}
+  .card .cost{position:absolute;top:5px;right:6px;font-size:11px;font-weight:700;color:#ffd479}
+  .card .el{display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:middle;margin-right:3px}
+  .card .fx{font-size:10px;color:#aeb9c6;margin-top:3px;line-height:1.25}
+  .card .gil{font-size:9px;margin-top:3px;opacity:.85}
+  button{background:#1d2632;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px}
+  button:hover{border-color:#4a90d9}
+  button.primary{background:#294a6e;border-color:#3a6ea5}
+  #log{height:190px;overflow:auto;font-size:12px;line-height:1.45;font-family:ui-monospace,Menlo,monospace}
+  #log .t{color:var(--dim)}  #log .dmg{color:#ff9b7a}  #log .sis{color:var(--sis)}
+  #log .zar{color:var(--zar)} #log .sys{color:#8fd18f} #log .warn{color:#ffd479} #log .grim{color:var(--grim)} #log .mae{color:var(--mae)}
+  .legend{font-size:11px;color:var(--dim);display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  .legend span{display:flex;align-items:center;gap:3px}
+  .sw{width:10px;height:10px;border-radius:2px;display:inline-block}
+  text{user-select:none;pointer-events:none}
+  .hint{font-size:12px;color:#ffd479;min-height:18px}
+  .surflabel{font-size:9px}
+  .filt{display:flex;gap:4px;flex-wrap:wrap;margin:4px 0}
+  .filt button{padding:2px 8px;font-size:11px}
+  .filt button.act{background:#294a6e;border-color:#3a6ea5}
+</style>
+</head>
+<body>
+<header>
+  <h1>⚔ Secret_Project — 전투 레벨</h1>
+  <select id="lvlsel" style="background:#1d2632;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 8px;font-size:13px"></select>
+  <span class="sub" id="round"></span>
+  <span class="sub" id="stageflavor" style="flex-basis:100%;color:#ffd479"></span>
+</header>
+
+<div id="wrap">
+  <div id="board"><svg id="grid" width="760" height="700"></svg>
+    <div class="legend" id="legend"></div>
+  </div>
+
+  <div id="side">
+    <div class="box">
+      <div class="unitcard" id="u-enemy"></div>
+      <div style="height:8px"></div>
+      <div class="unitcard" id="u-player"></div>
+    </div>
+    <div class="box">
+      <div class="row"><h2 style="margin:0">손패 · 칸(행동 슬롯)</h2>
+        <span class="pill">칸 <span class="kan" id="kan"></span></span></div>
+      <div class="hint" id="hint">카드를 고르거나, 내 말(파랑)을 눌러 이동하세요.</div>
+      <div class="filt" id="filt"></div>
+      <div id="hand"></div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="primary" id="endturn">턴 넘기기 ▶</button>
+        <button id="reset">새 판</button>
+        <button id="deselect">선택 해제</button>
+      </div>
+    </div>
+    <div class="box">
+      <h2>전투 기록</h2>
+      <div id="log"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===================== 헥스 수학 (axial, pointy-top) ===================== */
+let SIZE=44, R=4; const OX=380, OY=350;   // SIZE·R = 레벨마다 바뀜(반경 3/4/5)
+const DIRS=[[1,0],[1,-1],[0,-1],[-1,0],[-1,1],[0,1]];
+const key=(q,r)=>q+","+r;
+function hexDist(a,b){return (Math.abs(a.q-b.q)+Math.abs(a.q+a.r-b.q-b.r)+Math.abs(a.r-b.r))/2;}
+function px(q,r){return {x:OX+SIZE*Math.sqrt(3)*(q+r/2), y:OY+SIZE*1.5*r};}
+function hexPoly(q,r){const c=px(q,r);let p="";for(let i=0;i<6;i++){const a=Math.PI/180*(60*i-30);p+=(c.x+SIZE*0.94*Math.cos(a))+","+(c.y+SIZE*0.94*Math.sin(a))+" ";}return p;}
+let TILES=[];
+function rebuildTiles(){ TILES=[]; for(let q=-R;q<=R;q++)for(let r=-R;r<=R;r++){ if(Math.max(Math.abs(q),Math.abs(r),Math.abs(q+r))<=R) TILES.push({q,r}); } }
+rebuildTiles();
+function inField(q,r){return Math.max(Math.abs(q),Math.abs(r),Math.abs(q+r))<=R;}
+function tilesIn(q,r,rad){const o=[];TILES.forEach(t=>{if(hexDist({q,r},t)<=rad)o.push(t);});return o;}
+
+/* 과녁=눈 (살란 정본 §4-6): 벽이 시야를 끊는다. 큐브 좌표 라인 드로. */
+function cubeRound(x,y,z){let rx=Math.round(x),ry=Math.round(y),rz=Math.round(z);
+  const dx=Math.abs(rx-x),dy=Math.abs(ry-y),dz=Math.abs(rz-z);
+  if(dx>dy&&dx>dz)rx=-ry-rz; else if(dy>dz)ry=-rx-rz; else rz=-rx-ry; return {q:rx,r:rz};}
+function hexLine(a,b){const N=hexDist(a,b); if(N===0)return[{q:a.q,r:a.r}];
+  const out=[]; for(let i=0;i<=N;i++){const t=i/N;
+    const x=a.q+(b.q-a.q)*t, z=a.r+(b.r-a.r)*t, y=(-a.q-a.r)+((-b.q-b.r)-(-a.q-a.r))*t;
+    out.push(cubeRound(x,y,z));} return out;}
+function hasLoS(a,b){ // 벽이 중간을 막으면 시야 끊김 (양 끝 제외)
+  const line=hexLine(a,b);
+  for(let i=1;i<line.length-1;i++){ if(S.walls[key(line[i].q,line[i].r)]) return false; }
+  return true;
+}
+
+/* ===================== 표면 물리 (설계 캐논) ===================== */
+const SURF={ 불:{c:'#ff7a55',t:'불'}, 서리:{c:'#7fd4ff',t:'서리'}, 젖음:{c:'#4d84c4',t:'젖음'},
+  돌먼지:{c:'#b79668',t:'먼지'}, 얼음판:{c:'#bfe9ff',t:'얼음판'}, 번짐불:{c:'#ff5a2a',t:'번짐불'} };
+
+/* ===================== 길(발현방식) 정체성 (§2-1~2-4) ===================== */
+// 소리길: 과녁=눈(LoS 필요) · 영창 중 말문 막기로 끊김
+// 몸길:   근접 · 즉발(cast=1) · 안 끊김(잠들지 않음)
+// 그림길: 선새김(진을 미리 깔고 나중에/밟으면 발동) · 설치
+// 매개길: 인연으로 벽 뒤 우회(LoS 무시) · 안 끊김
+const GIL={ 언령:{k:'소리길',c:'var(--sori)',los:true,  intr:true },
+            연공:{k:'몸길',  c:'var(--mom2)',los:false, intr:false},
+            진:  {k:'그림길',c:'var(--grim)',los:true,  intr:true },
+            주술:{k:'매개길',c:'var(--mae)', los:false, intr:false} };
+
+/* ===================== 카드 (정본 로스터 실제 이름·수치) ===================== */
+// cast = 완성 칸 (자잘기1/주력2/대형3~4/대주문5~6). cast>=4 = 대주문(얹기=차징, 무방비).
+const CARDS=[
+ // ── 소리길(언령): 과녁은 눈, 영창은 끊긴다 ──
+ {n:'얼음화살',el:'서리',길:'언령',t:3,cast:1,type:'직격',rng:5,dmg:55,combo:{s:['젖음','서리','얼음판'],b:120},leaves:'서리'},
+ {n:'무릎 서리',el:'서리',길:'언령',t:4,cast:1,type:'제어',rng:5,cc:{type:'slow',dur:2}},
+ {n:'손목 서리',el:'서리',길:'언령',t:3,cast:1,type:'무장떨굼',rng:5},
+ {n:'고드름 비',el:'서리',길:'언령',t:5,cast:2,type:'직격',rng:5,dmg:95,aoe:1,combo:{s:['젖음'],b:175},leaves:'서리'},
+ {n:'얼음 성벽 세우기',el:'서리',길:'언령',t:7,cast:3,type:'벽',wall:'둘레',dur:3},
+ {n:'내려앉는 겨울',el:'서리',길:'언령',t:10,cast:5,type:'대주문',kind:'겨울',rng:3,aoe:2},
+ {n:'불덩이',el:'불',길:'언령',t:3,cast:1,type:'직격',rng:5,dmg:60,combo:{s:['불','번짐불'],b:130},leaves:'불'},
+ {n:'불살',el:'불',길:'언령',t:3,cast:1,type:'직격',rng:5,dmg:60,leaves:'불'},
+ {n:'불씨 뿌리기',el:'불',길:'언령',t:1,cast:1,type:'표면',rng:4,leaves:'불'},
+ {n:'불비',el:'불',길:'언령',t:5,cast:2,type:'직격',rng:5,dmg:110,aoe:1,leaves:'불'},
+ {n:'불지옥',el:'불',길:'언령',t:6,cast:4,type:'대주문',kind:'직격',rng:4,dmg:90,aoe:1,combo:{s:['불','번짐불'],b:320},leaves:'불'},
+ {n:'물송곳',el:'물',길:'언령',t:3,cast:1,type:'직격',rng:5,dmg:50,combo:{s:['젖음'],b:110},leaves:'젖음'},
+ {n:'젖은 바닥',el:'물',길:'언령',t:2,cast:1,type:'표면',rng:4,leaves:'젖음'},
+ {n:'바람칼',el:'바람',길:'언령',t:3,cast:1,type:'직격',rng:5,dmg:45},
+ {n:'몰이 바람',el:'바람',길:'언령',t:4,cast:1,type:'밀침',rng:4,knock:2},
+ {n:'바람 부치기',el:'바람',길:'언령',t:2,cast:1,type:'바람',rng:4},
+ {n:'돌팔매',el:'돌',길:'언령',t:3,cast:1,type:'직격',rng:5,dmg:55,combo:{s:['돌먼지'],b:100},leaves:'돌먼지'},
+ {n:'돌창',el:'돌',길:'언령',t:4,cast:2,type:'직격',rng:5,dmg:85,leaves:'돌먼지'},
+ // ── 몸길(연공): 근접·즉발·안 끊김 ──
+ {n:'스무 걸음',el:'몸',길:'연공',t:4,cast:1,type:'이동',mv:5},
+ {n:'강철 정강이',el:'몸',길:'연공',t:3,cast:1,type:'직격',rng:1,dmg:65},
+ {n:'굳은 살갗',el:'몸',길:'연공',t:4,cast:1,type:'방어',shield:80,dur:1},
+ // ── 그림길(진): 선새김·설치 ──
+ {n:'서리 사슬 진',el:'서리',길:'진',t:4,cast:2,type:'선새김진',rng:3,trap:{cc:{type:'freeze',dur:1}}},
+ {n:'무게 진',el:'돌',길:'진',t:4,cast:2,type:'선새김진',rng:3,trap:{cc:{type:'slow',dur:2},dmg:40}},
+ {n:'돌벽 진',el:'돌',길:'진',t:4,cast:2,type:'벽',wall:'하나',rng:3,dur:3},
+ // ── 매개길(주술): 벽 뒤 우회(LoS 무시)·안 끊김 ──
+ {n:'실 건 바늘',el:'주술',길:'주술',t:5,cast:2,type:'직격',rng:9,dmg:70,through:true},
+ {n:'묶은 발',el:'주술',길:'주술',t:4,cast:2,type:'제어',rng:9,through:true,cc:{type:'slow',dur:2}},
+ // ── 칸 방해(말문 막기) ──
+ {n:'말문 막기',el:'바람',길:'언령',t:4,cast:1,type:'파훼',rng:6},
+];
+const elColor={서리:'var(--sis)',불:'var(--zar)',물:'var(--mai)',바람:'var(--hur)',돌:'var(--kel)',몸:'var(--mom)',주술:'var(--mae)'};
+
+/* ===================== 전투 레벨 (라셀 현대 배경 — 정본=기획/02_게임설계/1_전투/시스템/게임_전투레벨_정본.md) ===================== */
+// 레벨 = 판. 지형·병목·표면·거리·체급만 적는다. 적은 역할(계열·길)로만 — 특정 인물로 못박지 않는다.
+// surf/walls 키는 "q,r". 지형 벽은 수명 무한(안 삭음).
+const LEVELS=[
+ { id:'L1_폐선지하수로', stage:'폐선 지하수로 · 첫 물길',
+   flavor:'삼각주 아래 고인 물, 좁은 관. 물길이 판을 반으로 가른다 — 젖음 위에 서리를 얹으면 언다.', obj:'첫 마주침에서 살아 나가기',
+   R:3, player:{name:'아군 (빙·언령)',q:-3,r:3,hp:3400},
+   enemy:{name:'불 초심자',q:3,r:-3,hp:2600,strike:'불덩이'},
+   surf:{'-2,2':'젖음','-1,1':'젖음','0,0':'젖음','1,-1':'젖음','2,-2':'젖음','1,1':'돌먼지','-1,-1':'돌먼지'},
+   walls:['2,1','-2,-1'] },
+ { id:'L2_아랫장터뒷골목', stage:'아랫장터 뒷골목 · 닫힌 골목',
+   flavor:'장터 뒤 좁은 골목. 벽 두 줄이 지그재그 병목을 만든다 — 언령은 시야가 막히고 주술은 돌아간다.', obj:'갇히기 전에 제압하고 빠져나온다',
+   R:4, player:{name:'아군 (물·언령)',q:-3,r:3,hp:4000},
+   enemy:{name:'돌·진 술자',q:3,r:-3,hp:4000,strike:'돌팔매'},
+   surf:{'0,0':'젖음','0,1':'젖음'},
+   walls:['1,-2','1,-1','1,0','-1,0','-1,1','-1,2'] },
+ { id:'L3_신항굴착갱', stage:'신항 굴착 갱 · 내려가는 자들',
+   flavor:'지하 열여덟 자, 옛 석축이 드러난 방. 바닥 가운데가 통째로 돌먼지 — 돌 계열 합이 상시로 선다.', obj:'물건을 안고 갱을 빠져나온다',
+   R:3, player:{name:'아군 (돌·언령)',q:-3,r:3,hp:4000},
+   enemy:{name:'불 언령 술자',q:3,r:-3,hp:3800,strike:'불덩이'},
+   surf:{'0,0':'돌먼지','1,0':'돌먼지','-1,0':'돌먼지','0,1':'돌먼지','0,-1':'돌먼지','1,-1':'돌먼지','-1,1':'돌먼지'},
+   walls:['2,-1','-2,1'] },
+ { id:'L4_학당가강둑', stage:'학당가 강둑 · 물과 불',
+   flavor:'한쪽 변이 통째로 강이다. 상대를 강 쪽으로 밀면 젖고, 젖으면 언다 — 밀침과 이동이 값을 하는 판.', obj:'추격을 따돌린다',
+   R:4, player:{name:'아군 (불·언령)',q:-3,r:3,hp:4000},
+   enemy:{name:'물 언령 술자',q:3,r:-3,hp:4000,strike:'물송곳'},
+   surf:{'2,1':'젖음','1,2':'젖음','0,3':'젖음','-1,3':'젖음'},
+   walls:['2,-1','-2,1'] },
+ { id:'L5_유리탑로비', stage:'강 건너 유리탑 로비 · 깨끗한 얼굴',
+   flavor:'매끈한 대리석 로비. 깔린 표면이 하나도 없다 — 대칭 기둥 여섯이 만드는 순수 시야 싸움.', obj:'로비를 돌파한다',
+   R:5, player:{name:'아군 (빙·언령)',q:-4,r:4,hp:4200},
+   enemy:{name:'불 고수',q:4,r:-4,hp:4800,strike:'불비'},
+   surf:{},
+   walls:['2,0','-2,0','0,2','0,-2','2,-2','-2,2'] },
+ { id:'L6_옛도읍폐허', stage:'옛 도읍 폐허 · 주인 없는 물건',
+   flavor:'강 상류 폐허. 무너진 기둥 여덟이 막힌 길과 뚫린 길을 뒤섞고, 물웅덩이와 돌먼지가 함께 깔렸다.', obj:'폐허의 물건을 회수한다',
+   R:5, player:{name:'아군 (빙·언령)',q:-4,r:4,hp:4500},
+   enemy:{name:'고대 잔존 (불·돌 복합)',q:4,r:-4,hp:6500,strike:'돌창'},
+   surf:{'0,0':'돌먼지','1,-1':'돌먼지','-1,1':'돌먼지','2,-2':'돌먼지','-2,2':'돌먼지','1,1':'젖음','-1,-1':'젖음'},
+   walls:['2,0','-2,0','0,3','0,-3','3,-2','-3,2','1,2','-1,-2'] },
+ { id:'L7_화물창지붕', stage:'강변 화물창 지붕 · 바람 부는 판',
+   flavor:'사방이 트인 지붕, 비 그친 직후. 벽은 환기탑 둘뿐이라 숨을 곳이 없고, 젖은 자리가 흩어져 어디든 얼 수 있다.', obj:'지붕을 건너 반대편으로 빠진다',
+   R:5, player:{name:'아군 (돌·언령)',q:-4,r:4,hp:4300},
+   enemy:{name:'빙·언령 술자',q:4,r:-4,hp:4400,strike:'얼음화살'},
+   surf:{'0,0':'젖음','2,-1':'젖음','-2,1':'젖음','1,2':'젖음','-1,-2':'젖음','3,-3':'젖음'},
+   walls:['1,-1','-1,1'] },
+ { id:'L8_아래층회랑', stage:'아래층 회랑 · 도시 규모의 켜',
+   flavor:'갱이 뚫고 내려간 아래층. 기둥이 두 줄로 서서 복도 셋을 만든다 — 어느 복도로 드느냐가 곧 교전 거리다.', obj:'회랑 끝까지 간다',
+   R:4, player:{name:'아군 (물·언령)',q:-3,r:3,hp:4400},
+   enemy:{name:'돌 고수',q:3,r:-3,hp:5000,strike:'돌창'},
+   surf:{'0,0':'돌먼지','0,1':'돌먼지','0,-1':'돌먼지','0,2':'돌먼지','0,-2':'돌먼지','2,-2':'돌먼지','-2,2':'돌먼지','2,-1':'돌먼지','-2,1':'돌먼지'},
+   walls:['1,-2','1,-1','1,0','1,1','-1,-1','-1,0','-1,1','-1,2'] },
+ { id:'L9_침수승강장', stage:'침수된 승강장 · 무릎까지 물',
+   flavor:'판 전체가 물이다. 서리 한 번이면 판이 통째로 언다 — 내가 깐 것에 내가 걸리는 양날의 판.', obj:'승강장을 장악한다',
+   R:4, player:{name:'아군 (불·언령)',q:-3,r:3,hp:4600},
+   enemy:{name:'물·빙 복합 술자',q:3,r:-3,hp:5200,strike:'물송곳'},
+   surf:{'0,0':'젖음','1,0':'젖음','-1,0':'젖음','0,1':'젖음','0,-1':'젖음','1,-1':'젖음','-1,1':'젖음','2,-1':'젖음','-2,1':'젖음','1,1':'젖음','-1,-1':'젖음','2,-2':'젖음','-2,2':'젖음','0,2':'젖음','0,-2':'젖음','2,0':'젖음','-2,0':'젖음','1,-2':'젖음','-1,2':'젖음'},
+   walls:['3,-1','-3,1','0,3'] },
+ { id:'L10_무너진성문', stage:'무너진 성문 앞뜰 · 옛 뼈의 문턱',
+   flavor:'성문 잔해가 가운데를 가로질러 판을 두 마당으로 나눈다. 뚫린 틈은 양끝 둘뿐 — 언제 들어가느냐가 전부다.', obj:'문턱을 넘는다',
+   R:5, player:{name:'아군 (빙·언령)',q:-4,r:4,hp:4800},
+   enemy:{name:'고대 잔존 (불·돌·바람 복합)',q:4,r:-4,hp:7200,strike:'불비'},
+   surf:{'2,-2':'불','-2,2':'불','0,0':'돌먼지','1,-1':'돌먼지','-1,1':'돌먼지','3,-3':'돌먼지'},
+   walls:['-3,4','-2,3','-1,2','0,1','1,0','2,-1','3,-2','4,-3'] },
+];
+let CURLEVEL=0;
+function applyLevel(i){ CURLEVEL=i; const L=LEVELS[i]; R=L.R; SIZE = R<=3?54 : R>=5?32 : 44; rebuildTiles();
+  const fl=(typeof document!=='undefined')&&document.getElementById('stageflavor'); if(fl) fl.textContent='【'+L.stage+'】 '+L.flavor;
+  fresh(); }
+
+/* ===================== 게임 상태 ===================== */
+let S;
+const KAN_MAX=6;
+function fresh(){
+  const L=LEVELS[CURLEVEL];
+  S={ round:1, turn:'player', kan:KAN_MAX, kanMax:KAN_MAX, refund:0, lastEl:null, sel:null,
+      walls:{}, surf:{}, jin:{}, over:false, charge:null, filt:'전체', level:L,
+    units:{ player:{side:'player',name:L.player.name,q:L.player.q,r:L.player.r,hp:L.player.hp,max:L.player.hp,shield:0,slow:0,frozen:0,exposed:false},
+            enemy:{ side:'enemy',name:L.enemy.name,q:L.enemy.q,r:L.enemy.r,hp:L.enemy.hp,max:L.enemy.hp,shield:0,slow:0,frozen:0,exposed:false} } };
+  for(const k in L.surf) S.surf[k]=L.surf[k];
+  for(const w of L.walls) S.walls[w]={dur:99999};   // 지형 벽 = 안 삭음
+  log('<span class="warn">【'+L.stage+'】</span> <span class="t">'+L.flavor+' · 목표: '+L.obj+'</span>');
+  log('<span class="sys">개전. 칸=행동 슬롯(완성 예산). 큰 영창은 여러 칸·완성까지 무방비. 언령=과녁은 눈, 주술=벽 뒤 우회.</span>');
+  render();
+}
+function unitAt(q,r){for(const u of Object.values(S.units)) if(u.hp>0&&u.q===q&&u.r===r) return u; return null;}
+function log(h){const el=document.getElementById('log');if(el)el.insertAdjacentHTML('afterbegin','<div>'+h+'</div>');}
+function short(u){return u.side==='player'?'아군':'적';}
+
+/* ===================== 표면 적용 ===================== */
+function applySurface(q,r,s){
+  const k=key(q,r), cur=S.surf[k];
+  if(s==='서리' && cur==='젖음'){ S.surf[k]='얼음판'; log('<span class="sis">젖음+서리 → 얼음판</span> ('+q+','+r+')'); freezeIfOn(q,r); return; }
+  if(s==='불' && (cur==='젖음'||cur==='얼음판')){ delete S.surf[k]; log('<span class="warn">불이 젖은 자리에서 꺼짐(소화)</span>'); return; }
+  if(cur==='불' && s==='젖음'){ delete S.surf[k]; log('<span class="warn">물이 불을 끔</span>'); return; }
+  S.surf[k]=s;
+}
+function freezeIfOn(q,r){const u=unitAt(q,r); if(u){u.frozen=Math.max(u.frozen,1); log('<span class="sis">'+short(u)+' 발이 얼음판에 얼어붙음</span>');}}
+
+/* ===================== 데미지 (영창 무방비=자리 값 ×1.5) ===================== */
+function dealDmg(u,amt,tag){
+  let a=amt;
+  if(u.exposed){ a=Math.round(a*1.5); }
+  if(u.shield>0){const ab=Math.min(u.shield,a);u.shield-=ab;a-=ab; if(ab>0)log('<span class="sys">'+short(u)+' 방패가 '+ab+' 막음</span>');}
+  u.hp=Math.max(0,u.hp-a);
+  log('<span class="dmg">'+short(u)+'에 '+a+' 피해</span> '+(tag||'')+(u.exposed?' <span class="warn">(영창 무방비!)</span>':'')+' → HP '+u.hp);
+  if(u.hp<=0){ S.over=true; log('<span class="warn">★ '+short(u)+' 쓰러짐 — '+(u.side==='player'?'패배':'승리')+'</span>'); }
+}
+
+/* ===================== 칸 · 환급 · 시전 가능 ===================== */
+function canStart(c){ // 이 카드를 이번 턴에 시작할 칸이 있는가
+  if(S.over||S.turn!=='player'||S.units.player.frozen>0) return false;
+  if(S.charge) return false; // 이미 얹는 중이면 다른 카드 불가
+  if(c.cast>=4) return S.kan>0; // 대주문=얹기 시작(남은 칸 전부 투입)
+  return S.kan>=c.cast;
+}
+function chainRefund(el,actor){ if(el===S.lastEl && S.refund<4){ S.kan++; S.refund++;
+    if(actor==='player') log('<span class="sys">연쇄 환급 +1 칸 ('+S.refund+'/4) — 같은 계열 이어 감</span>'); }
+  S.lastEl=el; }
+function isChain(c){ return (c.type==='직격'||c.type==='표면'||c.type==='필드') && c.el!=='몸'&&c.el!=='주술'; }
+
+/* ===================== 카드 발동 ===================== */
+function resolveCard(c, tq, tr, actor){
+  const me=S.units[actor], foe=S.units[actor==='player'?'enemy':'player'];
+  if(c.type==='이동'){ me.q=tq;me.r=tr; log(short(me)+' 스무 걸음 이동'); if(S.surf[key(tq,tr)]==='얼음판')freezeIfOn(tq,tr); return; }
+  if(c.type==='방어'){ me.shield+=c.shield; log('<span class="sys">'+short(me)+' 굳은 살갗 방패 +'+c.shield+'</span>'); return; }
+  if(c.type==='파훼'){ // 말문 막기: 적이 소리/그림 영창 얹는 중이면 끊음
+    if(S.charge && S.charge.who!==actor){ const cc=S.charge.card;
+      if(GIL[cc.길].intr){ log('<span class="warn">★ 말문 막기! '+short(foe)+'의 '+cc.n+' 영창이 끊겼다 (칸 '+S.charge.acc+' 날림)</span>'); S.charge=null; foe.exposed=false; }
+      else log('<span class="mae">'+cc.n+'은(는) '+GIL[cc.길].k+'이라 말로 못 끊는다</span>');
+    } else log('끊을 영창이 없다'); return;
+  }
+  if(c.type==='벽'){
+    if(c.wall==='둘레'){ DIRS.forEach(d=>{const q=me.q+d[0],r=me.r+d[1]; if(inField(q,r)&&!unitAt(q,r)) S.walls[key(q,r)]={dur:c.dur};}); log('<span class="sis">얼음 성벽: 둘레에 벽</span>'); }
+    else { S.walls[key(tq,tr)]={dur:c.dur}; log((c.길==='진'?'<span class="grim">돌벽 진':'돌벽')+' 설치 ('+tq+','+tr+')</span>'); }
+    return;
+  }
+  if(c.type==='선새김진'){ // 그림길: 진을 깔아 둔다 — 밟으면 발동
+    S.jin[key(tq,tr)]={owner:actor,trap:c.trap,el:c.el,name:c.n};
+    log('<span class="grim">'+short(me)+' '+c.n+' 선새김 — ('+tq+','+tr+') 잠든 진. 적이 밟으면 깬다</span>'); return;
+  }
+  if(c.type==='바람'){ const k=key(tq,tr), cur=S.surf[k];
+    if(cur==='불'){ S.surf[k]='번짐불'; log('<span class="zar">불+바람 → 번짐불(확산)</span>'); }
+    else if(cur){ delete S.surf[k]; log('바람이 '+SURF[cur].t+' 표면을 걷음'); }
+    else log('바람 — 걷을 표면 없음'); return;
+  }
+  if(c.type==='밀침'){ const tgt=unitAt(tq,tr); if(tgt){ const dq=Math.sign(tgt.q-me.q),dr=Math.sign(tgt.r-me.r);
+      let nq=tgt.q,nr=tgt.r; for(let i=0;i<c.knock;i++){const a=tgt.q+dq*(i+1),b=tgt.r+dr*(i+1); if(inField(a,b)&&!unitAt(a,b)&&!S.walls[key(a,b)]){nq=a;nr=b;}}
+      tgt.q=nq;tgt.r=nr; log('<span class="hur">몰이 바람: '+short(tgt)+' 밀려남</span>'); checkJin(tgt); if(S.surf[key(nq,nr)]==='얼음판')freezeIfOn(nq,nr);} return;
+  }
+  if(c.type==='무장떨굼'){ const u=unitAt(tq,tr); if(u&&u.side!==actor){ u.disarm=1; log('<span class="sis">'+short(u)+' 무장 떨굼 — 다음 근접 무력</span>'); } return; }
+  if(c.type==='표면'||c.type==='필드'){ const tiles=c.aoe?tilesIn(tq,tr,c.aoe):[{q:tq,r:tr}];
+    tiles.forEach(t=>applySurface(t.q,t.r,c.leaves));
+    if(c.cc){ tiles.forEach(t=>{const u=unitAt(t.q,t.r); if(u&&u.side!==actor) applyCC(u,c.cc);}); } return;
+  }
+  if(c.type==='제어'){ const u=unitAt(tq,tr); if(u&&u.side!==actor) applyCC(u,c.cc); return; }
+  if(c.type==='직격'||(c.type==='대주문'&&c.kind==='직격')){
+    const tiles=c.aoe?tilesIn(tq,tr,c.aoe):[{q:tq,r:tr}];
+    tiles.forEach(t=>{ const u=unitAt(t.q,t.r); let dmg=c.dmg;
+      if(u&&u.side!==actor){ let hit=false;
+        if(c.combo && c.combo.s.includes(S.surf[key(t.q,t.r)])){ dmg=c.combo.b; hit=true; }
+        dealDmg(u,dmg,'<span class="'+(c.el==='서리'?'sis':c.el==='불'?'zar':c.el==='주술'?'mae':'')+'">['+c.n+']</span>'+(hit?' <span class="warn">합!</span>':''));
+      }
+      if(c.leaves) applySurface(t.q,t.r,c.leaves);
+    }); return;
+  }
+  if(c.type==='대주문'&&c.kind==='겨울'){ // 내려앉는 겨울: 판에 겨울을 앉힘
+    const tiles=tilesIn(tq,tr,c.aoe);
+    tiles.forEach(t=>{ const cur=S.surf[key(t.q,t.r)];
+      if(cur==='젖음'||cur==='얼음판'){ S.surf[key(t.q,t.r)]='얼음판'; freezeIfOn(t.q,t.r); }
+      else if(cur==='불'||cur==='번짐불'){ delete S.surf[key(t.q,t.r)]; }
+      else S.surf[key(t.q,t.r)]='서리';
+      const u=unitAt(t.q,t.r); if(u&&u.side!==actor){ applyCC(u,{type:'slow',dur:2}); dealDmg(u,60,'<span class="sis">[내려앉는 겨울]</span>'); }
+    });
+    log('<span class="sis">★ 내려앉는 겨울 — 판에 겨울이 앉았다(서리·얼음판·둔화)</span>'); return;
+  }
+}
+function applyCC(u,cc){ if(cc.type==='slow'){u.slow=Math.max(u.slow,cc.dur); log('<span class="sis">'+short(u)+' 걸음 느려짐('+cc.dur+'턴)</span>');}
+  if(cc.type==='freeze'){u.frozen=Math.max(u.frozen,cc.dur); log('<span class="sis">'+short(u)+' 얼어붙음('+cc.dur+'턴)</span>');} }
+function checkJin(u){ // 유닛이 선 자리에 적의 잠든 진이 있으면 깬다
+  const j=S.jin[key(u.q,u.r)]; if(j && j.owner!==u.side){ log('<span class="grim">★ '+short(u)+'이(가) '+j.name+'을(를) 밟아 진이 깼다</span>');
+    if(j.trap.dmg) dealDmg(u,j.trap.dmg,'<span class="grim">['+j.name+']</span>'); if(j.trap.cc) applyCC(u,j.trap.cc); delete S.jin[key(u.q,u.r)]; } }
+
+/* ===================== 시전 (즉발 / 얹기=차징) ===================== */
+function needsTarget(c){ return ['직격','대주문','표면','필드','밀침','바람','제어','이동','무장떨굼','선새김진'].includes(c.type) || (c.type==='벽'&&c.wall==='하나'); }
+function targetOK(c,tq,tr,me){
+  if(hexDist(me,{q:tq,r:tr})>(c.type==='이동'?c.mv:c.rng)) return {ok:false,msg:'사거리 밖'};
+  // 과녁=눈: 소리길 직격/제어는 시야가 필요. 매개길(through)·몸길은 무시.
+  if((c.type==='직격'||c.type==='대주문'||c.type==='제어') && GIL[c.길].los && !c.through){
+    if(!hasLoS(me,{q:tq,r:tr})) return {ok:false,msg:'벽에 시야가 막힘 — 언령은 안 보이면 못 건다 (주술은 우회)'};
+  }
+  return {ok:true};
+}
+function playCard(i,tq,tr){
+  const c=CARDS[i], me=S.units.player;
+  const t=targetOK(c,tq,tr,me); if(!t.ok){ hint(t.msg); return; }
+  if(c.cast>=4){ // 대주문 = 얹기 시작
+    const put=S.kan; S.kan=0;
+    S.charge={who:'player',i,card:c,tq,tr,acc:put,need:c.cast};
+    me.exposed=true;
+    log('<span class="warn">'+c.n+' 영창 시작 — 칸 '+put+'/'+c.need+' 얹음. 완성까지 무방비(자리 값). 적이 말문 막기로 끊을 수 있다</span>');
+    S.sel=null; render(); return;
+  }
+  if(S.kan<c.cast){ hint('칸 부족'); return; }
+  S.kan-=c.cast;
+  if(isChain(c)) chainRefund(c.el,'player');
+  resolveCard(c,tq,tr,'player');
+  S.sel=null;
+  if(S.over){render();return;}
+  if(S.kan<=0){ log('<span class="t">칸 소진 — 턴을 넘기세요</span>'); }
+  render();
+}
+function selectCard(i){ const c=CARDS[i]; if(!canStart(c)){hint('칸이 부족하거나 지금 낼 수 없음');return;}
+  S.sel={kind:'card',i}; hint(needsTarget(c)?('대상 헥스 클릭 · 사거리 '+ (c.type==='이동'?c.mv:c.rng)+(c.through?' · 벽 뒤 가능(주술)':'')):'클릭해 발동');
+  if(!needsTarget(c)){ if(c.cast>=4){/*대주문 자기타겟*/ playCard(i,S.units.player.q,S.units.player.r);} else playCard(i,S.units.player.q,S.units.player.r); }
+  render();
+}
+function clickHex(q,r){
+  if(S.over) return;
+  if(S.sel&&S.sel.kind==='card'){ const c=CARDS[S.sel.i];
+    if(c.type==='이동'){ if(hexDist(S.units.player,{q,r})<=c.mv&&!unitAt(q,r)&&!S.walls[key(q,r)]){playCard(S.sel.i,q,r);} else hint('이동 불가'); return; }
+    playCard(S.sel.i,q,r); return;
+  }
+  if(S.sel&&S.sel.kind==='move'){
+    if(S.kan<1){hint('이동도 칸 1이 든다 — 칸 부족');return;}
+    if(hexDist(S.units.player,{q,r})<=2&&!unitAt(q,r)&&!S.walls[key(q,r)]&&S.units.player.frozen<=0){
+      const d=hexDist(S.units.player,{q,r}); S.units.player.q=q;S.units.player.r=r; S.kan-=1;
+      log('아군 이동('+d+'칸 거리, 칸 1) '); checkJin(S.units.player); S.sel=null; render(); } else hint('이동 불가');
+    return;
+  }
+}
+function clickUnit(u){ if(S.over)return; if(u.side==='player'&&S.turn==='player'){ S.sel={kind:'move'}; hint('이동할 헥스 클릭(거리 2 이내, 칸 1)'+(S.units.player.frozen>0?' — 얼어붙어 불가':'')); render(); } }
+
+/* ===================== 턴 진행 ===================== */
+function endTurn(){ if(S.over)return; surfaceTick(); if(S.over){render();return;} S.turn='enemy'; hint('적 턴...'); render(); setTimeout(aiTurn,500); }
+function startTurn(who){
+  S.turn=who; S.kan=S.kanMax; S.refund=0; S.lastEl=null;
+  const u=S.units[who]; if(u.slow>0){S.kan=Math.max(1,S.kanMax-2);u.slow--;} if(u.frozen>0){u.frozen--;}
+}
+function resolveOwnCharge(who){ // 제 턴 시작 시 얹던 대주문 완성 시도
+  if(S.charge && S.charge.who===who){ const ch=S.charge, me=S.units[who];
+    const put=Math.min(S.kan, ch.need-ch.acc); S.kan-=put; ch.acc+=put;
+    if(ch.acc>=ch.need){ me.exposed=false; log('<span class="warn">★ '+ch.card.n+' 영창 완성!</span>');
+      const t=targetOK(ch.card,ch.tq,ch.tr,me); if(t.ok) resolveCard(ch.card,ch.tq,ch.tr,who); else { log('완성했으나 과녁을 잃음(이동/시야)'); }
+      S.charge=null; }
+    else log('<span class="t">'+ch.card.n+' 계속 얹는 중 '+ch.acc+'/'+ch.need+' (여전히 무방비)</span>');
+  }
+}
+function startTurnPlayer(){ S.round++; startTurn('player'); resolveOwnCharge('player'); hint('당신의 턴 · 카드 또는 이동'); render(); }
+function surfaceTick(){
+  const spread=[];
+  for(const k in S.surf){ if(S.surf[k]==='번짐불'){ const [q,r]=k.split(',').map(Number);
+      const u=unitAt(q,r); if(u) dealDmg(u,40,'<span class="zar">[번짐불 도트]</span>');
+      DIRS.forEach(d=>{const a=q+d[0],b=r+d[1],kk=key(a,b); if(inField(a,b)&&!S.surf[kk]&&Math.random()<0.5) spread.push(kk);}); } }
+  spread.forEach(k=>{S.surf[k]='번짐불';});
+  for(const k in S.walls){ S.walls[k].dur--; if(S.walls[k].dur<=0) delete S.walls[k]; }
+}
+function aiTurn(){
+  startTurn('enemy'); resolveOwnCharge('enemy'); render();
+  const me=S.units.enemy, foe=S.units.player;
+  let guard=0;
+  const step=()=>{
+    if(S.over){render();return;}
+    guard++; if(guard>14){ finishAI(); return; }
+    // 1) 플레이어가 영창 무방비면: 말문 막기 우선 → 없으면 그냥 때림(무방비 ×1.5)
+    if(S.charge && S.charge.who==='player' && GIL[S.charge.card.길].intr && S.kan>=1){
+      const p=CARDS.find(x=>x.n==='말문 막기');
+      if(hexDist(me,foe)<=p.rng && hasLoS(me,foe)){ S.kan-=1; resolveCard(p,foe.q,foe.r,'enemy'); render(); setTimeout(step,450); return; }
+    }
+    const d=hexDist(me,foe);
+    if(d>5 && S.kan>=1){ // 접근 (칸 1)
+      let best=null,bestD=d; DIRS.forEach(dir=>{const q=me.q+dir[0],r=me.r+dir[1]; if(inField(q,r)&&!unitAt(q,r)&&!S.walls[key(q,r)]){const nd=hexDist({q,r},foe); if(nd<bestD){bestD=nd;best={q,r};}}});
+      if(best){me.q=best.q;me.r=best.r; S.kan-=1; checkJin(me); log('<span class="t">적 접근 (칸 1)</span>'); render(); setTimeout(step,320); return;}
+    }
+    const strikeName=(S.level&&S.level.enemy.strike)||'불덩이';
+    const c=CARDS.find(x=>x.n===strikeName)||CARDS.find(x=>x.n==='불덩이');
+    if(d<=5 && S.kan>=c.cast && hasLoS(me,foe)){ // 적 직격(레벨별 계열)
+      S.kan-=c.cast; if(isChain(c))chainRefund(c.el,'enemy');
+      resolveCard(c,foe.q,foe.r,'enemy'); render();
+      if(S.kan>0){ setTimeout(step,420); return; }
+    }
+    if(d<=5 && S.kan>=1 && !hasLoS(me,foe)){ log('<span class="t">적: 시야 막힘 — 돌아갈 칸 없음</span>'); }
+    finishAI();
+  };
+  setTimeout(step,300);
+}
+function finishAI(){ surfaceTick(); if(S.over){render();return;} startTurnPlayer(); }
+
+/* ===================== 렌더 ===================== */
+function render(){
+  const g=document.getElementById('grid'); if(!g)return; let s='';
+  TILES.forEach(t=>{ const k=key(t.q,t.r); const sf=S.surf[k]; const fill=sf?SURF[sf].c:'#12181f';
+    const op=sf?0.55:1; s+='<polygon points="'+hexPoly(t.q,t.r)+'" fill="'+fill+'" fill-opacity="'+op+'" stroke="#263140" stroke-width="1" data-q="'+t.q+'" data-r="'+t.r+'" class="hx"/>';
+    if(sf){const c=px(t.q,t.r);s+='<text x="'+c.x+'" y="'+(c.y+3)+'" text-anchor="middle" font-size="9" fill="#0a1016" class="surflabel">'+SURF[sf].t+'</text>';}
+  });
+  // 잠든 진
+  for(const k in S.jin){const [q,r]=k.split(',').map(Number);const c=px(q,r);
+    s+='<polygon points="'+hexPoly(q,r)+'" fill="none" stroke="'+GIL['진'].c+'" stroke-width="2" stroke-dasharray="4 3" pointer-events="none"/><text x="'+c.x+'" y="'+(c.y+4)+'" text-anchor="middle" font-size="12" fill="'+GIL['진'].c+'">◈</text>';}
+  // 벽
+  for(const k in S.walls){const [q,r]=k.split(',').map(Number);const c=px(q,r);s+='<polygon points="'+hexPoly(q,r)+'" fill="#5a6b7a" stroke="#8fa3b3" stroke-width="2"/><text x="'+c.x+'" y="'+(c.y+4)+'" text-anchor="middle" font-size="12" fill="#0a1016">▦</text>';}
+  // 하이라이트
+  if(S.sel&&!S.over){ const me=S.units.player; TILES.forEach(t=>{let ok=false;
+    if(S.sel.kind==='card'){const c=CARDS[S.sel.i]; const rng=c.type==='이동'?c.mv:c.rng; if(rng&&hexDist(me,t)<=rng)ok=true;}
+    if(S.sel.kind==='move'){ if(hexDist(me,t)<=2&&!unitAt(t.q,t.r))ok=true;}
+    if(ok){ let block=false;
+      if(S.sel.kind==='card'){const c=CARDS[S.sel.i]; if((c.type==='직격'||c.type==='대주문'||c.type==='제어')&&GIL[c.길].los&&!c.through&&!hasLoS(me,t))block=true;}
+      s+='<polygon points="'+hexPoly(t.q,t.r)+'" fill="'+(block?'#ff5555':'#ffd479')+'" fill-opacity="'+(block?0.06:0.12)+'" stroke="'+(block?'#ff5555':'#ffd479')+'" stroke-width="1.3" pointer-events="none"/>';}
+  });}
+  // 유닛
+  for(const u of Object.values(S.units)){ if(u.hp<=0)continue; const c=px(u.q,u.r);
+    const col=u.side==='player'?'#3a86e0':'#e0574a';
+    if(u.exposed)s+='<circle cx="'+c.x+'" cy="'+c.y+'" r="21" fill="none" stroke="#ffd479" stroke-width="2" stroke-dasharray="2 3"/>';
+    s+='<circle cx="'+c.x+'" cy="'+c.y+'" r="16" fill="'+col+'" stroke="#0a0d12" stroke-width="2" data-unit="'+u.side+'"/>';
+    s+='<text x="'+c.x+'" y="'+(c.y+4)+'" text-anchor="middle" font-size="13" fill="#fff">'+(u.side==='player'?'我':'敵')+'</text>';
+    if(u.shield>0)s+='<circle cx="'+c.x+'" cy="'+c.y+'" r="19" fill="none" stroke="#8fd18f" stroke-width="2" stroke-dasharray="3 3"/>';
+    if(u.frozen>0)s+='<text x="'+(c.x+13)+'" y="'+(c.y-10)+'" font-size="12">❄</text>';
+    if(u.slow>0)s+='<text x="'+(c.x-20)+'" y="'+(c.y-10)+'" font-size="11">🐌</text>';
+    if(u.exposed)s+='<text x="'+(c.x-6)+'" y="'+(c.y+30)+'" font-size="10" fill="#ffd479">영창</text>';
+  }
+  g.innerHTML=s;
+  g.querySelectorAll('.hx').forEach(p=>p.onclick=()=>clickHex(+p.dataset.q,+p.dataset.r));
+  g.querySelectorAll('[data-unit]').forEach(c=>c.onclick=(e)=>{e.stopPropagation();clickUnit(S.units[c.dataset.unit]);});
+  document.getElementById('u-enemy').innerHTML=unitPanel(S.units.enemy);
+  document.getElementById('u-player').innerHTML=unitPanel(S.units.player);
+  // 칸 표시
+  let kd=''; for(let i=0;i<S.kanMax;i++)kd+='<span class="kandot'+(i<S.kan?' on':'')+'"></span>'; document.getElementById('kan').innerHTML=kd;
+  document.getElementById('round').textContent='라운드 '+S.round+' · '+(S.turn==='player'?'내 턴':'적 턴')+(S.charge?' · '+(S.charge.who==='player'?'내':'적')+' 영창 '+S.charge.acc+'/'+S.charge.need:'');
+  renderFilt();
+  const hand=document.getElementById('hand'); const list=CARDS.map((c,i)=>({c,i})).filter(o=>S.filt==='전체'||GIL[o.c.길].k===S.filt);
+  hand.innerHTML=list.map(({c,i})=>{
+    const dis=!canStart(c)?' disabled':''; const sel=(S.sel&&S.sel.kind==='card'&&S.sel.i===i)?' sel':'';
+    const gi=GIL[c.길];
+    return '<div class="card'+dis+sel+'" data-i="'+i+'" style="border-left-color:'+gi.c+'"><span class="cost">'+c.cast+'칸'+(c.cast>=4?'⚡':'')+'</span>'+
+      '<div class="nm"><span class="el" style="background:'+(elColor[c.el]||'#888')+'"></span>'+c.n+'</div>'+
+      '<div class="meta">'+c.el+'·T'+c.t+'</div><div class="fx">'+cardFx(c)+'</div>'+
+      '<div class="gil" style="color:'+gi.c+'">'+gilTag(c,gi)+'</div></div>';
+  }).join('');
+  hand.querySelectorAll('.card').forEach(el=>el.onclick=()=>{if(!el.classList.contains('disabled'))selectCard(+el.dataset.i);});
+  document.getElementById('legend').innerHTML=Object.keys(SURF).map(k=>'<span><span class="sw" style="background:'+SURF[k].c+'"></span>'+SURF[k].t+'</span>').join('')+'<span><span class="sw" style="background:#5a6b7a"></span>벽</span><span><span class="sw" style="background:'+GIL['진'].c+'"></span>잠든 진</span>';
+}
+function renderFilt(){ const f=document.getElementById('filt'); const paths=['전체','소리길','몸길','그림길','매개길'];
+  f.innerHTML=paths.map(p=>'<button class="'+(S.filt===p?'act':'')+'" data-p="'+p+'">'+p+'</button>').join('');
+  f.querySelectorAll('button').forEach(b=>b.onclick=()=>{S.filt=b.dataset.p;render();}); }
+function gilTag(c,gi){ let bits=[gi.k];
+  if(gi.los&&!c.through&&(c.type==='직격'||c.type==='대주문'||c.type==='제어'))bits.push('과녁=눈');
+  if(c.through)bits.push('벽 뒤 우회');
+  if(!gi.intr&&c.cast>=4)bits.push('안 끊김');
+  if(c.cast>=4&&gi.intr)bits.push('말문에 끊김');
+  if(c.type==='선새김진')bits.push('선새김');
+  return bits.join(' · '); }
+function cardFx(c){
+  if(c.type==='직격'||(c.type==='대주문'&&c.kind==='직격'))return '직격 '+c.dmg+(c.combo?' / 합 '+c.combo.b:'')+(c.aoe?' · 광역':'')+(c.leaves?' · '+c.leaves+'표면':'');
+  if(c.type==='대주문'&&c.kind==='겨울')return '판에 겨울(서리·결빙·둔화)';
+  if(c.type==='표면'||c.type==='필드')return (c.leaves||'')+' 표면'+(c.cc?' · 슬로우':'')+(c.aoe?' · 광역':'');
+  if(c.type==='제어')return '걸음 느림 '+c.cc.dur+'턴';
+  if(c.type==='무장떨굼')return '무장 떨굼';
+  if(c.type==='이동')return '이동 '+c.mv+'칸';
+  if(c.type==='방어')return '방패 '+c.shield;
+  if(c.type==='벽')return c.wall==='둘레'?'둘레 얼음벽':'벽 1칸';
+  if(c.type==='밀침')return '밀침 '+c.knock+'칸';
+  if(c.type==='바람')return '불→번짐불 / 표면 걷기';
+  if(c.type==='선새김진')return '잠든 진 — 밟으면 '+(c.trap.cc?(c.trap.cc.type==='freeze'?'결빙':'둔화'):'')+(c.trap.dmg?'+'+c.trap.dmg:'');
+  if(c.type==='파훼')return '적 언령/진 영창 끊기';
+  return '';
+}
+function unitPanel(u){
+  const pct=Math.round(u.hp/u.max*100); const col=u.side==='player'?'#3a86e0':'#e0574a';
+  return '<div class="row"><b>'+u.name+'</b><span class="pill">HP '+u.hp+'</span></div>'+
+    '<div class="hpbar"><div class="hpfill" style="width:'+pct+'%;background:'+col+'"></div></div>'+
+    '<div class="row" style="font-size:11px;color:var(--dim)"><span>('+u.q+','+u.r+')</span><span>'+
+    (u.shield>0?'방패 '+u.shield+' · ':'')+(u.slow>0?'슬로우 · ':'')+(u.frozen>0?'결빙 · ':'')+(u.exposed?'<span style="color:#ffd479">영창 무방비</span>':'')+'</span></div>';
+}
+function hint(t){const el=document.getElementById('hint');if(el)el.textContent=t;}
+
+/* ===================== 버튼 ===================== */
+if(typeof document!=='undefined'&&document.getElementById('endturn')){
+  document.getElementById('endturn').onclick=endTurn;
+  document.getElementById('reset').onclick=()=>{document.getElementById('log').innerHTML='';fresh();};
+  document.getElementById('deselect').onclick=()=>{S.sel=null;hint('선택 해제');render();};
+  const sel=document.getElementById('lvlsel');
+  if(sel){ sel.innerHTML=LEVELS.map((l,i)=>'<option value="'+i+'">L'+(i+1)+' · '+l.stage+'</option>').join('');
+    sel.onchange=()=>{ document.getElementById('log').innerHTML=''; applyLevel(+sel.value); }; }
+  applyLevel(0);
+}
+/* 헤드리스 테스트용 export */
+if(typeof module!=='undefined'){ module.exports={get S(){return S;},get CURLEVEL(){return CURLEVEL;},LEVELS,applyLevel,fresh,resolveCard,playCard,CARDS,hasLoS,hexLine,hexDist,GIL,key,startTurn,resolveOwnCharge,targetOK,checkJin,get TILES(){return TILES;},get R(){return R;}}; }
+</script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+[0] slot=N00_000_00_FaceMouth_00_FACE (Instance)  mat=MI_N00_000_00_FaceMouth_00_FACE__Instance_
+      texparam 'gltf_tex_diffuse' = T__01
+      texparam 'mtoon_tex_ShadeTexture' = T__01
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__01
+      texparam 'mtoon_tex_Shade' = T__01
+      texparam 'mtoon_tex_SphereAdd' = T_Shader_NoneBlack
+      texparam 'mtoon_tex_MatCap' = T_Shader_NoneBlack
+      texparam 'mtoon_tex_Normal' = T_Shader_NoneNormal
+      texparam 'mtoon_tex_Emissive' = T_Shader_NoneBlack
+[1] slot=N00_000_00_EyeIris_00_EYE (Instance)  mat=MI_N00_000_00_EyeIris_00_EYE__Instance_
+      texparam 'gltf_tex_diffuse' = T__02
+      texparam 'mtoon_tex_ShadeTexture' = T__02
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__02
+      texparam 'mtoon_tex_Shade' = T__02
+      texparam 'mtoon_tex_SphereAdd' = T_Shader_NoneBlack
+      texparam 'mtoon_tex_MatCap' = T_Shader_NoneBlack
+      texparam 'mtoon_tex_Normal' = T_Shader_NoneNormal
+      texparam 'mtoon_tex_Emissive' = T_Shader_NoneBlack
+[2] slot=N00_000_00_EyeHighlight_00_EYE (Instance)  mat=MI_N00_000_00_EyeHighlight_00_EYE__Instance_
+      texparam 'gltf_tex_diffuse' = T__03
+      texparam 'mtoon_tex_ShadeTexture' = T__03
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__03
+      texparam 'mtoon_tex_Shade' = T__03
+      texparam 'mtoon_tex_SphereAdd' = T_Shader_NoneBlack
+      texparam 'mtoon_tex_MatCap' = T_Shader_NoneBlack
+      texparam 'mtoon_tex_Normal' = T_Shader_NoneNormal
+      texparam 'mtoon_tex_Emissive' = T_Shader_NoneBlack
+[3] slot=N00_000_00_Face_00_SKIN (Instance)  mat=MI_N00_000_00_Face_00_SKIN__Instance_
+      texparam 'gltf_tex_diffuse' = T__04
+      texparam 'mtoon_tex_ShadeTexture' = T__04
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__04
+      texparam 'mtoon_tex_Shade' = T__04
+      texparam 'mtoon_tex_SphereAdd' = T_MatcapWarp
+      texparam 'mtoon_tex_MatCap' = T_MatcapWarp
+      texparam 'mtoon_tex_Normal' = T__05
+      texparam 'mtoon_tex_Emissive' = T_Shader_NoneBlack
+[4] slot=N00_000_00_EyeWhite_00_EYE (Instance)  mat=MI_N00_000_00_EyeWhite_00_EYE__Instance_
+      texparam 'gltf_tex_diffuse' = T__06
+      texparam 'mtoon_tex_ShadeTexture' = T__06
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__06
+      texparam 'mtoon_tex_Shade' = T__06
+      texparam 'mtoon_tex_SphereAdd' = T_Shader_NoneBlack
+      texparam 'mtoon_tex_MatCap' = T_Shader_NoneBlack
+      texparam 'mtoon_tex_Normal' = T_Shader_NoneNormal
+      texparam 'mtoon_tex_Emissive' = T_Shader_NoneBlack
+[5] slot=N00_000_00_FaceBrow_00_FACE (Instance)  mat=MI_N00_000_00_FaceBrow_00_FACE__Instance_
+      texparam 'gltf_tex_diffuse' = T__07
+      texparam 'mtoon_tex_ShadeTexture' = T__07
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__07
+      texparam 'mtoon_tex_Shade' = T__07
+      texparam 'mtoon_tex_SphereAdd' = T_MatcapWarp
+      texparam 'mtoon_tex_MatCap' = T_MatcapWarp
+      texparam 'mtoon_tex_Normal' = T_Shader_NoneNormal
+      texparam 'mtoon_tex_Emissive' = T_Shader_NoneBlack
+[6] slot=N00_000_00_FaceEyeline_00_FACE (Instance)  mat=MI_N00_000_00_FaceEyeline_00_FACE__Instance_
+      texparam 'gltf_tex_diffuse' = T__09
+      texparam 'mtoon_tex_ShadeTexture' = T__09
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__09
+      texparam 'mtoon_tex_Shade' = T__09
+      texparam 'mtoon_tex_SphereAdd' = T_MatcapWarp
+      texparam 'mtoon_tex_MatCap' = T_MatcapWarp
+      texparam 'mtoon_tex_Normal' = T_Shader_NoneNormal
+      texparam 'mtoon_tex_Emissive' = T_Shader_NoneBlack
+[7] slot=N00_000_00_Body_00_SKIN (Instance)  mat=MI_N00_000_00_Body_00_SKIN__Instance_
+      texparam 'gltf_tex_diffuse' = T__10
+      texparam 'mtoon_tex_ShadeTexture' = T__10
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__10
+      texparam 'mtoon_tex_Shade' = T__10
+      texparam 'mtoon_tex_SphereAdd' = T_MatcapWarp
+      texparam 'mtoon_tex_MatCap' = T_MatcapWarp
+      texparam 'mtoon_tex_Normal' = T__11
+      texparam 'mtoon_tex_Emissive' = T_Shader_NoneBlack
+[8] slot=N00_000_00_HairBack_00_HAIR (Instance)  mat=MI_N00_000_00_HairBack_00_HAIR__Instance_
+      texparam 'gltf_tex_diffuse' = T__12
+      texparam 'mtoon_tex_ShadeTexture' = T__12
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__12
+      texparam 'mtoon_tex_Shade' = T__12
+      texparam 'mtoon_tex_Normal' = T_N00_000_00_HairBack_00_nml
+      texparam 'mtoon_tex_Emissive' = T_Shader_NoneBlack
+[9] slot=N00_002_03_Tops_01_CLOTH (Instance)  mat=MI_N00_002_03_Tops_01_CLOTH__Instance_
+      texparam 'gltf_tex_diffuse' = T__13
+      texparam 'mtoon_tex_ShadeTexture' = T__13
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__13
+      texparam 'mtoon_tex_Shade' = T__13
+      texparam 'mtoon_tex_SphereAdd' = T_MatcapWarp
+      texparam 'mtoon_tex_MatCap' = T_MatcapWarp
+      texparam 'mtoon_tex_Normal' = T_Shader_NoneNormal
+      texparam 'mtoon_tex_Emissive' = T_Shader_NoneBlack
+[10] slot=N00_003_01_Shoes_01_CLOTH (Instance)  mat=MI_N00_003_01_Shoes_01_CLOTH__Instance_
+      texparam 'gltf_tex_diffuse' = T__14
+      texparam 'mtoon_tex_ShadeTexture' = T__14
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__14
+      texparam 'mtoon_tex_Shade' = T__14
+      texparam 'mtoon_tex_SphereAdd' = T_MatcapWarp
+      texparam 'mtoon_tex_MatCap' = T_MatcapWarp
+      texparam 'mtoon_tex_Normal' = T_Shader_NoneNormal
+      texparam 'mtoon_tex_Emissive' = T_Shader_NoneBlack
+[11] slot=N00_002_01_Shoes_01_CLOTH (Instance)  mat=MI_N00_002_01_Shoes_01_CLOTH__Instance_
+      texparam 'gltf_tex_diffuse' = T__15
+      texparam 'mtoon_tex_ShadeTexture' = T__15
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__15
+      texparam 'mtoon_tex_Shade' = T__15
+      texparam 'mtoon_tex_SphereAdd' = T_MatcapWarp
+      texparam 'mtoon_tex_MatCap' = T_MatcapWarp
+      texparam 'mtoon_tex_Normal' = T_Shader_NoneNormal
+      texparam 'mtoon_tex_Emissive' = T_Shader_NoneBlack
+[12] slot=N00_001_01_Bottoms_01_CLOTH (Instance)  mat=MI_N00_001_01_Bottoms_01_CLOTH__Instance_
+      texparam 'gltf_tex_diffuse' = T__16
+      texparam 'mtoon_tex_ShadeTexture' = T__16
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__16
+      texparam 'mtoon_tex_Shade' = T__16
+      texparam 'mtoon_tex_SphereAdd' = T_MatcapWarp
+      texparam 'mtoon_tex_MatCap' = T_MatcapWarp
+      texparam 'mtoon_tex_Normal' = T_Shader_NoneNormal
+      texparam 'mtoon_tex_Emissive' = T_Shader_NoneBlack
+[13] slot=N00_002_01_Tops_01_CLOTH (Instance)  mat=MI_N00_002_01_Tops_01_CLOTH__Instance_
+      texparam 'gltf_tex_diffuse' = T__17
+      texparam 'mtoon_tex_ShadeTexture' = T__17
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__17
+      texparam 'mtoon_tex_Shade' = T__17
+      texparam 'mtoon_tex_SphereAdd' = T_MatcapWarp
+      texparam 'mtoon_tex_MatCap' = T_MatcapWarp
+      texparam 'mtoon_tex_Normal' = T_Shader_NoneNormal
+      texparam 'mtoon_tex_Emissive' = T_Shader_NoneBlack
+[14] slot=N00_000_Hair_00_HAIR (Instance)  mat=MI_N00_000_Hair_00_HAIR__Instance_
+      texparam 'gltf_tex_diffuse' = T__18
+      texparam 'mtoon_tex_ShadeTexture' = T__18
+      texparam 'mtoon_tex_EmissionMap' = T_DummyBlack
+      texparam 'mtoon_tex_MainTex' = T__18
+      texparam 'mtoon_tex_Shade' = T__18
+      texparam 'mtoon_tex_SphereAdd' = T_MatcapWarp
+      texparam 'mtoon_tex_MatCap' = T_MatcapWarp
+      texparam 'mtoon_tex_Normal' = T_N00_000_Hair_00_nml
+      texparam 'mtoon_tex_Emissive' = T__19

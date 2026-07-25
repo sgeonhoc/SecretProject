@@ -1,0 +1,5 @@
+Blender 5.1.1 / imported
+centroid=<Vector (0.0000, -0.0419, 1.3351)> center=<Vector (0.0000, -0.0035, 1.3129)> verts=4275 loops=22428
+얼굴 노멀 구면화 적용 OK (22428 loops)
+FBX 내보내기 OK: C:/Secret_Project/_blender/test2_celfix.fbx
+DONE

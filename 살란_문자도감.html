@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>살란 문자도감 — 꼴의 정본</title>
+<style>
+  body{font-family:'Malgun Gothic',sans-serif;background:#f2ecdf;color:#33302a;margin:0;padding:24px;max-width:1100px;margin:0 auto}
+  h1{font-size:1.5em;border-bottom:3px solid #8a7a5c;padding-bottom:8px}
+  h2{font-size:1.15em;margin-top:40px;border-left:6px solid #8a7a5c;padding-left:10px}
+  p.note{color:#6b6353;font-size:.92em;line-height:1.6}
+  .grid{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+  .cell{background:#faf6ec;border:1px solid #cfc4a8;border-radius:6px;padding:6px;text-align:center;width:92px}
+  .cell svg{display:block;margin:0 auto}
+  .cell .nm{font-weight:bold;font-size:.95em}
+  .cell .rm{font-size:.75em;color:#8a7f68}
+  .wide{width:150px}
+  .caption{font-size:.85em;color:#6b6353;margin-top:4px;line-height:1.45}
+  .panel{background:#faf6ec;border:1px solid #cfc4a8;border-radius:8px;padding:14px;margin:12px 0}
+  svg .st{stroke:#2e2a22;stroke-width:6;stroke-linecap:square;fill:none}
+  svg .thin{stroke-width:3.5}
+  svg .deep{stroke-width:9}
+  svg .dot{fill:#2e2a22;stroke:none}
+  svg .guide{stroke:#c9bc9c;stroke-width:1;fill:none;stroke-dasharray:4 4}
+  svg .box{stroke:#d8cdb0;stroke-width:1.2;fill:none}
+  svg .mun{stroke:#3a2f24;stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  svg .needle{stroke:#4a3b2a;stroke-width:4;fill:none;stroke-linecap:round}
+  svg .cur{stroke:#2e2a22;stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  svg .curDeep{stroke-width:7.5}
+  svg .lbl{font-size:12px;fill:#6b6353}
+  svg .flow{stroke:#2e6f63;fill:none;stroke-width:3}
+  svg .flowDot{fill:#2e6f63;stroke:none}
+  svg .red{stroke:#a13b2e}
+  svg .redDot{fill:#a13b2e;stroke:none}
+  svg .smudge{fill:#d8cdb0;stroke:none;opacity:.65}
+</style>
+</head>
+<body>
+<h1>살란 문자도감 — 꼴의 정본</h1>
+<p class="note">규칙의 정본은 <b>기획/01_세계관/4_체계/언어와_지명/세계관_언어와_문자.md</b>, 꼴의 정본은 이 도감이다. 새김꼴 낱글자는 세로·가로·빗획과 점만으로 선다(§8-5).
+글자꼴은 갈래를 따른다 — <b>터지는 소리</b>는 기둥에 가로대(맑은 소리는 위, 흐린 소리는 아래), <b>스치는 소리</b>는 빗획,
+<b>코 소리</b>는 입을 닫는 소리라 작게 닫힌 꼴, <b>흐르는 소리</b>는 꺾여 흐르는 획, <b>거센 소리</b>는 점 표식, <b>어두운 홀소리</b>는 아래 점.</p>
+<p class="note"><b>차례</b> — Ⅰ 닿소리 · Ⅱ 홀소리 · Ⅲ 결표(끌↔붓) · Ⅳ 모아쓰기와 가짜 부적 · Ⅴ 여문 칸 · Ⅵ 되돌이 줄 · Ⅶ 고리 글(진 둘·마력 흐름·길이 칸·조약 돌) ·
+Ⅷ 술식(회로가 문법인 진) · Ⅸ 흘림꼴(세 벌·장례) · Ⅹ 서고의 낱장들(벙어리 책·되짚기·묶인 이름·아래층) · Ⅺ 문양 · Ⅻ 바늘꼴(흉터) · ⅩⅢ 자모 노래 판 · ⅩⅣ 회로와 기술(다섯 길·등잔 진)</p>
+
+<h2>Ⅰ. 닿소리 스물둘 (새김꼴)</h2>
+<div id="cons" class="grid"></div>
+
+<h2>Ⅱ. 홀소리 열</h2>
+<div id="vows" class="grid"></div>
+
+<h2>Ⅲ. 결표 여섯</h2>
+<div id="marks" class="grid"></div>
+
+<p class="note"><b>같은 결표, 두 손(§8-2 · §8-5).</b> 왼쪽이 끌(새김꼴), 오른쪽이 붓(흘림꼴)이다.
+끌은 결표를 자리에 앉히고, 붓은 획 자체에 싣는다 — 쐐기는 굵힘이 되고, 긋기는 길게 끈 꼬리가 되고, 숨표는 붓 뗀 빈자리가 된다.</p>
+<div id="marks2" class="grid"></div>
+
+<h2>Ⅳ. 모아쓰기 — 칸</h2>
+<p class="note">칸 하나에 마디 하나. 닿소리는 왼쪽, 홀소리는 가운데, 끝소리는 오른쪽(§8-6). 멀리서 보면 벽돌담.</p>
+<div id="words" class="grid"></div>
+
+<p class="note"><b>칸이 설 수 없는 것들 — 저자의 가짜 부적(§2-4 · §9-2-3).</b> 마디의 법에 안 맞는 소리 뭉치를 그럴듯한 새김꼴로 새겨 파는 부적이다.
+학당은 코웃음 치고, 서고는 명부를 들이밀고, 그래도 팔린다 — 산 사람의 걱정은 문법을 안 따지기 때문이다. 붉은 표시는 서고 학자의 손이다.</p>
+<div class="panel" style="text-align:center"><svg id="fake" width="680" height="250" viewBox="0 0 680 250"></svg>
+<div class="caption">가끔 이 가짜 속에서 진짜가 나온다 — 어느 골동 부적이 알고 보니 벙어리 책에서 뜯긴 낱장이더라는 이야기는, 부적장수들이 제일 아끼는 이야기이기도 하다(§9-2-3).</div></div>
+
+<h2>Ⅴ. 여문 칸 — 결표가 다 앉은 칸 (§8-6)</h2>
+<p class="note">칸의 <b>위</b>에는 높이점과 갈고리, <b>아래</b>에는 쐐기와 이음줄. 긋기는 칸의 <b>오른쪽 밖</b>으로 뻗고, 숨표는 <b>칸과 칸 사이</b>에 선다.
+아홉 자리가 다 찬 칸을 새김장이는 「칸이 여물었다」고 한다. 본보기 낱말은 자르타(불이여, 이루라).</p>
+<div class="panel" style="text-align:center"><svg id="ripe" width="540" height="250" viewBox="0 0 540 250"></svg></div>
+
+<h2>Ⅵ. 되돌이 줄 — 돌 위의 문장 (§8-6)</h2>
+<p class="note">긴 문장은 소가 밭 갈듯 간다 — 한 줄을 오른쪽으로 새겼으면 다음 줄은 왼쪽으로 되짚는다. 본보기는 여문 불 네 줄(§5-2)
+「에 자르 · 케 카나 · 모 이 · 자르타」. 바깥의 화살표가 읽는 길이다. 이를 모르고 한 방향으로만 읽으면 문장이 뒤죽박죽이 된다.</p>
+<div class="panel" style="text-align:center"><svg id="bous" width="470" height="400" viewBox="0 0 470 400"></svg></div>
+
+<h2>Ⅶ. 고리 글 — 진(陣)의 본보기</h2>
+<p class="note">돌벽 문장(§5-4) 「에 두르 · 가르 · 케 켈 · 미엔 · 두르사」를 고리로 새긴 것. 아홉 마디가 다각 고리를 두르고,
+틈(끊긴 자리)이 숨자리다. 맺음 마디(두르사)의 획이 깊다(굵게 = 끌을 깊이 박은 자리). 끝 칸이 첫 칸에 물린다 — 끝나지 않는 문장.</p>
+<div class="panel" style="text-align:center"><svg id="ring" width="560" height="560" viewBox="0 0 560 560"></svg>
+<div class="caption">안·가운데·바깥의 세 층(점선)은 높이의 층이다. 이 문장은 가락이 평탄해 가운데 고리만 쓴다.</div></div>
+
+<p class="note"><b>깨어난 진 — 마력이 홈을 따라 돈다(§8-8).</b> 위와 같은 돌벽 진이 깨어난 모습이다. 술자가 부은 마력(초록)은 부름 칸으로 들어
+읽는 차례대로 고리를 돌고, 틈에서 한 번 가라앉았다가 다음 칸에 다시 붙고, 맺음의 깊은 획에서 가장 짙게 흐른다. 맺음 칸의 다음 칸이 다시 부름 칸 —
+길에 끝이 없으니 마력이 설 자리를 잃지 않는다. 진이 둥근 마력 쪽 까닭이다. 홈이 한 군데라도 끊기면 이 길 전체가 끊긴다.</p>
+<div class="panel" style="text-align:center"><svg id="flow" width="560" height="580" viewBox="0 0 560 580"></svg>
+<div class="caption">진은 등불처럼 한 점이 빛나는 물건이 아니라, 도랑에 물 돌듯 온 둘레가 함께 도는 물건이다 — 그래서 진을 지키는 가장 값싼 파훼가 끌 한 자루다.</div></div>
+
+<p class="note"><b>층을 쓰는 고리.</b> 높은 자리 마디는 안쪽 고리에 산다(§8-8). 아래는 실소리 문장(§5-5)
+「에 잔 · 케 렌 · 모 네 이 · 잔타」 — 부름 머리 「에」와 맺음 머리 「잔」이 안고리에 앉았다.</p>
+<div class="panel" style="text-align:center"><svg id="ring2" width="560" height="560" viewBox="0 0 560 560"></svg>
+<div class="caption">아래 자리 마디가 없는 문장이라 바깥 고리는 비어 있다. 안고리로 든 칸은 다리 획으로 가운데 고리에 이어진다(이음).</div></div>
+
+<p class="note"><b>길이 = 칸 너비(§8-8 옮김표).</b> 소리에서 길게 끈 마디는 고리 글에서 넓은 칸을 차지한다.</p>
+<div class="panel" style="text-align:center"><svg id="width" width="660" height="165" viewBox="0 0 660 165"></svg></div>
+
+<p class="note"><b>조약 돌(§6-2 · §8-6).</b> 나라 사이 조약문의 맺음 구절은 살란으로 새기고, 고리 문장으로 두른다 —
+깨지지 않기를 비는 말은 끝나지 않는 꼴로 새기는 법이니. 머리의 고리가 「에 람 · 모 하 · 람사」(오라 묶음이여, 여럿에게, 묶임이여 머물라)다.</p>
+<div class="panel" style="text-align:center"><svg id="treaty" width="420" height="450" viewBox="0 0 420 450"></svg></div>
+
+<h2>Ⅷ. 술식 — 회로가 문법인 진 (§8-8-2)</h2>
+<p class="note">글 진은 살란을 그대로 새겨 문장 차례대로 <b>한 줄로</b> 돌지만, 술식은 살란 글자를 버리고 <b>길 자체</b>를 문법으로 삼는다 —
+길을 가르고, 가로지르고, 가운데의 심에서 다시 모은다. 복잡해 보일수록 회로가 여문 것이다: 장식이 아니라 길이다.
+아래는 세 겹 방패 술식의 개념 본보기(유명 술식과 유파는 마법진 정본에서).</p>
+<div class="panel" style="text-align:center"><svg id="sulsik" width="620" height="640" viewBox="0 0 620 640"></svg>
+<div class="caption">한 군데가 끊겨도 딴 갈래로 돌 수 있는 것이 술식의 힘이고(끌 한 자루 파훼에 덜 여리다),
+갈래마다 길들임이 따로 드는 것이 술식의 값이다(§8-8-2). 곧은 길은 끌이 놓고, 굽은 길은 상감이 놓는다.</div></div>
+
+<h2>Ⅸ. 흘림꼴 — 붓의 글씨 (§8-5)</h2>
+<p class="note">서고와 학당의 손. 결표는 글줄 위에 물결처럼 얹힌다 — 높이점과 갈고리는 위에, 쐐기는 획을 굵혀서, 숨표는 붓을 뗀 빈자리로.
+그래서 흘림꼴 사본은 악보를 닮았다. 본보기는 여문 불(§5-2) — 되돌이 줄(Ⅵ)과 같은 문장을 붓으로 쓰면 이렇게 된다.</p>
+<div class="panel" style="text-align:center"><svg id="cursive" width="660" height="195" viewBox="0 0 660 195"></svg>
+<div class="caption">힘주는 마디(자르타의 타)는 획이 굵고(쐐기), 부름 머리(에)와 맺음 머리엔 높이점이 뜬다. 빈자리 둘이 숨표다.
+같은 글자인 줄 모르고 새김꼴과 흘림꼴을 두 글로 배웠다고 여기는 견습이 해마다 나온다(§8-5).</div></div>
+
+<p class="note"><b>한 낱말, 세 벌(§8-5 · §8-9).</b> 같은 두르(벽)를 끌은 돌에, 붓은 종이에, 바늘은 살에 쓴다.
+같은 글자인 줄 모르는 견습이 해마다 나오는 까닭이 한눈에 보인다.</p>
+<div class="panel" style="text-align:center"><svg id="three" width="620" height="185" viewBox="0 0 620 185"></svg></div>
+
+<p class="note"><b>장례의 멈춘 문장(§6-2).</b> 장례의 살란은 맺지 않는다 — 고요의 문장을 끝까지 외고, 맺음말 앞에서 멈춘다. 맺으면 끝나니, 맺지 않는 것이다.
+아래는 곡꾼의 사본 — 맺음 자리가 비어 있다. 살란을 모르는 여염 곡꾼도 이 문장만은 안다: 뜻은 몰라도, 어디서 멈춰야 하는지는 안다.</p>
+<div class="panel" style="text-align:center"><svg id="mourn" width="660" height="170" viewBox="0 0 660 170"></svg></div>
+
+<h2>Ⅹ. 서고의 낱장들 — 벙어리 책·되짚기·묶인 이름·아래층 (§8-7 · §3-8 · §1-1)</h2>
+<p class="note">결표 잃은 사본이 벙어리 책이다 — 낱말은 알아보되 소리를 세울 수 없다. 되짚기꾼이 결표를 되찾으면 <b>붉은 먹</b>으로 적는다:
+어느 결이 옛 사본에서 온 것이고 어느 결이 사람의 셈인지, 백 년 뒤의 눈에도 보이게. 붉은 결표는 딴 서고의 온전한 사본과 맞아떨어져야 검은 먹을 얻는다.
+본보기 낱말은 두르사(벽이여, 머물라).</p>
+<div class="panel" style="text-align:center"><svg id="mute" width="660" height="230" viewBox="0 0 660 230"></svg>
+<div class="caption">가운데가 벙어리 책 — 결표 자리가 바래어 얼룩만 남았다. 오른쪽이 되짚은 사본 — 오래 산 되짚기 사본은 이렇게 검붉게 얼룩덜룩하고, 되짚기꾼들은 그 얼룩을 그 문장의 이력이라 부른다.</div></div>
+
+<p class="note"><b>묶인 이름(§3-8).</b> 큰 서고 명부의 낱장 — 명부는 종이 위에도 새김꼴로 적는다(흘림의 버릇이 낱말의 꼴을 물들이면 안 되는 자리라서).
+셋째 줄이 묶인 이름이다: 낱말은 적혀 있는데 결표가 긁혀 나갔다. 바랜 것이 아니라 지운 것 — 긁어낸 자국이 남아 있다. 이름은 있으되 소리를 세울 수 없으니, 아무도 부르지 못한다.</p>
+<div class="panel" style="text-align:center"><svg id="ledger" width="600" height="350" viewBox="0 0 600 350"></svg>
+<div class="caption">「그 칸은 여물지 않는다.」 두 번 물으면 필사방 청소가 한 달이다.</div></div>
+
+<p class="note"><b>벙어리 책의 아래층(§1-1).</b> 가장 오래된 벙어리 책들에는 서른두 글자에 없는 글자가 드문드문 섞여 있다 —
+깊은말의 흔적이라는 셈이 있다. 몇 글자인지는 세는 학자마다 다르다: 일곱이라는 학자, 열둘이라는 학자, 같은 글자를 두 번 센 것뿐이라는 학자.</p>
+<div class="panel" style="text-align:center"><svg id="deep" width="620" height="290" viewBox="0 0 620 290"></svg>
+<div class="caption">붉은 동그라미가 학자들의 손이다 — 두 손의 셈이 벌써 다르다. 결표가 없으니 이 글자들이 무슨 소리였는지는 아무도 세우지 못한다.</div></div>
+
+<h2>Ⅺ. 문양 — 살란 바깥의 길든 그림 (§8-10)</h2>
+<p class="note">문양은 살란 글이 아니라 그림이라 굽은 획이 산다. 통짜 그림 하나가 통짜 의지 하나 — 쪼갤 수도 이을 수도 없다.</p>
+<div id="muns" class="grid"></div>
+
+<h2>Ⅻ. 바늘꼴 — 살에 새기는 글 (§8-9)</h2>
+<p class="note">흘림꼴의 자식. 획이 몸의 결을 따라 흐르고 결표는 점과 짧은 금으로 앉는다. 아래는 팔뚝에 새기는 세움줄 「안 벨 네」(내 뜻은 하나).</p>
+<div class="panel" style="text-align:center"><svg id="needle" width="520" height="150" viewBox="0 0 520 150"></svg></div>
+
+<p class="note"><b>흉터는 획을 끊는다(§8-9).</b> 아래는 왼팔뚝에 새긴 세움줄 「안 수 두르」(내 숨은 벽) — 전장에서 칼을 받아
+가운데 낱말의 획이 끊겼다. 두 동강 난 문장은 벙어리다. 전장을 사는 술자가 문신 자리를 고르는 일이 목숨 셈인 까닭.</p>
+<div class="panel" style="text-align:center"><svg id="arm" width="640" height="220" viewBox="0 0 640 220"></svg></div>
+
+<h2>ⅩⅢ. 자모 노래 판 — 서른두 글자의 차례 (§8-2)</h2>
+<p class="note">아이들이 장단 노래로 외는 서른두 글자의 차례. 어느 서고에서나 같고, 아무도 바꾸지 못한다.
+학당 벽에 걸리는 판이 이 꼴이다 — 여덟 자 한 줄, 네 줄. 미엔(재는말) 하나가 이 노래 한 바퀴다(§3-4).
+차례대로 이어 읽으면 아주 오래된 축원 한 줄이 된다는 셈이 있다 — 무슨 뜻인지는 셈이 갈린다(§10-2).</p>
+<div class="panel" style="text-align:center"><svg id="song" width="660" height="445" viewBox="0 0 660 445"></svg></div>
+
+<h2>ⅩⅣ. 회로와 기술 — 다섯 길, 그리고 진이 실린 물건</h2>
+<p class="note">회로 체계의 정본은 <b>기획/01_세계관/4_체계/능력과_마력/세계관_회로와_기술_체계.md</b>다. 회로 = 의지가 실시간으로 내는 마력의 길 —
+길이 앉는 바탕이 다섯이고, 바탕이 달라도 문법은 하나다(일곱 값: 길·너비·깊이·틈·층·건널목·심).
+그리고 마력은 조련된 체계를 통해서만 알아듣는다 — 오래 길든 길일수록 서툰 뜻도 알아듣고, 흐릿한 뜻은 아무리 절실해도 못 알아듣는다.</p>
+<div class="panel">
+<table style="width:100%;border-collapse:collapse;font-size:14px">
+<tr style="border-bottom:2px solid #b3a67f"><th style="text-align:left;padding:6px">길</th><th style="text-align:left;padding:6px">바탕</th><th style="text-align:left;padding:6px">길이 서는 때</th><th style="text-align:left;padding:6px">한 줄</th></tr>
+<tr style="border-bottom:1px solid #d8cdb0"><td style="padding:6px"><b>몸길</b> (연공)</td><td style="padding:6px">제2의 신체</td><td style="padding:6px">평생 — 미리 내 둔 산 길</td><td style="padding:6px">몸이 곧 회로. 잠들지 않고, 뺏기지도 않는다</td></tr>
+<tr style="border-bottom:1px solid #d8cdb0"><td style="padding:6px"><b>소리길</b> (언령)</td><td style="padding:6px">목소리</td><td style="padding:6px">그때그때 — 흐르는 길</td><td style="padding:6px">문장이 곧 회로. 이 도감의 글이 그 소리를 적는다</td></tr>
+<tr style="border-bottom:1px solid #d8cdb0"><td style="padding:6px"><b>그림길</b> (진·술식)</td><td style="padding:6px">새겨 둔 홈</td><td style="padding:6px">새길 때 한 번 — 잠든 길</td><td style="padding:6px">홈이 곧 회로. 산 의지가 부어야 깬다(Ⅶ·Ⅷ)</td></tr>
+<tr style="border-bottom:1px solid #d8cdb0"><td style="padding:6px"><b>매개길</b> (주술)</td><td style="padding:6px">닮음·닿음의 인연</td><td style="padding:6px">인연이 이어 주는 동안</td><td style="padding:6px">세상이 회로의 반을 진다 — 눈 없이 과녁을 잡는 유일한 길</td></tr>
+<tr><td style="padding:6px"><b>비는 길</b> (신앙)</td><td style="padding:6px">고대신의 자취</td><td style="padding:6px">제가 긋지 않는다</td><td style="padding:6px">남의 길을 빌린다 — 조련이 안 되는 유일한 갈래</td></tr>
+</table>
+<div class="caption">같은 문장이 입에서는 그때그때 살고(소리길), 돌에서는 잠들었다 깨어 산다(그림길) — 등불 진=길초롱, 우물 진=두레 없는 물, 문지방 진=빗장. 두 체계는 딴 물건이 아니라 한 문장의 두 삶이다.</div>
+</div>
+
+<p class="note"><b>등잔 진 — 진이 실린 물건(§8-8-1).</b> 등잔 받침 원반을 위에서 본 그림. 둘레의 고리가
+「에 실란 · 핀 · 실란사」(오라 빛이여 · 실오라기만큼 · 빛이여 머물라)다. 작은 물건의 진은 부엌 문장처럼 짧고,
+모-줄이 없어 제 자리 — 등잔 그 자리 — 에 맺는다. 시간말도 없다: 밤에 세우는 사란은 지방마다 셈이 갈리고 미엔은 밤을 못 넘기니,
+등불은 시간을 약속하지 않고 <b>부은 만큼</b> 돈다. 만 년급으로 길든 꼴이라 여염 개화자의 붓기로도 깬다.</p>
+<div class="panel" style="text-align:center"><svg id="lamp" width="560" height="640" viewBox="0 0 560 640"></svg>
+<div class="caption">기름 대신 붓기를 먹는 등잔이다 — 등지기의 붓기가 곧 시계. 홈에 때가 앉으면 빛이 흐려져, 등잔 닦기가 곧 진 닦기다.</div></div>
+
+<p class="note"><b>종 둘레 진 — 큰 물건, 긴 문장(§8-8-1 크기의 셈).</b> 골 종의 고리 「에 잔 · 케 마이 · 수린 · 잔타」(오라 소리여 · 물처럼 · 들판만큼 · 소리여 이루라)가
+종 허리를 한 바퀴 돈다. 등잔 진(-사, 도는 진)과 달리 <b>-타로 맺는 방아쇠 진</b>이다 — 깨울 때마다 한 번 맺고 도로 잠든다.
+종지기가 먼저 손을 짚어 붓고, 그다음 친다: 그 한 번의 종소리가 물처럼 골골이 스며 들판 끝까지 닿는다. 붓지 않은 종은 여느 종이다.</p>
+<div class="panel" style="text-align:center"><svg id="bell" width="620" height="560" viewBox="0 0 620 560"></svg>
+<div class="caption">홍수·불·적 — 골짜기의 세 가지 나쁜 소식이 다 이 종으로 온다. 종이 클수록 문장이 길게 앉는다 — 큰 성의 종은 꼴지음이 더 여물다.</div></div>
+
+<p class="note"><b>겹 얹기 — 새김이 낱말을 대신 진다(회로 정본 §3-2 · §5-17 「팔뚝의 조임」).</b>
+오른팔뚝에 꼴지음 한 줄 「케 렌」(실처럼)을 바늘꼴로 새긴 술자의 입 문장. 살갗이 늘 그 낱말을 말하고 있으니
+입은 그 자리를 건너뛴다 — 문장이 낱말 하나 몫 짧아지고, 실금·아묾처럼 케 렌이 든 문장이면 어느 것이든 같이 짧아진다.
+공성 술자와 의원이 같은 자리에 같은 줄을 새기는 드문 우연 — 서로 알면 웃는다, 하는 일은 정반대라서.
+새기고 반 년은 오히려 문장이 꼬인다(살갗의 줄과 입의 버릇이 싸워서) — 그 반 년을 겨울 주둔지에서 치르는 것이 전장 술자들의 관례다.</p>
+<div class="panel" style="text-align:center"><svg id="kyeop" width="640" height="360" viewBox="0 0 640 360"></svg>
+<div class="caption">위 = 오른팔뚝의 「케 렌」 새김(바늘꼴). 아래 = 같은 실금 문장의 두 입 — 새긴 팔은 케 렌 자리를 입으로 밟지 않는다.
+흉터가 이 새김의 획을 끊으면 지름길도 같이 끊긴다(Ⅻ) — 젊어 새긴 반 호흡을 늙어 도로 무는 팔자 셈.</div></div>
+
+<script>
+// ---------- 낱글자 획 자료 (0~100 상자, [x1,y1,x2,y2]=획, [x,y]=점) ----------
+const G = {
+ // 터지는 소리: 기둥+가로대. 맑은=위 가로대, 흐린=아래 가로대
+ '카':[[25,15,25,85],[25,15,80,15]],
+ '가':[[25,15,25,85],[25,85,80,85]],
+ '타':[[50,15,50,85],[15,15,85,15]],
+ '다':[[50,15,50,85],[15,85,85,85]],
+ '파':[[30,15,30,85],[70,15,70,85],[30,15,70,15]],
+ '바':[[30,15,30,85],[70,15,70,85],[30,85,70,85]],
+ // 스치는 소리: 빗획
+ '사':[[25,15,75,85]],
+ '하':[[25,85,75,15]],
+ '자':[[25,15,50,85],[75,15,50,85]],
+ '샤':[[15,15,60,85],[40,15,85,85]],
+ '프':[[25,85,75,15],[15,15,85,15]],
+ // 코 소리: 작게 닫힌 꼴
+ '마':[[32,35,68,35],[68,35,68,80],[68,80,32,80],[32,80,32,35]],
+ '나':[[32,35,32,80],[32,35,68,35],[68,35,68,80]],
+ '앙':[[32,35,68,35],[68,35,68,80],[68,80,32,80],[32,80,32,35],[50,57]],
+ // 흐르는 소리: 꺾인 획
+ '라':[[25,15,75,15],[75,15,25,85],[25,85,75,85]],
+ '을':[[75,15,25,15],[25,15,75,85],[75,85,25,85]],
+ // 거센 소리: 점 표식·붙는 소리
+ '츠':[[25,15,75,85],[87,28],[87,52]],
+ '카흐':[[25,15,25,85],[25,15,80,15],[55,45]],
+ '트흐':[[50,15,50,85],[15,15,85,15],[70,50]],
+ '프흐':[[25,85,75,15],[15,15,85,15],[50,60]],
+ '야':[[40,15,40,85],[40,15,80,85]],
+ '와':[[15,30,85,30],[25,30,75,85]],
+ // 홀소리: 가운데의 작은 표. 어두운 홀=아래 점
+ '아':[[50,28,50,72]],
+ '에':[[28,50,72,50]],
+ '이':[[50,50]],
+ '오':[[33,66,50,32],[50,32,67,66]],
+ '우':[[33,34,50,68],[50,68,67,34]],
+ '어':[[50,25,50,62],[50,82]],
+ '으':[[28,45,72,45],[50,72]],
+ '아이':[[43,28,43,72],[66,50]],
+ '아우':[[38,28,38,72],[54,42,64,66],[64,66,74,42]],
+ '에이':[[28,42,72,42],[50,68]]
+};
+const CONS=['카','가','타','다','파','바','사','자','샤','하','프','마','나','앙','라','을','츠','카흐','트흐','프흐','야','와'];
+const VOWS=['아','에','이','오','우','어','으','아이','아우','에이'];
+const FAM={'카':'터짐·맑음','가':'터짐·흐림','타':'터짐·맑음','다':'터짐·흐림','파':'터짐·맑음','바':'터짐·흐림','사':'스침','자':'스침','샤':'스침','하':'스침','프':'스침','마':'코','나':'코','앙':'코','라':'흐름','을':'흐름','츠':'거셈','카흐':'거셈','트흐':'거셈','프흐':'거셈','야':'붙음','와':'붙음','아':'밝음','에':'밝음','이':'밝음','오':'밝음','우':'밝음','어':'어둠','으':'어둠','아이':'겹홀','아우':'겹홀','에이':'겹홀'};
+
+function strokesSvg(strokes,cls){
+  return strokes.map(s=> s.length===2
+    ? `<circle class="dot" cx="${s[0]}" cy="${s[1]}" r="5"/>`
+    : `<line class="st ${cls||''}" x1="${s[0]}" y1="${s[1]}" x2="${s[2]}" y2="${s[3]}"/>`).join('');
+}
+function letterCell(ch){
+  return `<div class="cell"><svg width="72" height="72" viewBox="0 0 100 100">${strokesSvg(G[ch])}</svg><div class="nm">${ch}</div><div class="rm">${FAM[ch]}</div></div>`;
+}
+document.getElementById('cons').innerHTML=CONS.map(letterCell).join('');
+document.getElementById('vows').innerHTML=VOWS.map(letterCell).join('');
+
+// ---------- 결표 ----------
+const MARKS=[
+ ['높이점','칸 위 점=높은 자리, 아래 점=낮은 자리',`<rect class="box" x="20" y="25" width="60" height="60"/><circle class="dot" cx="50" cy="12" r="5"/>`],
+ ['긋기','칸 오른쪽의 가로획 — 한 획에 한 박',`<rect class="box" x="10" y="25" width="55" height="60"/><line class="st thin" x1="72" y1="55" x2="94" y2="55"/>`],
+ ['쐐기','힘주는 마디 — 글자 앞 빗금(§8-2). 새김 칸에선 칸 아래(§8-6)',`<rect class="box" x="35" y="25" width="55" height="60"/><line class="st deep" x1="12" y1="70" x2="28" y2="40"/>`],
+ ['갈고리','획 끝의 꺾임 — 위로 걸면 올림',`<line class="st" x1="30" y1="80" x2="30" y2="30"/><line class="st" x1="30" y1="30" x2="55" y2="18"/>`],
+ ['이음줄','두 칸 밑을 잇는 줄',`<rect class="box" x="8" y="20" width="38" height="55"/><rect class="box" x="54" y="20" width="38" height="55"/><line class="st thin" x1="12" y1="88" x2="88" y2="88"/>`],
+ ['숨표','새김꼴에선 빈 네모 — 숨 드는 자리',`<rect x="38" y="40" width="24" height="24" style="stroke:#2e2a22;stroke-width:4;fill:none"/>`]
+];
+document.getElementById('marks').innerHTML=MARKS.map(m=>`<div class="cell wide"><svg width="100" height="76" viewBox="0 0 100 100">${m[2]}</svg><div class="nm">${m[0]}</div><div class="caption">${m[1]}</div></div>`).join('');
+
+// ---------- 같은 결표, 두 손: 끌 ↔ 붓 ----------
+const MARKS2=[
+ ['높이점','둘 다 글자 위의 점 — 자리는 같다',
+  `<rect class="box" x="14" y="34" width="44" height="44"/><circle class="dot" cx="36" cy="22" r="4"/>`,
+  `<path class="cur" d="M84,70 q10,-26 26,-14 q10,8 6,20"/><circle class="dot" cx="100" cy="26" r="4"/>`],
+ ['긋기','끌은 칸 밖의 획, 붓은 길게 끈 꼬리',
+  `<rect class="box" x="8" y="34" width="40" height="44"/><line class="st thin" x1="52" y1="56" x2="66" y2="56"/>`,
+  `<path class="cur" d="M84,66 q10,-20 24,-12 q10,6 32,10"/>`],
+ ['쐐기','끌은 굵은 빗금, 붓은 획의 굵힘',
+  `<rect class="box" x="14" y="28" width="44" height="44"/><line class="st deep" x1="18" y1="90" x2="32" y2="76"/>`,
+  `<path class="cur curDeep" d="M86,70 q12,-24 28,-12 q8,6 6,16"/>`],
+ ['갈고리','끌은 꺾인 두 획, 붓은 끝의 꼬부림',
+  `<line class="st" x1="26" y1="80" x2="26" y2="40"/><line class="st" x1="26" y1="40" x2="46" y2="30"/>`,
+  `<path class="cur" d="M86,76 q10,-28 26,-20 M112,56 q10,-6 12,-16"/>`],
+ ['이음줄','끌은 칸 밑의 줄, 붓은 저절로 잇는 붓길',
+  `<rect class="box" x="6" y="30" width="26" height="36"/><rect class="box" x="38" y="30" width="26" height="36"/><line class="st thin" x1="8" y1="76" x2="62" y2="76"/>`,
+  `<path class="cur" d="M82,64 q8,-16 20,-10 q8,4 10,10 q8,-16 20,-10"/>`],
+ ['숨표','끌은 빈 네모, 붓은 뗀 자리',
+  `<rect x="24" y="42" width="22" height="22" style="stroke:#2e2a22;stroke-width:3.5;fill:none"/>`,
+  `<path class="cur" d="M80,64 q8,-14 18,-10"/><path class="cur" d="M118,52 q10,-2 16,6"/><path class="guide" d="M100,66 q8,6 16,0"/>`]
+];
+document.getElementById('marks2').innerHTML=MARKS2.map(m=>`<div class="cell wide" style="width:170px"><svg width="150" height="80" viewBox="0 0 150 100"><line class="guide" x1="72" y1="12" x2="72" y2="92"/>${m[2]}${m[3]}</svg><div class="nm">${m[0]}</div><div class="caption">${m[1]}</div></div>`).join('');
+
+// ---------- 모아쓰기 칸 ----------
+// 마디 = [닿, 홀, 끝]  (없으면 null)
+function block(madi,x,y,size,cls){
+  const s=size/100; let out=`<g transform="translate(${x},${y}) scale(${s})">`;
+  out+=`<rect class="box" x="0" y="0" width="100" height="100"/>`;
+  const put=(ch,tx,ty,sc)=>{ if(!ch)return''; return `<g transform="translate(${tx},${ty}) scale(${sc})">${strokesSvg(G[ch],cls)}</g>`;};
+  out+=put(madi[0],2,8,0.46);        // 닿소리: 왼쪽
+  out+=put(madi[1],38,22,0.36);      // 홀소리: 가운데(작게)
+  out+=put(madi[2],62,26,0.34);      // 끝소리: 오른쪽(작게)
+  return out+'</g>';
+}
+const WORDS=[
+ ['자르',[['자','아','라']]],
+ ['시스',[['사','이','사']]],
+ ['두르',[['다','우','라']]],
+ ['켈',[['카','에','을']]],
+ ['옴',[[null,'오','마']]],
+ ['후르',[['하','우','라']]],
+ ['람',[['라','아','마']]],
+ ['니르',[['나','이','라']]],
+ ['실란',[['사','이','을'],['라','아','나']]],
+ ['자르타',[['자','아','라'],['타','아',null]]]
+];
+document.getElementById('words').innerHTML=WORDS.map(w=>{
+ const n=w[1].length, wd=n*66+10;
+ let svg=`<svg width="${wd}" height="76" viewBox="0 0 ${n*100+8} 108">`;
+ w[1].forEach((m,i)=>{svg+=block(m,4+i*100,4,100);});
+ svg+='</svg>';
+ return `<div class="cell" style="width:${wd+20}px">${svg}<div class="nm">${w[0]}</div></div>`;
+}).join('');
+
+// ---------- 고리 글: 돌벽 진 ----------
+// 문장: 에 | 두르 | 가르 | 케 켈 | 미엔 | 두르사   (틈=숨자리, 구절 사이)
+const RING=[
+ {m:[null,'에',null]},                       // 에 (부름 머리)
+ {m:['다','우','라']}, {gap:1},              // 두르
+ {m:['가','아','라']}, {gap:1},              // 가르
+ {m:['카','에',null]}, {m:['카','에','을']}, {gap:1},  // 케 켈
+ {m:['마','이',null]}, {m:[null,'에','나']}, {gap:1},  // 미엔
+ {m:['다','우','라'],deep:1}, {m:['사','아',null],deep:1}, {gap:1} // 두르사(맺음=깊은 획)
+];
+(function(){
+ const svg=document.getElementById('ring'); const C=280, R=200, out=[];
+ // 층 안내선(높이의 층)
+ [140,200,255].forEach(r=>out.push(`<circle class="guide" cx="${C}" cy="${C}" r="${r}"/>`));
+ const n=RING.length, step=360/n; const bs=62;
+ RING.forEach((e,i)=>{
+   const ang=(i*step-90)*Math.PI/180, deg=i*step;
+   if(e.gap){ // 숨표: 빈 네모를 고리 위에
+     const gx=C+R*Math.cos(ang), gy=C+R*Math.sin(ang);
+     out.push(`<g transform="translate(${gx},${gy}) rotate(${deg})"><rect x="-8" y="-8" width="16" height="16" style="stroke:#2e2a22;stroke-width:3;fill:#f2ecdf"/></g>`);
+     return;
+   }
+   const gx=C+R*Math.cos(ang), gy=C+R*Math.sin(ang);
+   out.push(`<g transform="translate(${gx},${gy}) rotate(${deg+90}) translate(${-bs/2},${-bs/2})">${block(e.m,0,0,bs,e.deep?'deep':'')}</g>`);
+ });
+ // 끝이 시작에 물림: 마지막 틈에서 첫 칸으로 잇는 이음줄
+ out.push(`<circle class="guide" cx="${C}" cy="${C}" r="${R+42}" style="stroke-dasharray:none;stroke:#b9ab88"/>`);
+ svg.innerHTML=out.join('');
+})();
+
+// ---------- 깨어난 진: 마력이 도는 길 (§8-8) ----------
+(function(){
+ const svg=document.getElementById('flow'); const C=280, R=200, out=[];
+ [140,200,255].forEach(r=>out.push(`<circle class="guide" cx="${C}" cy="${C}" r="${r}"/>`));
+ const n=RING.length, step=360/n, bs=62;
+ // 칸들 (돌벽 진 그대로, 살짝 바래게)
+ RING.forEach((e,i)=>{
+   const ang=(i*step-90)*Math.PI/180, deg=i*step;
+   const gx=C+R*Math.cos(ang), gy=C+R*Math.sin(ang);
+   if(e.gap){
+     out.push(`<g transform="translate(${gx},${gy}) rotate(${deg})" opacity="0.55"><rect x="-8" y="-8" width="16" height="16" style="stroke:#2e2a22;stroke-width:3;fill:#f2ecdf"/></g>`);
+     // 틈 = 마력이 가라앉는 자리: 안쪽으로 점 셋
+     for(let k=1;k<=3;k++){
+       const rr=R-16-k*10;
+       out.push(`<circle class="flowDot" cx="${C+rr*Math.cos(ang)}" cy="${C+rr*Math.sin(ang)}" r="${4-k}" opacity="${0.9-k*0.22}"/>`);
+     }
+     return;
+   }
+   out.push(`<g transform="translate(${gx},${gy}) rotate(${deg+90}) translate(${-bs/2},${-bs/2})" opacity="0.55">${block(e.m,0,0,bs,e.deep?'deep':'')}</g>`);
+ });
+ // 마력 흐름: 고리를 도는 호 + 화살촉 (틈 자리는 끊어 그린다)
+ const fr=R+40;
+ RING.forEach((e,i)=>{
+   if(e.gap) return;
+   const a0=((i*step-90)-step*0.38)*Math.PI/180, a1=((i*step-90)+step*0.38)*Math.PI/180;
+   const wide = e.deep? 5.5:3;
+   out.push(`<path class="flow" style="stroke-width:${wide}" d="M${C+fr*Math.cos(a0)},${C+fr*Math.sin(a0)} A${fr},${fr} 0 0 1 ${C+fr*Math.cos(a1)},${C+fr*Math.sin(a1)}"/>`);
+ });
+ // 들어오는 마력: 위쪽 부름 칸으로 꽂히는 화살
+ out.push(`<path class="flow" style="stroke-width:4" d="M${C},34 L${C},${C-R-52}"/>`);
+ out.push(`<path class="flowDot" d="M${C-8},${C-R-54} L${C+8},${C-R-54} L${C},${C-R-38} Z"/>`);
+ out.push(`<text class="lbl" x="${C+14}" y="46" style="fill:#2e6f63">술자의 붓기 — 부름 칸으로 든다</text>`);
+ // 도는 방향 화살촉 셋
+ [80,200,320].forEach(deg=>{
+   const a=(deg-90)*Math.PI/180, ax=C+fr*Math.cos(a), ay=C+fr*Math.sin(a);
+   const t=a+Math.PI/2;
+   out.push(`<path class="flowDot" d="M${ax+8*Math.cos(t)},${ay+8*Math.sin(t)} L${ax-6*Math.cos(t)+8*Math.cos(a)},${ay-6*Math.sin(t)+8*Math.sin(a)} L${ax-6*Math.cos(t)-8*Math.cos(a)},${ay-6*Math.sin(t)-8*Math.sin(a)} Z"/>`);
+ });
+ out.push(`<text class="lbl" x="${C}" y="${C-6}" text-anchor="middle" style="fill:#2e6f63">마력은 홈을 따라 돈다</text>`);
+ out.push(`<text class="lbl" x="${C}" y="${C+14}" text-anchor="middle">틈에서 가라앉고(점), 깊은 획에서 짙다(굵은 호)</text>`);
+ out.push(`<text class="lbl" x="${C}" y="${C+R+64+18}" text-anchor="middle"> </text>`);
+ svg.innerHTML=out.join('');
+})();
+
+// ---------- 술식: 세 겹 방패 (회로가 문법인 진, §8-8-2) ----------
+(function(){
+ const svg=document.getElementById('sulsik'); const C=310, out=[];
+ const P=(r,deg)=>[C+r*Math.cos((deg-90)*Math.PI/180), C+r*Math.sin((deg-90)*Math.PI/180)];
+ // 고리(길): 틈(숨)을 비우고 그린다 — gapDegs=틈 중심각, gw=틈 폭
+ function ring(r,w,gapDegs,gw){
+   const g=[...gapDegs].sort((a,b)=>a-b);
+   for(let i=0;i<g.length;i++){
+     const s=g[i]+gw/2, e=(i+1<g.length? g[i+1]:g[0]+360)-gw/2;
+     const [x0,y0]=P(r,s),[x1,y1]=P(r,e), large=(e-s)>180?1:0;
+     out.push(`<path class="st" style="stroke-width:${w}" d="M${x0},${y0} A${r},${r} 0 ${large} 1 ${x1},${y1}"/>`);
+   }
+ }
+ // 바깥 길: 얕고 넓다 / 가운데 길 / 안 길: 깊다(굵다)
+ ring(250,3.5,[0,90,180,270],9);
+ ring(180,5.5,[60,180,300],9);
+ ring(110,8.5,[130,310],10);
+ // 다리(건널목): 바깥→가운데, 가운데→안
+ [30,150,270].forEach(d=>{const[a,b]=P(250,d),[c,e]=P(180,d);out.push(`<line class="st" style="stroke-width:4" x1="${a}" y1="${b}" x2="${c}" y2="${e}"/>`);});
+ [90,210,330].forEach(d=>{const[a,b]=P(180,d),[c,e]=P(110,d);out.push(`<line class="st" style="stroke-width:6" x1="${a}" y1="${b}" x2="${c}" y2="${e}"/>`);});
+ // 가로지르는 길: 가운데 고리의 세 다리목을 곧게 잇는다 (가른 길 — 글 진에는 없는 것)
+ const tri=[30,150,270].map(d=>P(180,d));
+ for(let i=0;i<3;i++){const[a,b]=tri[i],[c,e]=tri[(i+1)%3];out.push(`<line class="st" style="stroke-width:3" x1="${a}" y1="${b}" x2="${c}" y2="${e}"/>`);}
+ // 심: 갈린 길이 다시 모이는 자리 (가장 깊다)
+ out.push(`<circle class="st" style="stroke-width:10" cx="${C}" cy="${C}" r="34"/>`);
+ out.push(`<circle class="dot" cx="${C}" cy="${C}" r="9"/>`);
+ [50,230].forEach(d=>{const[a,b]=P(110,d),[c,e]=P(44,d);out.push(`<line class="st" style="stroke-width:7" x1="${a}" y1="${b}" x2="${c}" y2="${e}"/>`);});
+ // 마력 흐름(초록): 바깥에서 들어 다리를 타고 심으로
+ out.push(`<path class="flow" style="stroke-width:4" d="M${C},18 L${C},${C-250-14}"/>`);
+ out.push(`<path class="flowDot" d="M${C-8},${C-250-16} L${C+8},${C-250-16} L${C},${C-250}Z"/>`);
+ [[250,60],[250,200],[180,120],[110,30],[110,230]].forEach(([r,d])=>{
+   const [x,y]=P(r,d), t=(d-90+90)*Math.PI/180;
+   out.push(`<path class="flowDot" d="M${x+7*Math.cos(t)},${y+7*Math.sin(t)} L${x-5*Math.cos(t)+6*Math.sin(t)},${y-5*Math.sin(t)-6*Math.cos(t)} L${x-5*Math.cos(t)-6*Math.sin(t)},${y-5*Math.sin(t)+6*Math.cos(t)} Z"/>`);
+ });
+ // 이름표
+ const lb=(x,y,t,c)=>out.push(`<text class="lbl" x="${x}" y="${y}" text-anchor="middle" ${c?'style="fill:#2e6f63"':''}>${t}</text>`);
+ lb(C+96,30,'술자의 붓기',1);
+ const g1=P(250,90); lb(g1[0]+34,g1[1]+4,'틈 — 숨');
+ const b1=P(215,150); lb(b1[0]-14,b1[1]+26,'다리 — 건널목');
+ lb(C,C-58,'가른 길 — 글 진에는 없다');
+ lb(C,C+64,'심 — 갈린 길이 모여 맺는 자리');
+ lb(C,624,'길은 깊을수록 굵다(세기) · 안으로 갈수록 깊다 — 심이 가장 깊다');
+ svg.innerHTML=out.join('');
+})();
+
+// ---------- 층을 쓰는 고리: 실소리 진 (안고리=높은 자리) ----------
+const RING2=[
+ {m:[null,'에',null],layer:0},                          // 에 (부름 머리 — 높은 자리)
+ {m:['자','아','나']}, {gap:1},                          // 잔
+ {m:['카','에',null]}, {m:['라','에','나']}, {gap:1},    // 케 렌
+ {m:['마','오',null]}, {m:['나','에',null]}, {m:[null,'이',null]}, {gap:1}, // 모 네 이
+ {m:['자','아','나'],layer:0}, {m:['타','아',null],deep:1}, {gap:1} // 잔타 (맺음 머리=높은 자리, 꼬리=깊은 획)
+];
+(function(){
+ const svg=document.getElementById('ring2'); const C=280, out=[];
+ [140,200,255].forEach(r=>out.push(`<circle class="guide" cx="${C}" cy="${C}" r="${r}"/>`));
+ const n=RING2.length, step=360/n, bs=56;
+ RING2.forEach((e,i)=>{
+   const ang=(i*step-90)*Math.PI/180, deg=i*step;
+   const R = e.layer===0 ? 140 : 200;
+   const gx=C+R*Math.cos(ang), gy=C+R*Math.sin(ang);
+   if(e.gap){
+     out.push(`<g transform="translate(${gx},${gy}) rotate(${deg})"><rect x="-8" y="-8" width="16" height="16" style="stroke:#2e2a22;stroke-width:3;fill:#f2ecdf"/></g>`);
+     return;
+   }
+   if(e.layer===0){ // 다리 획 — 안고리 칸을 가운데 고리에 잇는다
+     const x1=C+170*Math.cos(ang), y1=C+170*Math.sin(ang), x2=C+196*Math.cos(ang), y2=C+196*Math.sin(ang);
+     out.push(`<line class="st thin" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`);
+   }
+   out.push(`<g transform="translate(${gx},${gy}) rotate(${deg+90}) translate(${-bs/2},${-bs/2})">${block(e.m,0,0,bs,e.deep?'deep':'')}</g>`);
+ });
+ out.push(`<circle class="guide" cx="${C}" cy="${C}" r="${242}" style="stroke-dasharray:none;stroke:#b9ab88"/>`);
+ svg.innerHTML=out.join('');
+})();
+
+// ---------- 벙어리 책과 되짚기: 두르사 세 벌 ----------
+(function(){
+ const out=[];
+ const markPos=g=>({hi:[g+35,46], hook:[[g+102,52],[g+114,40]], tie:[g+4,140,g+144,140], we:[[g+92,158],[g+106,144]], gu:[g+152,95,g+176,95], sum:[g+184,86]});
+ function panel(gx,mode){
+   out.push(block(['다','우','라'],gx,60,70));
+   out.push(block(['사','아',null],gx+74,60,70));
+   const p=markPos(gx);
+   if(mode==='mute'){ // 결표 자리의 바랜 얼룩
+     out.push(`<ellipse class="smudge" cx="${p.hi[0]}" cy="${p.hi[1]}" rx="10" ry="6"/>`);
+     out.push(`<ellipse class="smudge" cx="${p.hook[0][0]+6}" cy="${p.hook[0][1]-6}" rx="11" ry="7"/>`);
+     out.push(`<ellipse class="smudge" cx="${(p.tie[0]+p.tie[2])/2}" cy="${p.tie[1]}" rx="60" ry="5"/>`);
+     out.push(`<ellipse class="smudge" cx="${p.we[0][0]+7}" cy="${p.we[0][1]-7}" rx="10" ry="7"/>`);
+     out.push(`<ellipse class="smudge" cx="${(p.gu[0]+p.gu[2])/2}" cy="${p.gu[1]}" rx="14" ry="5"/>`);
+     out.push(`<ellipse class="smudge" cx="${p.sum[0]+8}" cy="${p.sum[1]+8}" rx="10" ry="8"/>`);
+     return;
+   }
+   const r = mode==='red';
+   const st=r?'st thin red':'st thin', dot=r?'redDot':'dot', deep=r?'st deep red':'st deep';
+   // 되짚은 사본에서 높이점만은 검다 — 딴 사본과 맞아 검은 먹을 얻은 결
+   out.push(`<circle class="${mode==='red'?'dot':dot}" cx="${p.hi[0]}" cy="${p.hi[1]}" r="5"/>`);
+   out.push(`<line class="${st}" x1="${p.hook[0][0]}" y1="${p.hook[0][1]}" x2="${p.hook[1][0]}" y2="${p.hook[1][1]}"/>`);
+   out.push(`<line class="${st}" x1="${p.tie[0]}" y1="${p.tie[1]}" x2="${p.tie[2]}" y2="${p.tie[3]}"/>`);
+   out.push(`<line class="${deep}" x1="${p.we[0][0]}" y1="${p.we[0][1]}" x2="${p.we[1][0]}" y2="${p.we[1][1]}"/>`);
+   out.push(`<line class="${st}" x1="${p.gu[0]}" y1="${p.gu[1]}" x2="${p.gu[2]}" y2="${p.gu[3]}"/>`);
+   out.push(`<rect x="${p.sum[0]}" y="${p.sum[1]}" width="16" height="16" style="stroke:${r?'#a13b2e':'#2e2a22'};stroke-width:3;fill:none"/>`);
+ }
+ panel(20,'ink'); panel(240,'mute'); panel(460,'red');
+ [[120,'온전한 사본'],[340,'벙어리 책'],[560,'되짚은 사본 — 붉은 먹']].forEach(t=>
+   out.push(`<text class="lbl" x="${t[0]}" y="200" text-anchor="middle">${t[1]}</text>`));
+ out.push(`<text class="lbl" x="330" y="222" text-anchor="middle">두르사 — 벽이여, 머물라 (되짚은 벌의 높이점만 검다: 딴 사본과 맞아 검은 먹을 얻은 결)</text>`);
+ document.getElementById('mute').innerHTML=out.join('');
+})();
+
+// ---------- 여문 칸: 자르타 두 칸에 결표 아홉 자리 ----------
+(function(){
+ const out=[];
+ out.push(block(['자','아','라'],100,70,100));
+ out.push(block(['타','아',null],212,70,100));
+ // 위: 높이점(칸1) · 갈고리(칸2)
+ out.push(`<circle class="dot" cx="150" cy="54" r="5"/>`);
+ out.push(`<line class="st thin" x1="250" y1="60" x2="264" y2="46"/>`);
+ // 아래: 쐐기(칸2 밑) · 이음줄(두 칸 밑을 잇는)
+ out.push(`<line class="st thin" x1="106" y1="180" x2="306" y2="180"/>`);
+ out.push(`<line class="st deep" x1="226" y1="204" x2="244" y2="188"/>`);
+ // 오른쪽 밖: 긋기 / 칸 사이: 숨표 / 다음 칸(희미하게)
+ out.push(`<line class="st thin" x1="320" y1="120" x2="356" y2="120"/>`);
+ out.push(`<rect x="372" y="109" width="22" height="22" style="stroke:#2e2a22;stroke-width:3;fill:none"/>`);
+ out.push(`<g opacity="0.22">${block(['마','오',null],412,70,100)}</g>`);
+ const lbl=(x,y,t)=>`<text class="lbl" x="${x}" y="${y}" text-anchor="middle">${t}</text>`;
+ out.push(lbl(150,32,'높이점 — 칸 위'));
+ out.push(lbl(272,32,'갈고리 — 칸 위'));
+ out.push(lbl(106,200,'이음줄 — 칸 밑'));
+ out.push(lbl(240,224,'쐐기 — 칸 아래'));
+ out.push(lbl(338,142,'긋기 — 오른쪽 밖'));
+ out.push(lbl(383,100,'숨표 — 칸 사이'));
+ out.push(lbl(270,245,'자르 — 타 (다음 칸은 다음 낱말)'));
+ document.getElementById('ripe').innerHTML=out.join('');
+})();
+
+// ---------- 되돌이 줄: 여문 불 네 줄을 소가 밭 갈듯 ----------
+(function(){
+ const ROWS=[
+  {dir: 1, m:[[null,'에',null],['자','아','라']]},                    // 에 자르 →
+  {dir:-1, m:[['카','에',null],['카','아',null],['나','아',null]]},   // ← 케 카나
+  {dir: 1, m:[['마','오',null],[null,'이',null]]},                    // 모 이 →
+  {dir:-1, m:[['자','아','라'],['타','아',null]]}                     // ← 자르타
+ ];
+ const cols=4, bs=66, pitch=74, sx=48, sy=24, rowH=80;
+ const slabW=cols*pitch+18, slabH=ROWS.length*rowH+14;
+ const out=[`<rect x="${sx-12}" y="${sy-8}" width="${slabW+24}" height="${slabH+16}" style="fill:#e9e0c8;stroke:#b9ab88;stroke-width:2"/>`];
+ ROWS.forEach((row,i)=>{
+   const y=sy+8+i*rowH, yc=y+bs/2;
+   row.m.forEach((m,j)=>{
+     const x= row.dir===1 ? sx+6+j*pitch : sx+6+(cols-1-j)*pitch; // ←줄은 오른끝부터 채움
+
+     out.push(block(m,x,y,bs));
+   });
+   // 읽는 길: 줄 머리의 화살표
+   if(row.dir===1){
+     out.push(`<line class="st thin" x1="${sx-34}" y1="${yc}" x2="${sx-12}" y2="${yc}"/><path class="dot" d="M${sx-12},${yc-5} L${sx-2},${yc} L${sx-12},${yc+5} Z"/>`);
+   }else{
+     const ex=sx+slabW+12;
+     out.push(`<line class="st thin" x1="${ex+22}" y1="${yc}" x2="${ex}" y2="${yc}"/><path class="dot" d="M${ex},${yc-5} L${ex-10},${yc} L${ex},${yc+5} Z"/>`);
+   }
+   // 줄 끝에서 다음 줄로 내려가는 길
+   if(i<ROWS.length-1){
+     const side = row.dir===1 ? sx+slabW+18 : sx-28;
+     out.push(`<path class="guide" d="M${side},${yc} L${side},${yc+rowH}" style="stroke:#8a7a5c"/>`);
+   }
+ });
+ out.push(`<text class="lbl" x="235" y="${sy+slabH+22}" text-anchor="middle">에 자르 → / ← 케 카나 / 모 이 → / ← 자르타</text>`);
+ out.push(`<text class="lbl" x="235" y="${sy+slabH+40}" text-anchor="middle">(끌 쥔 손이 돌 위에서 헛걸음을 않는 길)</text>`);
+ document.getElementById('bous').innerHTML=out.join('');
+})();
+
+// ---------- 흘림꼴: 여문 불 한 줄 (붓길·물결 결표) ----------
+(function(){
+ const out=[];
+ out.push(`<line class="guide" x1="28" y1="132" x2="632" y2="132"/>`);
+ // 에 (부름 머리 — 높이점이 뜬다)
+ out.push(`<path class="cur" d="M40,112 C50,84 68,80 78,98 C84,110 74,120 62,114"/>`);
+ out.push(`<circle class="dot" cx="60" cy="62" r="4"/>`);
+ // 자르 (스침 두 획이 흘러 만나고, 르 꼬리가 감긴다)
+ out.push(`<path class="cur" d="M106,76 C120,98 130,116 122,132 M142,74 C134,94 127,112 123,131 C120,150 143,152 155,137 C162,128 157,116 149,116"/>`);
+ // 숨표 = 붓 뗀 빈자리
+ out.push(`<path class="guide" d="M172,124 q14,10 28,0"/><text class="lbl" x="186" y="112" text-anchor="middle">빈자리</text>`);
+ // 케 (케 — 갈고리가 위로 걸린다)
+ out.push(`<path class="cur" d="M226,84 q-12,24 2,38 q6,6 14,3 M222,100 q16,-9 32,-3"/>`);
+ out.push(`<path class="cur" d="M268,96 q8,-8 14,-16"/>`);
+ // 카나 (이음줄이 붓길을 따라 저절로 이어진다)
+ out.push(`<path class="cur" d="M300,80 q-10,26 4,40 M294,96 q18,-10 34,-4 M338,120 q10,10 22,4 M372,88 q-6,26 6,36 q12,8 24,-6 q7,-11 -2,-19"/>`);
+ // 숨표
+ out.push(`<path class="guide" d="M418,124 q14,10 28,0"/><text class="lbl" x="432" y="112" text-anchor="middle">빈자리</text>`);
+ // 모 (코 소리 — 닫힌 꼴이 둥글게 감긴다)
+ out.push(`<path class="cur" d="M474,98 q-18,8 -12,26 q6,17 26,13 q17,-4 13,-22 q-3,-13 -17,-13"/>`);
+ // 이 (홑점 — 붓이 스치고 지나간다)
+ out.push(`<circle class="dot" cx="524" cy="92" r="4"/><path class="cur" d="M520,104 q7,11 3,22"/>`);
+ // 자르타 (맺음 — 타의 획이 굵다: 쐐기)
+ out.push(`<path class="cur" d="M552,76 C566,98 574,116 567,131 M584,74 C576,94 570,112 567,131 C565,149 587,151 598,138"/>`);
+ out.push(`<path class="cur curDeep" d="M618,70 q-1,38 4,58 M604,80 q20,-11 40,-5"/>`);
+ out.push(`<circle class="dot" cx="622" cy="48" r="4"/>`);
+ // 낱말 이름
+ const names=[[58,'에'],[130,'자르'],[244,'케'],[336,'카나'],[476,'모'],[522,'이'],[590,'자르타']];
+ names.forEach(n=>out.push(`<text class="lbl" x="${n[0]}" y="168" text-anchor="middle">${n[1]}</text>`));
+ out.push(`<text class="lbl" x="330" y="188" text-anchor="middle">에 자르 · 케 카나 · 모 이 · 자르타 — 잘 쓴 흘림꼴은 읽기 전에 벌써 노래로 보인다</text>`);
+ document.getElementById('cursive').innerHTML=out.join('');
+})();
+
+// ---------- 문양 (그림이라 굽은 획이 산다) ----------
+const MUNS=[
+ ['서는 짐승','짐승을 세운다는 문양',`<path class="mun" d="M20,70 Q35,40 60,45 Q80,48 82,30 M30,70 L30,88 M52,70 L52,88 M20,70 Q40,62 60,66"/><circle class="dot" cx="78" cy="26" r="4"/>`],
+ ['멎는 피','피를 멎게 한다는 문양',`<path class="mun" d="M50,18 Q78,26 74,52 Q70,74 50,74 Q34,74 34,58 Q34,46 46,46 Q56,46 56,56"/><path class="mun" d="M50,84 L50,92"/>`],
+ ['문 지킴','문설주에 그리던 문양',`<path class="mun" d="M25,85 L25,40 Q50,12 75,40 L75,85"/><circle class="dot" cx="50" cy="52" r="5"/><path class="mun" d="M38,85 L62,85"/>`],
+ ['잊힌 문양','뜻이 잊힌 채 손등에 남는 것',`<path class="mun" d="M30,25 Q60,20 65,45 Q68,62 48,60 M48,60 Q30,58 35,78 Q38,90 58,84"/><circle class="dot" cx="72" cy="78" r="4"/>`]
+];
+document.getElementById('muns').innerHTML=MUNS.map(m=>`<div class="cell wide"><svg width="100" height="90" viewBox="0 0 100 100">${m[2]}</svg><div class="nm">${m[0]}</div><div class="caption">${m[1]}</div></div>`).join('');
+
+// ---------- 바늘꼴: 안 벨 네 (흘림·굽은 획) ----------
+(function(){
+ const svg=document.getElementById('needle');
+ svg.innerHTML=`
+  <path class="needle" d="M30,95 Q45,45 70,60 Q90,72 105,55"/> <circle class="dot" cx="52" cy="30" r="3"/>
+  <path class="needle" d="M150,50 Q145,95 175,90 Q200,86 195,60 Q192,45 175,48"/>
+  <path class="needle" d="M240,90 Q250,45 275,55 Q296,64 300,90 M300,68 Q315,52 330,66"/>
+  <path class="needle" d="M380,60 Q395,90 420,80 Q444,70 440,50"/> <circle class="dot" cx="415" cy="34" r="3"/>
+  <path class="needle" d="M120,110 Q260,128 440,108" style="stroke-width:2;stroke-dasharray:5 5"/>
+  <text x="30" y="140" style="font-size:13px;fill:#6b6353">안 — 벨 — 네 (밑의 점선 = 살 위의 이음줄. 결표는 점과 짧은 금으로 앉는다)</text>`;
+})();
+
+// ---------- 흉터가 끊은 문신: 안 수 두르 (왼팔뚝) ----------
+(function(){
+ const out=[];
+ // 팔뚝 윤곽 (팔꿈치→손목)
+ out.push(`<path d="M34,70 C160,40 420,46 566,74 L566,146 C420,178 160,182 34,152 Z" style="fill:#eadfc6;stroke:#c9b18f;stroke-width:2.5"/>`);
+ out.push(`<path class="guide" d="M566,74 L566,146"/><text class="lbl" x="588" y="114">손목</text><text class="lbl" x="20" y="40">팔꿈치</text>`);
+ // 안 (온전)
+ out.push(`<path class="needle" d="M86,132 Q100,88 120,102 Q134,112 146,100"/><circle class="dot" cx="104" cy="76" r="3"/>`);
+ // 수 — 흉터에 끊긴 낱말: 두 토막, 사이가 빈다
+ out.push(`<path class="needle" d="M196,96 Q206,112 214,118"/>`);
+ out.push(`<path class="needle" d="M232,116 Q246,106 252,90"/>`);
+ // 흉터 (지그재그로 획을 가로지른다)
+ out.push(`<path d="M216,52 L226,84 L218,106 L230,134 L222,166" style="stroke:#b98d7a;stroke-width:6;fill:none;stroke-linecap:round;opacity:.85"/>`);
+ out.push(`<text class="lbl" x="224" y="40" text-anchor="middle">흉터 — 획이 끊겼다</text>`);
+ // 두르 (온전하지만 문장은 이미 두 동강)
+ out.push(`<path class="needle" d="M312,94 Q304,130 334,126 Q358,122 354,96 Q351,82 334,86"/>`);
+ out.push(`<path class="needle" d="M388,120 Q398,94 418,102 Q436,110 438,130 M438,106 Q452,92 466,104"/>`);
+ // 살 위의 이음줄 — 흉터 앞에서 함께 끊긴다
+ out.push(`<path class="needle" d="M92,152 Q140,162 200,158" style="stroke-width:2;stroke-dasharray:5 5"/>`);
+ out.push(`<path class="needle" d="M240,158 Q340,168 470,150" style="stroke-width:2;stroke-dasharray:5 5"/>`);
+ const names=[[112,'안'],[224,'수'],[380,'두르']];
+ names.forEach(n=>out.push(`<text class="lbl" x="${n[0]}" y="200" text-anchor="middle">${n[1]}</text>`));
+ out.push(`<text class="lbl" x="330" y="216" text-anchor="middle">안 수 두르 — 내 숨은 벽. 가운데가 끊겼으니 이 문장은 벙어리다(§8-9 · §2-2 이음)</text>`);
+ document.getElementById('arm').innerHTML=out.join('');
+})();
+
+// ---------- ⅩⅣ 겹 얹기: 팔뚝의 케 렌 + 짧아진 문장 (회로 §3-2 · §5-17) ----------
+(function(){
+ const out=[];
+ // 팔뚝 윤곽 (팔꿈치→손목)
+ out.push(`<path d="M34,36 C160,10 420,16 566,40 L566,108 C420,136 160,140 34,116 Z" style="fill:#eadfc6;stroke:#c9b18f;stroke-width:2.5"/>`);
+ out.push(`<text class="lbl" x="20" y="24">팔꿈치</text><text class="lbl" x="574" y="130">손목</text>`);
+ // 케 — 바늘꼴 (몸의 결을 따라 흐르는 획)
+ out.push(`<path class="needle" d="M250,58 Q242,94 268,90 Q288,86 284,62 M284,74 Q296,60 308,70"/>`);
+ // 렌 — 바늘꼴 (결표는 점과 짧은 금으로)
+ out.push(`<path class="needle" d="M336,88 Q346,58 366,66 Q382,74 384,94"/><circle class="dot" cx="354" cy="46" r="3"/>`);
+ // 살 위의 이음줄
+ out.push(`<path class="needle" d="M246,104 Q316,114 392,102" style="stroke-width:2;stroke-dasharray:5 5"/>`);
+ out.push(`<text class="lbl" x="318" y="134" text-anchor="middle">케 렌 — 실처럼 (꼴지음 한 줄)</text>`);
+ // 아래: 같은 문장의 두 입 — 실금 (§5-0)
+ const seg=(x,y,t,st)=>out.push(`<text x="${x}" y="${y}" text-anchor="middle" style="font-size:15px;${st||'fill:#2e2a22'}">${t}</text>`);
+ out.push(`<text class="lbl" x="92" y="216" text-anchor="end">맨입 —</text>`);
+ seg(146,216,'에 카르'); seg(240,216,'케 렌'); seg(340,216,'모 이'); seg(448,216,'카르타');
+ out.push(`<rect x="202" y="198" width="76" height="26" style="fill:none;stroke:#4a3b2a;stroke-width:2"/>`);
+ seg(192,216,'·'); seg(294,216,'·'); seg(392,216,'·');
+ out.push(`<text class="lbl" x="92" y="278" text-anchor="end">새긴 팔 —</text>`);
+ seg(146,278,'에 카르'); seg(340,278,'모 이'); seg(448,278,'카르타');
+ out.push(`<rect x="202" y="260" width="76" height="26" style="fill:none;stroke:#a13b2e;stroke-width:2;stroke-dasharray:5 4"/>`);
+ seg(240,278,'—','fill:#a13b2e');
+ seg(192,278,'·'); seg(294,278,'·'); seg(392,278,'·');
+ // 빈 자리에서 팔뚝 새김으로 오르는 안내선
+ out.push(`<path class="guide" d="M240,256 C240,206 296,168 314,142" style="stroke-dasharray:4 4"/>`);
+ out.push(`<text class="lbl" x="240" y="304" text-anchor="middle" style="fill:#a13b2e">살갗이 이미 말하고 있는 자리 — 입은 건너뛴다</text>`);
+ out.push(`<text class="lbl" x="320" y="340" text-anchor="middle">실금 「에 카르 · 케 렌 · 모 이 · 카르타」 — 어느 입이든 같은 꼴이 맺힌다. 준 것은 낱말 하나 몫의 숨이다.</text>`);
+ document.getElementById('kyeop').innerHTML=out.join('');
+})();
+
+// ---------- 길이 = 칸 너비 (§8-8 옮김표) ----------
+(function(){
+ const out=[];
+ out.push(block(['다','우',null],30,30,70));
+ out.push(`<text class="lbl" x="65" y="122" text-anchor="middle">두 — 한 박</text>`);
+ out.push(block(['다','우',null],150,30,70));
+ out.push(`<line class="st thin" x1="226" y1="65" x2="246" y2="65"/><line class="st thin" x1="252" y1="65" x2="272" y2="65"/>`);
+ out.push(`<text class="lbl" x="210" y="122" text-anchor="middle">두―― (긋기 두 획 = 석 박)</text>`);
+ out.push(block(['다','우',null],360,30,70));
+ out.push(`<text class="lbl" x="395" y="122" text-anchor="middle">고리 글 — 한 박 칸</text>`);
+ out.push(`<rect class="box" x="470" y="30" width="140" height="70"/>`);
+ out.push(`<g transform="translate(476,36) scale(0.30)">${strokesSvg(G['다'])}</g>`);
+ out.push(`<g transform="translate(562,46) scale(0.24)">${strokesSvg(G['우'])}</g>`);
+ out.push(`<text class="lbl" x="540" y="122" text-anchor="middle">너른 칸 — 석 박</text>`);
+ out.push(`<text class="lbl" x="330" y="145" text-anchor="middle">같은 마디 「두」 — 소리를 두 박 더 끌면(긋기), 고리 글에서는 칸이 그만큼 넓어진다.</text>`);
+ out.push(`<text class="lbl" x="330" y="161" text-anchor="middle">돌에는 시간이 없어, 너비가 시간을 진다.</text>`);
+ document.getElementById('width').innerHTML=out.join('');
+})();
+
+// ---------- 자모 노래 판: 서른두 글자의 차례 ----------
+(function(){
+ const ORDER=[...CONS,...VOWS];
+ const out=[]; const bs=64, pitch=72;
+ ORDER.forEach((ch,i)=>{
+   const r=Math.floor(i/8), c=i%8;
+   const x=28+c*pitch, y=20+r*100;
+   out.push(`<rect class="box" x="${x}" y="${y}" width="${bs}" height="${bs}"/>`);
+   out.push(`<g transform="translate(${x+6},${y+6}) scale(${(bs-12)/100})">${strokesSvg(G[ch])}</g>`);
+   out.push(`<text class="lbl" x="${x+bs/2}" y="${y+bs+16}" text-anchor="middle">${ch}</text>`);
+   if(c===0||c===4) out.push(`<line class="st deep" x1="${x-10}" y1="${y+bs-8}" x2="${x+1}" y2="${y+bs-26}"/>`);
+   if(c===7) out.push(`<rect x="${x+bs+8}" y="${y+bs/2-7}" width="14" height="14" style="stroke:#2e2a22;stroke-width:2.5;fill:none"/>`);
+ });
+ out.push(`<text class="lbl" x="330" y="424" text-anchor="middle">여덟 자 한 줄, 네 줄 — 줄 끝마다 숨표. 첫째·다섯째 자에 힘이 실린다(쐐기).</text>`);
+ out.push(`<text class="lbl" x="330" y="442" text-anchor="middle">미엔 하나 = 이 노래 한 바퀴(§3-4).</text>`);
+ document.getElementById('song').innerHTML=out.join('');
+})();
+
+// ---------- 묶인 이름: 명부의 낱장 (§3-8) ----------
+(function(){
+ const out=[];
+ out.push(`<rect x="20" y="12" width="560" height="300" style="fill:#f6efdd;stroke:#cfc4a8;stroke-width:2"/>`);
+ out.push(`<line class="guide" x1="248" y1="20" x2="248" y2="304"/>`);
+ out.push(`<text class="lbl" x="130" y="34" text-anchor="middle">낱말 (새김꼴)</text><text class="lbl" x="410" y="34" text-anchor="middle">결표</text>`);
+ const rows=[
+  {w:[['자','아','라']], marks:'ok'},
+  {w:[['카','에','을']], marks:'ok'},
+  {w:[['프','어','마'],['카흐','으','나']], marks:'scratched'},
+  {w:[['나','이','라']], marks:'ok'},
+  {w:[[null,'오','마']], marks:'ok'}
+ ];
+ rows.forEach((row,i)=>{
+   const y=48+i*52, bs=44;
+   row.w.forEach((m,j)=>out.push(block(m,60+j*50,y,bs)));
+   if(row.marks==='ok'){
+     out.push(`<circle class="dot" cx="280" cy="${y+10}" r="4"/>`);
+     out.push(`<line class="st thin" x1="300" y1="${y+22}" x2="330" y2="${y+22}"/>`);
+     out.push(`<line class="st thin" x1="350" y1="${y+30}" x2="362" y2="${y+16}"/>`);
+     out.push(`<rect x="382" y="${y+14}" width="13" height="13" style="stroke:#2e2a22;stroke-width:2.5;fill:none"/>`);
+   }else{ // 긁어낸 자국
+     out.push(`<rect x="262" y="${y+2}" width="150" height="40" style="fill:#e3d5b8;stroke:none"/>`);
+     for(let k=0;k<7;k++){
+       const sx=268+k*20;
+       out.push(`<line x1="${sx}" y1="${y+38}" x2="${sx+14}" y2="${y+6}" style="stroke:#a89469;stroke-width:3"/>`);
+     }
+     out.push(`<path d="M262,${y+24} L412,${y+18}" style="stroke:#8a7a5c;stroke-width:2;fill:none"/>`);
+     out.push(`<text class="lbl" x="470" y="${y+28}">← 긁어낸 자국</text>`);
+   }
+ });
+ out.push(`<text class="lbl" x="300" y="322" text-anchor="middle">셋째 줄 — 낱말은 자리를 지키고, 소리는 없다.</text>`);
+ out.push(`<text class="lbl" x="300" y="340" text-anchor="middle">빈 자리가 되면 누가 같은 소리를 다시 깎을 테니, 지우지 않고 묶는다.</text>`);
+ document.getElementById('ledger').innerHTML=out.join('');
+})();
+
+// ---------- 장례의 멈춘 문장 (§6-2) ----------
+(function(){
+ const out=[];
+ out.push(`<line class="guide" x1="28" y1="128" x2="632" y2="128"/>`);
+ out.push(`<path class="cur" d="M40,108 C50,80 68,76 78,94 C84,106 74,116 62,110"/><circle class="dot" cx="60" cy="58" r="4"/>`);
+ out.push(`<path class="cur" d="M110,82 q-10,26 6,38 q12,8 24,-2 q10,-9 4,-24"/>`);
+ out.push(`<path class="guide" d="M162,120 q12,9 24,0"/>`);
+ out.push(`<path class="cur" d="M212,80 q-12,24 2,38 q6,6 14,3 M208,96 q16,-9 32,-3"/>`);
+ out.push(`<path class="cur" d="M272,94 q-16,8 -10,26 q6,16 24,12 q16,-4 12,-22"/>`);
+ out.push(`<circle class="dot" cx="330" cy="86" r="4"/><path class="cur" d="M326,98 q7,11 3,22"/>`);
+ out.push(`<path class="guide" d="M356,120 q12,9 24,0"/>`);
+ out.push(`<path class="cur" d="M400,94 q-18,8 -12,26 q6,17 26,13 q17,-4 13,-22 q-3,-13 -17,-13"/>`);
+ out.push(`<circle class="dot" cx="452" cy="88" r="4"/><path class="cur" d="M448,100 q7,11 3,22"/>`);
+ out.push(`<path class="cur" d="M474,118 q22,8 46,4" style="opacity:.45"/>`);
+ out.push(`<rect x="546" y="76" width="80" height="50" style="stroke:#8a7a5c;stroke-width:2;stroke-dasharray:6 5;fill:none"/>`);
+ const names=[[58,'에'],[126,'루'],[228,'케'],[296,'마이'],[412,'모'],[450,'이'],[586,'(비워 둔 맺음)']];
+ names.forEach(n=>out.push(`<text class="lbl" x="${n[0]}" y="154" text-anchor="middle">${n[1]}</text>`));
+ out.push(`<text class="lbl" x="330" y="168" text-anchor="middle">에 루 · 케 마이 · 모 이 — 여기서 멈춘다. 비워 둔 맺음을 어찌하는가는 지방마다 갈린다(§6-2).</text>`);
+ document.getElementById('mourn').innerHTML=out.join('');
+})();
+
+// ---------- 저자의 가짜 부적: 마디의 법 위반 사례 (§2-4) ----------
+(function(){
+ const out=[];
+ // 부적패 (구멍+끈, 장식 테)
+ out.push(`<rect x="34" y="34" width="220" height="186" rx="10" style="fill:#efe4c8;stroke:#8a7a5c;stroke-width:3"/>`);
+ out.push(`<rect x="44" y="44" width="200" height="166" rx="6" style="fill:none;stroke:#b9a878;stroke-width:1.5;stroke-dasharray:3 3"/>`);
+ out.push(`<circle cx="144" cy="24" r="7" style="fill:none;stroke:#8a7a5c;stroke-width:3"/><path d="M144,17 q-16,-12 -30,-4 M144,17 q16,-12 30,-4" style="stroke:#8a7a5c;stroke-width:2;fill:none"/>`);
+ // 세 마디 "낱말" — 붙여 새김 (법④ 위반)
+ out.push(block(['카','아',null],58,58,56)); out.push(block(['타','오','마'],116,58,56)); out.push(block(['사','우','라'],174,58,56));
+ // 한 칸에 닿소리 둘 (법③ 위반): 카+타 겹침
+ out.push(`<rect class="box" x="70" y="128" width="64" height="64"/>`);
+ out.push(`<g transform="translate(72,136) scale(0.28)">${strokesSvg(G['카'])}</g>`);
+ out.push(`<g transform="translate(94,136) scale(0.28)">${strokesSvg(G['타'])}</g>`);
+ out.push(`<g transform="translate(112,150) scale(0.22)">${strokesSvg(G['아'])}</g>`);
+ // 터지는 소리가 끝소리 자리에 (법② 위반): 파를 오른쪽에
+ out.push(`<rect class="box" x="152" y="128" width="64" height="64"/>`);
+ out.push(`<g transform="translate(156,136) scale(0.26)">${strokesSvg(G['사'])}</g>`);
+ out.push(`<g transform="translate(176,146) scale(0.20)">${strokesSvg(G['오'])}</g>`);
+ out.push(`<g transform="translate(192,140) scale(0.24)">${strokesSvg(G['파'])}</g>`);
+ // 아무 데나 찍힌 가짜 결표
+ [[66,50],[210,48],[128,122],[226,200],[54,206],[240,96]].forEach(p=>out.push(`<circle class="dot" cx="${p[0]}" cy="${p[1]}" r="3.5"/>`));
+ // 서고 학자의 붉은 손 — 위반 표시
+ out.push(`<ellipse cx="144" cy="86" rx="100" ry="40" style="fill:none;stroke:#a13b2e;stroke-width:2.5"/>`);
+ out.push(`<line x1="244" y1="86" x2="300" y2="66" style="stroke:#a13b2e;stroke-width:2"/>`);
+ out.push(`<text class="lbl" x="306" y="70" style="fill:#a13b2e">세 마디를 붙였다 — 낱말은 두 마디까지(§2-4 ④)</text>`);
+ out.push(`<circle cx="102" cy="160" r="40" style="fill:none;stroke:#a13b2e;stroke-width:2.5"/>`);
+ out.push(`<line x1="140" y1="172" x2="300" y2="126" style="stroke:#a13b2e;stroke-width:2"/>`);
+ out.push(`<text class="lbl" x="306" y="130" style="fill:#a13b2e">한 칸에 닿소리 둘(§2-4 ③)</text>`);
+ out.push(`<circle cx="200" cy="160" r="34" style="fill:none;stroke:#a13b2e;stroke-width:2.5"/>`);
+ out.push(`<line x1="232" y1="172" x2="300" y2="166" style="stroke:#a13b2e;stroke-width:2"/>`);
+ out.push(`<text class="lbl" x="306" y="170" style="fill:#a13b2e">터지는 소리가 끝소리 자리에(§2-4 ②)</text>`);
+ out.push(`<text class="lbl" x="306" y="204" style="fill:#a13b2e">결표는 아무 데나 — 소리가 설 수 없는 점들</text>`);
+ out.push(`<text class="lbl" x="310" y="234">넷 다 어긋났으니 이 부적은 벙어리다 — 다행히도.</text>`);
+ document.getElementById('fake').innerHTML=out.join('');
+})();
+
+// ---------- 한 낱말 세 벌: 두르 (끌·붓·바늘) ----------
+(function(){
+ const out=[];
+ // 끌 — 새김꼴
+ out.push(`<rect x="40" y="30" width="120" height="110" style="fill:#e2dbc9;stroke:#b3a888;stroke-width:2"/>`);
+ out.push(block(['다','우','라'],60,44,80));
+ out.push(`<text class="lbl" x="100" y="162" text-anchor="middle">끌 — 새김꼴 (돌)</text>`);
+ // 붓 — 흘림꼴
+ out.push(`<rect x="240" y="30" width="140" height="110" style="fill:#faf5e6;stroke:#cfc4a8;stroke-width:2"/>`);
+ out.push(`<path class="cur" d="M266,60 Q258,98 288,94 Q312,90 308,62 Q305,48 288,52"/>`);
+ out.push(`<path class="cur" d="M322,90 Q332,62 350,70 Q366,78 368,96 M368,74 Q378,62 390,72" style="stroke-width:3.5"/>`);
+ out.push(`<text class="lbl" x="310" y="162" text-anchor="middle">붓 — 흘림꼴 (종이)</text>`);
+ // 바늘 — 바늘꼴
+ out.push(`<rect x="460" y="30" width="130" height="110" rx="26" style="fill:#eadfc6;stroke:#c9b18f;stroke-width:2.5"/>`);
+ out.push(`<path class="needle" d="M486,64 Q478,98 504,94 Q524,90 520,66 Q518,54 504,58"/>`);
+ out.push(`<path class="needle" d="M534,90 Q542,66 558,72 Q572,80 574,96"/>`);
+ out.push(`<circle class="dot" cx="500" cy="44" r="2.5"/><circle class="dot" cx="548" cy="52" r="2.5"/>`);
+ out.push(`<text class="lbl" x="525" y="162" text-anchor="middle">바늘 — 바늘꼴 (살)</text>`);
+ out.push(`<text class="lbl" x="310" y="180" text-anchor="middle">두르 — 벽. 같은 낱말, 세 벌. 끌은 곧고, 붓은 흐르고, 바늘은 몸의 결을 따른다.</text>`);
+ document.getElementById('three').innerHTML=out.join('');
+})();
+
+// ---------- 조약 돌: 맺음 구절의 살란 고리 (§6-2) ----------
+(function(){
+ const out=[];
+ out.push(`<path d="M120,34 Q200,8 280,34 L288,398 L112,398 Z" style="fill:#ddd3ba;stroke:#9a8c6a;stroke-width:3"/>`);
+ const seq=[{m:[null,'에',null]},{m:['라','아','마']},{gap:1},{m:['마','오',null]},{m:['하','아',null]},{gap:1},{m:['라','아','마'],deep:1},{m:['사','아',null],deep:1},{gap:1}];
+ const cx=200, cy=110, R=52, bs=26, n=seq.length, step=360/n;
+ out.push(`<circle class="guide" cx="${cx}" cy="${cy}" r="${R}"/>`);
+ seq.forEach((e,i)=>{
+   const ang=(i*step-90)*Math.PI/180, deg=i*step;
+   const gx=cx+R*Math.cos(ang), gy=cy+R*Math.sin(ang);
+   if(e.gap){ out.push(`<g transform="translate(${gx},${gy}) rotate(${deg})"><rect x="-4" y="-4" width="8" height="8" style="stroke:#2e2a22;stroke-width:2;fill:#ddd3ba"/></g>`); return; }
+   out.push(`<g transform="translate(${gx},${gy}) rotate(${deg+90}) translate(${-bs/2},${-bs/2})">${block(e.m,0,0,bs,e.deep?'deep':'')}</g>`);
+ });
+ out.push(`<line x1="132" y1="192" x2="268" y2="192" class="guide"/>`);
+ for(let i=0;i<8;i++){
+   const y=214+i*22;
+   out.push(`<path d="M138,${y} q21,${i%2?4:-4} 42,0 t42,0 t42,0" style="stroke:#8f846b;stroke-width:2.5;fill:none;opacity:.75"/>`);
+ }
+ out.push(`<text class="lbl" x="200" y="418" text-anchor="middle">머리 — 살란 고리 「에 람 · 모 하 · 람사」</text>`);
+ out.push(`<text class="lbl" x="200" y="436" text-anchor="middle">몸 — 두 나라의 제 글. 그 꼴은 나라를 팔 때 정한다(§10)</text>`);
+ document.getElementById('treaty').innerHTML=out.join('');
+})();
+
+// ---------- 벙어리 책의 아래층: 서른둘에 없는 글자 (§1-1) ----------
+(function(){
+ const out=[];
+ out.push(`<path d="M24,20 L520,14 L560,40 L544,88 L566,150 L548,210 L556,246 L28,252 Z" style="fill:#e8dcbd;stroke:#b3a67f;stroke-width:2"/>`);
+ const ALIEN={
+  A:[[30,15,30,85],[15,30,45,30],[15,60,45,60],[60,20,80,80]],
+  B:[[20,20,80,80],[80,20,20,80],[50,10,50,48]],
+  C:[[25,25,75,25],[75,25,75,75],[75,75,25,75],[25,75,25,25],[42,42,62,42],[62,42,62,62]]
+ };
+ const rows=[
+  [['사','아','라'],['카','에',null],'A',[null,'이',null],['마','오','마']],
+  [['다','우',null],'B',['라','에','나'],['자','아',null],[null,'에',null]],
+  [['하','아',null],['카','아','을'],[null,'오','나'],'C',['타','이',null]]
+ ];
+ rows.forEach((row,i)=>{
+   const y=38+i*66, bs=52;
+   row.forEach((m,j)=>{
+     const x=52+j*62;
+     if(typeof m==='string'){
+       out.push(`<rect class="box" x="${x}" y="${y}" width="${bs}" height="${bs}"/>`);
+       out.push(`<g transform="translate(${x+5},${y+5}) scale(${(bs-10)/100})">${strokesSvg(ALIEN[m])}</g>`);
+       if(m!=='C') out.push(`<circle cx="${x+bs/2}" cy="${y+bs/2}" r="${bs/2+7}" style="fill:none;stroke:#a13b2e;stroke-width:2"/>`);
+     } else out.push(block(m,x,y,bs));
+   });
+ });
+ out.push(`<text class="lbl" x="408" y="58" style="fill:#a13b2e">서른둘에 없다 — 일곱째</text>`);
+ out.push(`<text class="lbl" x="408" y="78" style="fill:#a13b2e;opacity:.7">(딴 손: 둘째와 같은 글자다)</text>`);
+ out.push(`<text class="lbl" x="380" y="226" style="fill:#a13b2e;opacity:.7">셋째 줄 넷째 칸은 아무도 안 셌다</text>`);
+ out.push(`<text class="lbl" x="300" y="278" text-anchor="middle">결표는 바랬고, 글자 몇은 서른둘 밖이다 — 벙어리 책의 아래층(§1-1)</text>`);
+ document.getElementById('deep').innerHTML=out.join('');
+})();
+
+// ---------- ⅩⅣ 등잔 진: 진이 실린 물건 (§8-8-1) ----------
+(function(){
+ const out=[]; const C=280, CY=330, R=170, bs=46;
+ // 받침 원반(위에서 본 그림)
+ out.push(`<circle cx="${C}" cy="${CY}" r="${R+40}" style="fill:#efe7d2;stroke:#b3a67f;stroke-width:3"/>`);
+ out.push(`<circle cx="${C}" cy="${CY}" r="${R-36}" style="fill:none;stroke:#d8cdb0;stroke-width:2"/>`);
+ // 문장: 에 실란 | 핀 | 실란사   (틈=숨자리, 구절 사이)
+ const LAMP=[
+  {m:[null,'에',null]},                                    // 에 (부름 머리)
+  {m:['사','이','을']},{m:['라','아','나']},{gap:1},        // 실란
+  {m:['파','이','나']},{gap:1},                             // 핀
+  {m:['사','이','을'],deep:1},{m:['라','아','나'],deep:1},{m:['사','아',null],deep:1},{gap:1} // 실란사(맺음=깊은 획)
+ ];
+ const n=LAMP.length, step=360/n;
+ LAMP.forEach((e,i)=>{
+  const ang=(i*step-90)*Math.PI/180, deg=i*step;
+  const gx=C+R*Math.cos(ang), gy=CY+R*Math.sin(ang);
+  if(e.gap){ out.push(`<g transform="translate(${gx},${gy}) rotate(${deg})"><rect x="-7" y="-7" width="14" height="14" style="stroke:#2e2a22;stroke-width:3;fill:#f2ecdf"/></g>`); return;}
+  out.push(`<g transform="translate(${gx},${gy}) rotate(${deg+90}) translate(${-bs/2},${-bs/2})">${block(e.m,0,0,bs,e.deep?'deep':'')}</g>`);
+ });
+ // 가운데: 등잔(받침 위에 선 것을 함께 그린 개념도)
+ out.push(`<g style="stroke:#2e2a22;stroke-width:4;fill:none">`+
+   `<path d="M ${C-30} ${CY+40} L ${C+30} ${CY+40}"/>`+
+   `<path d="M ${C-16} ${CY+40} L ${C-9} ${CY+8}"/><path d="M ${C+16} ${CY+40} L ${C+9} ${CY+8}"/>`+
+   `<path d="M ${C-24} ${CY+8} Q ${C} ${CY+26} ${C+24} ${CY+8}"/>`+
+ `</g>`);
+ out.push(`<path d="M ${C} ${CY-34} Q ${C+13} ${CY-12} ${C} ${CY+2} Q ${C-13} ${CY-12} ${C} ${CY-34}" style="fill:none;stroke:#a13b2e;stroke-width:3"/>`);
+ // 붓기(초록): 부름 칸으로 드는 화살
+ out.push(`<path class="flow" d="M ${C} 56 L ${C} ${CY-R-bs/2-16}"/>`);
+ out.push(`<path class="flowDot" d="M ${C-7} ${CY-R-bs/2-18} L ${C+7} ${CY-R-bs/2-18} L ${C} ${CY-R-bs/2-4} Z"/>`);
+ // 도는 방향(초록 화살촉 셋)
+ [80,200,320].forEach(d=>{
+  const a=(d-90)*Math.PI/180, rr=R-58;
+  const px=C+rr*Math.cos(a), py=CY+rr*Math.sin(a);
+  out.push(`<g transform="translate(${px},${py}) rotate(${d})"><path class="flowDot" d="M -6 -5 L 8 0 L -6 5 Z"/></g>`);
+ });
+ out.push(`<text class="lbl" x="${C}" y="30" text-anchor="middle">부름 칸 — 등지기가 저녁마다 여기 손을 짚는다</text>`);
+ out.push(`<text class="lbl" x="${C}" y="46" text-anchor="middle" style="opacity:.7">(붓기가 든다, 초록)</text>`);
+ out.push(`<text class="lbl" x="${C}" y="${CY+R+68}" text-anchor="middle">맺음 세 칸(실란사)의 획이 깊다 — 끌을 깊이 박은 자리</text>`);
+ document.getElementById('lamp').innerHTML=out.join('');
+})();
+
+// ---------- ⅩⅣ 종 둘레 진: 큰 물건, 긴 문장 (§8-8-1) ----------
+(function(){
+ const out=[];
+ const bellPath='M 210,120 Q 210,58 310,58 Q 410,58 410,120 L 410,330 Q 410,368 448,392 L 172,392 Q 210,368 210,330 Z';
+ // 종 몸통
+ out.push(`<defs><clipPath id="bellclip"><path d="${bellPath}"/></clipPath></defs>`);
+ out.push(`<path d="${bellPath}" style="fill:#efe7d2;stroke:#2e2a22;stroke-width:4"/>`);
+ out.push(`<circle cx="310" cy="46" r="15" style="fill:none;stroke:#2e2a22;stroke-width:4"/>`); // 매다는 고리
+ out.push(`<line x1="310" y1="392" x2="310" y2="428" style="stroke:#8a7a5c;stroke-width:3"/><circle cx="310" cy="438" r="10" style="fill:#8a7a5c;stroke:none"/>`); // 추
+ // 둘레 띠(허리): 열세 자리 가운데 앞면에 보이는 것만 — 나머지는 클립으로 잘림
+ // 문장: 에 | 잔 | 틈 | 케 마이 | 틈 | 수린 | 틈 | 잔타(깊은 획) | 틈
+ const BELL=[
+  {m:[null,'에',null]},{m:['자','아','나']},{gap:1},
+  {m:['카','에',null]},{m:['마','아이',null]},{gap:1},
+  {m:['사','우',null]},{m:['라','이','나']},{gap:1},
+  {m:['자','아','나'],deep:1},{m:['타','아',null],deep:1},{gap:1}
+ ];
+ const bs=44, pitch=50, x0=196, by=226;
+ out.push(`<g clip-path="url(#bellclip)">`);
+ out.push(`<line x1="210" y1="${by-8}" x2="410" y2="${by-8}" style="stroke:#d8cdb0;stroke-width:2"/><line x1="210" y1="${by+bs+8}" x2="410" y2="${by+bs+8}" style="stroke:#d8cdb0;stroke-width:2"/>`);
+ BELL.forEach((e,i)=>{
+   const x=x0+i*pitch;
+   if(e.gap){ out.push(`<rect x="${x+bs/2-7}" y="${by+bs/2-7}" width="14" height="14" style="stroke:#2e2a22;stroke-width:3;fill:#f2ecdf"/>`); return;}
+   out.push(block(e.m,x,by,bs,e.deep?'deep':''));
+ });
+ out.push(`</g>`);
+ // 띠가 뒤로 도는 것: 양옆 점선 화살
+ out.push(`<path class="guide" d="M 414,${by+bs/2} q 34,-8 52,-26" style="stroke:#8a7a5c"/><path d="M 462,182 l 12,-6 -4,13 z" style="fill:#8a7a5c;stroke:none"/>`);
+ out.push(`<path class="guide" d="M 206,${by+bs/2} q -34,-8 -52,-26" style="stroke:#8a7a5c"/>`);
+ // 종지기의 붓기(초록): 「에」 칸으로 드는 화살
+ out.push(`<path class="flow" d="M 120,330 Q 160,300 ${x0+bs/2-4},${by+bs+16}"/>`);
+ out.push(`<g transform="translate(${x0+bs/2},${by+bs+10}) rotate(-62)"><path class="flowDot" d="M -6 -5 L 8 0 L -6 5 Z"/></g>`);
+ out.push(`<text class="lbl" x="96" y="352" text-anchor="middle">종지기의 손 —</text>`);
+ out.push(`<text class="lbl" x="96" y="368" text-anchor="middle">붓는 자리(부름 칸)</text>`);
+ // 위에서 본 한 바퀴 (구석 작은 그림)
+ const mc=546, my=96, mr=52, n=BELL.length;
+ out.push(`<circle cx="${mc}" cy="${my}" r="${mr}" style="fill:none;stroke:#d8cdb0;stroke-width:2"/>`);
+ BELL.forEach((e,i)=>{
+   const a=(i*360/n-90)*Math.PI/180;
+   const px=mc+mr*Math.cos(a), py=my+mr*Math.sin(a);
+   if(e.gap){ out.push(`<circle cx="${px}" cy="${py}" r="3" style="fill:#f2ecdf;stroke:#2e2a22;stroke-width:2"/>`); return;}
+   out.push(`<g transform="translate(${px},${py}) rotate(${i*360/n})"><rect x="-5" y="-7" width="10" height="14" style="fill:${e.deep?'#2e2a22':'#b9ab88'};stroke:none"/></g>`);
+ });
+ out.push(`<g transform="translate(${mc+mr},${my}) rotate(90)"><path class="flowDot" d="M -5 -4 L 7 0 L -5 4 Z"/></g>`);
+ out.push(`<text class="lbl" x="${mc}" y="${my+mr+20}" text-anchor="middle">위에서 본 한 바퀴</text>`);
+ out.push(`<text class="lbl" x="310" y="470" text-anchor="middle">앞면에 보이는 것은 열셋 자리 중 넷 — 나머지는 종 뒤로 돌아 첫 칸에 물린다</text>`);
+ out.push(`<text class="lbl" x="310" y="490" text-anchor="middle" style="opacity:.7">맺음 두 칸(잔타)의 획이 깊다 · 띠 사이 네모가 틈(숨자리)</text>`);
+ document.getElementById('bell').innerHTML=out.join('');
+})();
+</script>
+</body>
+</html>

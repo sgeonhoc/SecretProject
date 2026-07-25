@@ -1,0 +1,76 @@
+{
+ "source_dir": "C:\\Secret_Project\\_tripo\\our_chars\\test7_tex_color",
+ "canvas": [
+  3112,
+  3112
+ ],
+ "pad": 8,
+ "bg": [
+  190,
+  190,
+  190
+ ],
+ "cell": 1024,
+ "parts": [
+  {
+   "name": "T__04.png",
+   "x": 8,
+   "y": 8,
+   "w": 1024,
+   "h": 1024,
+   "orig_w": 1024,
+   "orig_h": 1024,
+   "alpha": true
+  },
+  {
+   "name": "T__10.png",
+   "x": 1040,
+   "y": 8,
+   "w": 1024,
+   "h": 1024,
+   "orig_w": 2048,
+   "orig_h": 2048,
+   "alpha": true
+  },
+  {
+   "name": "T__12.png",
+   "x": 2072,
+   "y": 8,
+   "w": 1024,
+   "h": 1024,
+   "orig_w": 1024,
+   "orig_h": 1024,
+   "alpha": true
+  },
+  {
+   "name": "T__13.png",
+   "x": 8,
+   "y": 1040,
+   "w": 1024,
+   "h": 1024,
+   "orig_w": 2048,
+   "orig_h": 2048,
+   "alpha": true
+  },
+  {
+   "name": "T__17.png",
+   "x": 1040,
+   "y": 1040,
+   "w": 1024,
+   "h": 1024,
+   "orig_w": 2048,
+   "orig_h": 2048,
+   "alpha": true
+  },
+  {
+   "name": "T__02.png",
+   "x": 2072,
+   "y": 1040,
+   "w": 1024,
+   "h": 512,
+   "orig_w": 1024,
+   "orig_h": 512,
+   "alpha": true
+  }
+ ]
+}

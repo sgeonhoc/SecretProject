@@ -1,0 +1,46 @@
+harness 시작 (warmup -> import -> apply -> place -> quit)
+warmup done
+test7_2.vrm 임포트 시작 (확장자 자동탐지, 메인루프 가동중)...
+  imported_object_paths: []
+  scan #1 SK 후보: []
+  scan #2 SK 후보: []
+  scan #3 SK 후보: []
+  scan #4 SK 후보: []
+  scan #5 SK 후보: []
+  scan #6 SK 후보: []
+  scan #7 SK 후보: []
+  scan #8 SK 후보: []
+  scan #9 SK 후보: []
+  scan #10 SK 후보: []
+  scan #11 SK 후보: []
+  scan #12 SK 후보: []
+  scan #13 SK 후보: []
+  scan #14 SK 후보: []
+  scan #15 SK 후보: []
+  scan #16 SK 후보: []
+  scan #17 SK 후보: []
+  scan #18 SK 후보: []
+  scan #19 SK 후보: []
+  scan #20 SK 후보: []
+!! test7_2 SK 못 찾음 — 임포트 실패. test7만 진행.
+[test7] slot count: 15
+  [0] N00_000_00_FaceMouth_00_FACE (Instance)    skip(원본유지)
+  [1] N00_000_00_EyeIris_00_EYE (Instance)       skip(원본유지)
+  [2] N00_000_00_EyeHighlight_00_EYE (Instance)  skip(원본유지)
+  [3] N00_000_00_Face_00_SKIN (Instance)         -> MI_Cici_03_N0000000Face00SKINInstan (MI_Kawa_Face, diff=T__04)
+  [4] N00_000_00_EyeWhite_00_EYE (Instance)      skip(원본유지)
+  [5] N00_000_00_FaceBrow_00_FACE (Instance)     skip(원본유지)
+  [6] N00_000_00_FaceEyeline_00_FACE (Instance)  skip(원본유지)
+  [7] N00_000_00_Body_00_SKIN (Instance)         -> MI_Cici_07_N0000000Body00SKINInstan (MI_Kawa_Body, diff=T__10)
+  [8] N00_000_00_HairBack_00_HAIR (Instance)     -> MI_Cici_08_N0000000HairBack00HAIRIn (MI_Kawa_Hair, diff=T__12)
+  [9] N00_002_03_Tops_01_CLOTH (Instance)        -> MI_Cici_09_N0000203Tops01CLOTHInsta (MI_Kawa_Cloth, diff=T__13)
+  [10] N00_003_01_Shoes_01_CLOTH (Instance)       -> MI_Cici_10_N0000301Shoes01CLOTHInst (MI_Kawa_Cloth, diff=T__14)
+  [11] N00_002_01_Shoes_01_CLOTH (Instance)       -> MI_Cici_11_N0000201Shoes01CLOTHInst (MI_Kawa_Cloth, diff=T__15)
+  [12] N00_001_01_Bottoms_01_CLOTH (Instance)     -> MI_Cici_12_N0000101Bottoms01CLOTHIn (MI_Kawa_Cloth, diff=T__16)
+  [13] N00_002_01_Tops_01_CLOTH (Instance)        -> MI_Cici_13_N0000201Tops01CLOTHInsta (MI_Kawa_Cloth, diff=T__17)
+  [14] N00_000_Hair_00_HAIR (Instance)            -> MI_Cici_14_N00000Hair00HAIRInstance (MI_Kawa_Hair, diff=T__18)
+PlayerStart loc=<Struct 'Vector' (0x000001F8EEE4B080) {x: 0.000000, y: 0.000000, z: 130.000000}> yaw=0.0
+배치 CICI_test7 @ <Struct 'Vector' (0x000001F8EEE61640) {x: 450.000000, y: -120.000000, z: 130.000000}> (overrides=9)
+!! CICI_test7_2: SK 없음, 스킵
+TestBattle 저장됨
+=== DONE ===

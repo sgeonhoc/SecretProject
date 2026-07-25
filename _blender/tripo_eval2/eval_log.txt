@@ -1,0 +1,7 @@
+GLB imported
+center=<Vector (0.0000, 0.0000, 0.0000)> dims=<Vector (0.4785, 0.9980, 0.7637)>
+engine=BLENDER_EEVEE
+rendered glb_+Y
+rendered glb_-Y
+rendered glb_+X
+rendered glb_-X

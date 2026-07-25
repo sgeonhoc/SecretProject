@@ -1,0 +1,292 @@
+{
+ "SM_Rasel_Wall_Plain": [
+  "/Game/Rasel/Materials/M_Rasel_Plaster"
+ ],
+ "SM_Rasel_Wall_Win": [
+  "/Game/Rasel/Materials/M_Rasel_Plaster"
+ ],
+ "SM_Rasel_Wall_Win2": [
+  "/Game/Rasel/Materials/M_Rasel_Plaster"
+ ],
+ "SM_Rasel_Wall_Door": [
+  "/Game/Rasel/Materials/M_Rasel_Plaster"
+ ],
+ "SM_Rasel_Wall_DoorWin": [
+  "/Game/Rasel/Materials/M_Rasel_Plaster"
+ ],
+ "SM_Rasel_Wall_Shop": [
+  "/Game/Rasel/Materials/M_Rasel_Plaster"
+ ],
+ "SM_Rasel_Win_Unit": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Stone",
+  "/Game/Rasel/Materials/M_Rasel_Glass"
+ ],
+ "SM_Rasel_Win_Unit_Lit": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Stone",
+  "/Game/Rasel/Materials/M_Rasel_WinLight"
+ ],
+ "SM_Rasel_Win_Small": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Stone",
+  "/Game/Rasel/Materials/M_Rasel_Glass"
+ ],
+ "SM_Rasel_Win_Tall": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Stone",
+  "/Game/Rasel/Materials/M_Rasel_Glass"
+ ],
+ "SM_Rasel_Door_Unit": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Stone"
+ ],
+ "SM_Rasel_Shop_Unit": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Dark"
+ ],
+ "SM_Rasel_Plinth": [
+  "/Game/Rasel/Materials/M_Rasel_Stone"
+ ],
+ "SM_Rasel_StringCourse": [
+  "/Game/Rasel/Materials/M_Rasel_Wood"
+ ],
+ "SM_Rasel_WallRail": [
+  "/Game/Rasel/Materials/M_Rasel_Wood"
+ ],
+ "SM_Rasel_Eave": [
+  "/Game/Rasel/Materials/M_Rasel_Roof",
+  "/Game/Rasel/Materials/M_Rasel_Wood"
+ ],
+ "SM_Rasel_Shutter": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_ShopSign": [
+  "/Game/Rasel/Materials/M_Rasel_Iron",
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Paper"
+ ],
+ "SM_Rasel_Downpipe": [
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_Laundry": [
+  "/Game/Rasel/Materials/M_Rasel_Iron",
+  "/Game/Rasel/Materials/M_Rasel_ClothA",
+  "/Game/Rasel/Materials/M_Rasel_ClothB"
+ ],
+ "SM_Rasel_Chimney": [
+  "/Game/Rasel/Materials/M_Rasel_OldStone",
+  "/Game/Rasel/Materials/M_Rasel_Roof"
+ ],
+ "SM_Rasel_Pot": [
+  "/Game/Rasel/Materials/M_Rasel_OldStone",
+  "/Game/Rasel/Materials/M_Rasel_Dark"
+ ],
+ "SM_Rasel_Poles": [
+  "/Game/Rasel/Materials/M_Rasel_Wood"
+ ],
+ "SM_Rasel_Stall_A": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_ClothA",
+  "/Game/Rasel/Materials/M_Rasel_Dark"
+ ],
+ "SM_Rasel_Stall_B": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_ClothB",
+  "/Game/Rasel/Materials/M_Rasel_Dark"
+ ],
+ "SM_Rasel_Lantern": [
+  "/Game/Rasel/Materials/M_Rasel_Stone",
+  "/Game/Rasel/Materials/M_Rasel_Iron",
+  "/Game/Rasel/Materials/M_Rasel_Lantern"
+ ],
+ "SM_Rasel_Well": [
+  "/Game/Rasel/Materials/M_Rasel_Stone",
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Dark"
+ ],
+ "SM_Rasel_Crate": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_Barrel": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_Sack": [
+  "/Game/Rasel/Materials/M_Rasel_ClothA",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_Basket": [
+  "/Game/Rasel/Materials/M_Rasel_Wood"
+ ],
+ "SM_Rasel_RopeCoil": [
+  "/Game/Rasel/Materials/M_Rasel_Wood"
+ ],
+ "SM_Rasel_Bucket": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_Stool": [
+  "/Game/Rasel/Materials/M_Rasel_Wood"
+ ],
+ "SM_Rasel_Handcart": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_Bench": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Stone"
+ ],
+ "SM_Rasel_NoticeBoard": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Paper"
+ ],
+ "SM_Rasel_Banner": [
+  "/Game/Rasel/Materials/M_Rasel_ClothB",
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_RoadTile": [
+  "/Game/Rasel/Materials/M_Rasel_Cobble"
+ ],
+ "SM_Rasel_RoadPatch": [
+  "/Game/Rasel/Materials/M_Rasel_OldStone"
+ ],
+ "SM_Rasel_Gutter": [
+  "/Game/Rasel/Materials/M_Rasel_Stone",
+  "/Game/Rasel/Materials/M_Rasel_Dark"
+ ],
+ "SM_Rasel_AlleyWall": [
+  "/Game/Rasel/Materials/M_Rasel_Plaster",
+  "/Game/Rasel/Materials/M_Rasel_OldStone"
+ ],
+ "SM_Rasel_RuneLine": [
+  "/Game/Rasel/Materials/M_Rasel_Rune"
+ ],
+ "SM_Rasel_RuneLine_Faint": [
+  "/Game/Rasel/Materials/M_Rasel_RuneFaint"
+ ],
+ "SM_Rasel_RuneRing": [
+  "/Game/Rasel/Materials/M_Rasel_Rune"
+ ],
+ "SM_Rasel_RuneNode": [
+  "/Game/Rasel/Materials/M_Rasel_Rune"
+ ],
+ "SM_Rasel_Puddle_S": [
+  "/Game/Rasel/Materials/M_Rasel_Puddle",
+  "/Game/Rasel/Materials/M_Rasel_WetStone"
+ ],
+ "SM_Rasel_Puddle_M": [
+  "/Game/Rasel/Materials/M_Rasel_Puddle",
+  "/Game/Rasel/Materials/M_Rasel_WetStone"
+ ],
+ "SM_Rasel_Puddle_L": [
+  "/Game/Rasel/Materials/M_Rasel_Puddle",
+  "/Game/Rasel/Materials/M_Rasel_WetStone"
+ ],
+ "SM_Rasel_Awning_A": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_ClothA",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_Awning_B": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_ClothB",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_HangLantern": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Lantern",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_WheelRuts": [
+  "/Game/Rasel/Materials/M_Rasel_WetStone"
+ ],
+ "SM_Rasel_RoomFloor": [
+  "/Game/Rasel/Materials/M_Rasel_Wood"
+ ],
+ "SM_Rasel_Ceiling": [
+  "/Game/Rasel/Materials/M_Rasel_Plaster",
+  "/Game/Rasel/Materials/M_Rasel_Wood"
+ ],
+ "SM_Rasel_DisplayCase": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Glass",
+  "/Game/Rasel/Materials/M_Rasel_Stone"
+ ],
+ "SM_Rasel_Desk": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Dark"
+ ],
+ "SM_Rasel_Drawer": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Dark",
+  "/Game/Rasel/Materials/M_Rasel_Paper"
+ ],
+ "SM_Rasel_ObitBoard": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Paper",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_Chair": [
+  "/Game/Rasel/Materials/M_Rasel_Wood"
+ ],
+ "SM_Rasel_PaperStack": [
+  "/Game/Rasel/Materials/M_Rasel_Paper"
+ ],
+ "SM_Rasel_AppraisalDesk": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Felt",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_FloorTorn": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Dark"
+ ],
+ "SM_Rasel_BurnPatch": [
+  "/Game/Rasel/Materials/M_Rasel_Ash"
+ ],
+ "SM_Rasel_ChestBurnt": [
+  "/Game/Rasel/Materials/M_Rasel_Ash",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_Curtain": [
+  "/Game/Rasel/Materials/M_Rasel_ClothB",
+  "/Game/Rasel/Materials/M_Rasel_Wood"
+ ],
+ "SM_Rasel_Counter": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Stone"
+ ],
+ "SM_Rasel_Hearth": [
+  "/Game/Rasel/Materials/M_Rasel_Stone",
+  "/Game/Rasel/Materials/M_Rasel_Lantern",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_Table": [
+  "/Game/Rasel/Materials/M_Rasel_Wood"
+ ],
+ "SM_Rasel_Partition": [
+  "/Game/Rasel/Materials/M_Rasel_Wood"
+ ],
+ "SM_Rasel_Shelf": [
+  "/Game/Rasel/Materials/M_Rasel_Wood",
+  "/Game/Rasel/Materials/M_Rasel_Iron"
+ ],
+ "SM_Rasel_Bowl": [
+  "/Game/Rasel/Materials/M_Rasel_Stone"
+ ],
+ "SM_Rasel_Manhole": [
+  "/Game/Rasel/Materials/M_Rasel_Dark",
+  "/Game/Rasel/Materials/M_Rasel_Iron",
+  "/Game/Rasel/Materials/M_Rasel_Wood"
+ ],
+ "SM_Rasel_AlleyFloor": [
+  "/Game/Rasel/Materials/M_Rasel_Stone"
+ ],
+ "SM_Rasel_Steps": [
+  "/Game/Rasel/Materials/M_Rasel_Stone"
+ ]
+}

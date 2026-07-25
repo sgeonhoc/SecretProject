@@ -1,0 +1,106 @@
+================ CITOON SCENE DUMP ================
+
+[1] MATERIALS
+  M_CiToon_Default: shading_model=<MaterialShadingModel.MSM_UNLIT: 0> blend_mode=<BlendMode.BLEND_OPAQUE: 0> two_sided=False
+  M_Outline: shading_model=<MaterialShadingModel.MSM_UNLIT: 0> blend_mode=<BlendMode.BLEND_MASKED: 1> two_sided=True
+
+[2] CharacterExposure PP 자산
+  /Game/OUTLINE/M_CharacterExposure_PP exists=True
+  /Game/OUTLINE/M_CharacterExposure_PP_Inst exists=True
+  /Game/OUTLINE/M_CharacterExposure_PP_Inst2 exists=True
+  /Game/M_CharacterExposure_PP_Inst exists=True
+
+[3] LOAD Showcase
+  loaded (LevelEditorSubsystem)
+
+[4] ACTORS
+  actor count = 2903
+  [SkyAtmosphere] AtmosphericFog
+  [DirLight] Light Source intensity=15.0 cast_dyn=False contact_len=0.0
+  [SkyLight] SkyLight intensity=2.0 real_time_capture=False lower_hemi_black=True
+  [PPV] PostProcessVolumeMAIN unbound=True priority=0.0 enabled=False
+      [PostProcessVolumeMAIN] override_auto_exposure_method = True
+      [PostProcessVolumeMAIN] auto_exposure_method = <AutoExposureMethod.AEM_HISTOGRAM: 0>
+      [PostProcessVolumeMAIN] override_auto_exposure_bias = True
+      [PostProcessVolumeMAIN] auto_exposure_bias = 1.9809520244598389
+      [PostProcessVolumeMAIN] override_auto_exposure_min_brightness = True
+      [PostProcessVolumeMAIN] auto_exposure_min_brightness = 0.699999988079071
+      [PostProcessVolumeMAIN] override_auto_exposure_max_brightness = True
+      [PostProcessVolumeMAIN] auto_exposure_max_brightness = 1.2999999523162842
+      [PostProcessVolumeMAIN] override_auto_exposure_apply_physical_camera_exposure = False
+  [HeightFog] ExponentialHeightFog
+  [PPV] PostProcessVolume2 unbound=False priority=1.0 enabled=False
+      [PostProcessVolume2] override_auto_exposure_method = False
+      [PostProcessVolume2] auto_exposure_method = <AutoExposureMethod.AEM_HISTOGRAM: 0>
+      [PostProcessVolume2] override_auto_exposure_bias = False
+      [PostProcessVolume2] auto_exposure_bias = 1.0
+      [PostProcessVolume2] override_auto_exposure_min_brightness = False
+      [PostProcessVolume2] auto_exposure_min_brightness = 0.029999999329447746
+      [PostProcessVolume2] override_auto_exposure_max_brightness = False
+      [PostProcessVolume2] auto_exposure_max_brightness = 8.0
+      [PostProcessVolume2] override_auto_exposure_apply_physical_camera_exposure = False
+  [PPV] PostProcessVolume3 unbound=False priority=1.0 enabled=False
+      [PostProcessVolume3] override_auto_exposure_method = False
+      [PostProcessVolume3] auto_exposure_method = <AutoExposureMethod.AEM_HISTOGRAM: 0>
+      [PostProcessVolume3] override_auto_exposure_bias = False
+      [PostProcessVolume3] auto_exposure_bias = 1.0
+      [PostProcessVolume3] override_auto_exposure_min_brightness = False
+      [PostProcessVolume3] auto_exposure_min_brightness = 0.029999999329447746
+      [PostProcessVolume3] override_auto_exposure_max_brightness = False
+      [PostProcessVolume3] auto_exposure_max_brightness = 8.0
+      [PostProcessVolume3] override_auto_exposure_apply_physical_camera_exposure = False
+  [PPV] PostProcessVolume4 unbound=False priority=1.0 enabled=False
+      [PostProcessVolume4] override_auto_exposure_method = False
+      [PostProcessVolume4] auto_exposure_method = <AutoExposureMethod.AEM_HISTOGRAM: 0>
+      [PostProcessVolume4] override_auto_exposure_bias = False
+      [PostProcessVolume4] auto_exposure_bias = 1.0
+      [PostProcessVolume4] override_auto_exposure_min_brightness = False
+      [PostProcessVolume4] auto_exposure_min_brightness = 0.029999999329447746
+      [PostProcessVolume4] override_auto_exposure_max_brightness = False
+      [PostProcessVolume4] auto_exposure_max_brightness = 8.0
+      [PostProcessVolume4] override_auto_exposure_apply_physical_camera_exposure = False
+  [PPV] PostProcessVolume_MAIN unbound=False priority=0.0 enabled=True
+      [PostProcessVolume_MAIN] override_auto_exposure_method = True
+      [PostProcessVolume_MAIN] auto_exposure_method = <AutoExposureMethod.AEM_MANUAL: 2>
+      [PostProcessVolume_MAIN] override_auto_exposure_bias = True
+      [PostProcessVolume_MAIN] auto_exposure_bias = 8.760000228881836
+      [PostProcessVolume_MAIN] override_auto_exposure_min_brightness = False
+      [PostProcessVolume_MAIN] auto_exposure_min_brightness = 0.029999999329447746
+      [PostProcessVolume_MAIN] override_auto_exposure_max_brightness = False
+      [PostProcessVolume_MAIN] auto_exposure_max_brightness = 8.0
+      [PostProcessVolume_MAIN] override_auto_exposure_apply_physical_camera_exposure = False
+  [PPV] PostProcessVolume_BASESCENE unbound=False priority=0.0 enabled=True
+      [PostProcessVolume_BASESCENE] override_auto_exposure_method = False
+      [PostProcessVolume_BASESCENE] auto_exposure_method = <AutoExposureMethod.AEM_HISTOGRAM: 0>
+      [PostProcessVolume_BASESCENE] override_auto_exposure_bias = False
+      [PostProcessVolume_BASESCENE] auto_exposure_bias = 1.0
+      [PostProcessVolume_BASESCENE] override_auto_exposure_min_brightness = False
+      [PostProcessVolume_BASESCENE] auto_exposure_min_brightness = 0.029999999329447746
+      [PostProcessVolume_BASESCENE] override_auto_exposure_max_brightness = False
+      [PostProcessVolume_BASESCENE] auto_exposure_max_brightness = 8.0
+      [PostProcessVolume_BASESCENE] override_auto_exposure_apply_physical_camera_exposure = False
+  [PPV] PostProcesssVolume_Practice unbound=False priority=0.0 enabled=True
+      [PostProcesssVolume_Practice] override_auto_exposure_method = True
+      [PostProcesssVolume_Practice] auto_exposure_method = <AutoExposureMethod.AEM_MANUAL: 2>
+      [PostProcesssVolume_Practice] override_auto_exposure_bias = True
+      [PostProcesssVolume_Practice] auto_exposure_bias = 1.0
+      [PostProcesssVolume_Practice] override_auto_exposure_min_brightness = False
+      [PostProcesssVolume_Practice] auto_exposure_min_brightness = 0.029999999329447746
+      [PostProcesssVolume_Practice] override_auto_exposure_max_brightness = False
+      [PostProcesssVolume_Practice] auto_exposure_max_brightness = 8.0
+      [PostProcesssVolume_Practice] override_auto_exposure_apply_physical_camera_exposure = False
+  [PPV] PostProcessVolume_asianvillageshader unbound=True priority=0.0 enabled=True
+      [PostProcessVolume_asianvillageshader] override_auto_exposure_method = False
+      [PostProcessVolume_asianvillageshader] auto_exposure_method = <AutoExposureMethod.AEM_HISTOGRAM: 0>
+      [PostProcessVolume_asianvillageshader] override_auto_exposure_bias = True
+      [PostProcessVolume_asianvillageshader] auto_exposure_bias = 0.0
+      [PostProcessVolume_asianvillageshader] override_auto_exposure_min_brightness = True
+      [PostProcessVolume_asianvillageshader] auto_exposure_min_brightness = 0.5
+      [PostProcessVolume_asianvillageshader] override_auto_exposure_max_brightness = True
+      [PostProcessVolume_asianvillageshader] auto_exposure_max_brightness = 0.6000000238418579
+      [PostProcessVolume_asianvillageshader] override_auto_exposure_apply_physical_camera_exposure = False
+  [VRM] SK_VRM cast_shadow=False affect_indirect=True affect_df=True
+  [VRM] BP_PlayerCharacter cast_shadow=False affect_indirect=True affect_df=True
+  [VRM] BP_PlayerCharacter2 cast_shadow=False affect_indirect=True affect_df=True
+
+================ DONE ================

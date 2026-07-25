@@ -1,0 +1,116 @@
+[
+ {
+  "index": 0,
+  "slot": "Eye_Sp_M",
+  "material": "MI_Kawa_Morth1",
+  "tex": "tex_00_EyeSpM.png"
+ },
+ {
+  "index": 1,
+  "slot": "OutLine",
+  "material": "MI_Kawa_Outline",
+  "tex": "tex_01_OutLine.png"
+ },
+ {
+  "index": 2,
+  "slot": "Hair",
+  "material": "MI_Kawa_Hair",
+  "tex": "tex_02_Hair.png"
+ },
+ {
+  "index": 3,
+  "slot": "Cloth_Bag",
+  "material": "MI_Kawa_Cloth",
+  "tex": "tex_03_ClothBag.png"
+ },
+ {
+  "index": 4,
+  "slot": "Cloth_Add_01_M",
+  "material": "MI_Mask",
+  "tex": ""
+ },
+ {
+  "index": 5,
+  "slot": "Cloth_Add_02_M",
+  "material": "MI_Mask",
+  "tex": ""
+ },
+ {
+  "index": 6,
+  "slot": "EyeGlass_Lens_M",
+  "material": "MI_Mask",
+  "tex": ""
+ },
+ {
+  "index": 7,
+  "slot": "Cloth_M",
+  "material": "MI_Kawa_Cloth",
+  "tex": "tex_07_ClothM.png"
+ },
+ {
+  "index": 8,
+  "slot": "Head_M",
+  "material": "MI_Kawa_Face",
+  "tex": "tex_08_HeadM.png"
+ },
+ {
+  "index": 9,
+  "slot": "Face_Eye_Mask_M",
+  "material": "MI_Kawa_EyeBrow",
+  "tex": "tex_09_FaceEyeMaskM.png"
+ },
+ {
+  "index": 10,
+  "slot": "Face_Eyebrow_Mask_M",
+  "material": "MI_Kawa_Brow",
+  "tex": "tex_10_FaceEyebrowMaskM.png"
+ },
+ {
+  "index": 11,
+  "slot": "Face_Iris_Mask_M",
+  "material": "MI_Kawa_Morth",
+  "tex": "tex_11_FaceIrisMaskM.png"
+ },
+ {
+  "index": 12,
+  "slot": "Face_Iris_Out_M",
+  "material": "MI_Kawa_EyeShadow",
+  "tex": "tex_12_FaceIrisOutM.png"
+ },
+ {
+  "index": 13,
+  "slot": "Eff_Eye_M",
+  "material": "MI_Kawa_Morth2",
+  "tex": "tex_13_EffEyeM.png"
+ },
+ {
+  "index": 14,
+  "slot": "Eff_Cheek_M",
+  "material": "MI_Kawa_EyeShadow",
+  "tex": "tex_14_EffCheekM.png"
+ },
+ {
+  "index": 15,
+  "slot": "Eff_Forehead_M",
+  "material": "MI_Kawa_Morth2",
+  "tex": "tex_15_EffForeheadM.png"
+ },
+ {
+  "index": 16,
+  "slot": "Face_Eye_White",
+  "material": "MI_Kawa_Morth",
+  "tex": "tex_16_FaceEyeWhite.png"
+ },
+ {
+  "index": 17,
+  "slot": "Hair_Shadow",
+  "material": "MI_Kawa_HairShadow",
+  "tex": "tex_17_HairShadow.png"
+ },
+ {
+  "index": 18,
+  "slot": "Body_M",
+  "material": "MI_Kawa_Body",
+  "tex": "tex_18_BodyM.png"
+ }
+]

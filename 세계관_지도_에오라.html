@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>에오라 대륙 — 시대별 지도</title>
+<style>
+  body { background:#2b2620; color:#e8dcc0; font-family:'Malgun Gothic',sans-serif; margin:0; padding:24px; }
+  h1 { font-size:22px; color:#f2e8d5; }
+  h2 { font-size:17px; margin:36px 0 6px; color:#f2e8d5; border-bottom:1px solid #6b5f4d; padding-bottom:4px;}
+  p.note { font-size:13px; color:#bdaf95; margin:4px 0 10px; max-width:900px; line-height:1.6;}
+  svg { background:#8fb0c4; border:2px solid #6b5f4d; border-radius:6px; display:block; }
+  .cap { font-size:12px; color:#9c8f78; margin-top:4px;}
+</style>
+</head>
+<body>
+<h1>에오라 대륙 — 시대별 지도</h1>
+<p class="note">큰 변화가 있을 때마다 새 지도를 이 파일 아래에 추가한다. (세계력 W = 작업용 좌표, 첫 인간들 = W.0)</p>
+
+<!-- 공용 지형 정의 -->
+<svg width="0" height="0" style="position:absolute">
+<defs>
+<g id="terrain">
+  <!-- 바다 -->
+  <rect x="0" y="0" width="900" height="700" fill="#8fb0c4"/>
+  <!-- 땅 -->
+  <path d="M 200,0 L 900,0 L 900,700 L 520,700
+           C 480,662 452,655 430,640
+           C 378,630 330,610 300,570
+           C 240,520 262,470 210,430
+           C 160,390 192,330 172,280
+           C 152,230 192,150 182,90
+           C 176,50 190,20 200,0 Z"
+        fill="#e6d9ba" stroke="#b3a586" stroke-width="3"/>
+  <!-- 얕은 물 테두리 -->
+  <path d="M 430,640 C 378,630 330,610 300,570 C 240,520 262,470 210,430 C 160,390 192,330 172,280 C 152,230 192,150 182,90"
+        fill="none" stroke="#c9dbe4" stroke-width="7" opacity="0.5"/>
+  <!-- 북부 초원 -->
+  <path d="M 220,25 C 400,55 700,45 890,30 L 890,175 C 650,205 420,210 235,165 Z"
+        fill="#d9d3a0" opacity="0.75"/>
+  <!-- 동부 산악(잿빛 고지) -->
+  <g stroke="#8d8579" stroke-width="3" fill="#b9b2a3">
+    <path d="M 740,215 l 26,-40 l 26,40 z"/><path d="M 786,250 l 24,-38 l 24,38 z"/>
+    <path d="M 748,292 l 25,-40 l 25,40 z"/><path d="M 800,330 l 23,-36 l 23,36 z"/>
+    <path d="M 756,370 l 24,-38 l 24,38 z"/><path d="M 812,405 l 21,-33 l 21,33 z"/>
+    <path d="M 770,440 l 22,-34 l 22,34 z"/>
+  </g>
+  <!-- 어스름 숲 -->
+  <g fill="#6f8f68">
+    <circle cx="552" cy="238" r="11"/><circle cx="580" cy="222" r="13"/><circle cx="612" cy="240" r="12"/>
+    <circle cx="644" cy="228" r="11"/><circle cx="566" cy="268" r="12"/><circle cx="600" cy="276" r="13"/>
+    <circle cx="636" cy="266" r="11"/><circle cx="668" cy="252" r="10"/><circle cx="586" cy="306" r="11"/>
+    <circle cx="622" cy="308" r="12"/><circle cx="656" cy="296" r="10"/><circle cx="540" cy="300" r="9"/>
+  </g>
+  <!-- 남동 재의 사막 -->
+  <path d="M 640,505 C 720,490 820,500 890,515 L 890,690 L 560,690 C 585,625 610,560 640,505 Z"
+        fill="#dcc596" opacity="0.85"/>
+  <g fill="#b49b6d">
+    <circle cx="690" cy="560" r="2.5"/><circle cx="730" cy="590" r="2.5"/><circle cx="775" cy="555" r="2.5"/>
+    <circle cx="820" cy="600" r="2.5"/><circle cx="700" cy="630" r="2.5"/><circle cx="760" cy="645" r="2.5"/>
+    <circle cx="835" cy="650" r="2.5"/><circle cx="852" cy="565" r="2.5"/><circle cx="660" cy="600" r="2.5"/>
+  </g>
+  <!-- 케라 강 -->
+  <path d="M 742,150 C 662,222 602,242 562,300 C 522,360 500,420 472,480 C 452,530 446,580 432,636"
+        fill="none" stroke="#5f8aa6" stroke-width="6" stroke-linecap="round"/>
+  <!-- 지류(숲에서) -->
+  <path d="M 600,290 C 580,330 560,350 545,380 C 530,405 515,430 500,452"
+        fill="none" stroke="#5f8aa6" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- 남쪽 갈대 삼각주 -->
+  <g stroke="#7fae7f" stroke-width="3" stroke-linecap="round">
+    <path d="M 400,610 l 0,-16"/><path d="M 412,622 l 0,-18"/><path d="M 426,608 l 0,-16"/>
+    <path d="M 440,624 l 0,-18"/><path d="M 454,610 l 0,-16"/><path d="M 468,626 l 0,-16"/>
+    <path d="M 484,614 l 0,-15"/><path d="M 415,645 l 0,-14"/><path d="M 445,648 l 0,-15"/><path d="M 472,646 l 0,-13"/>
+  </g>
+  <!-- 사르보르(조개무지) -->
+  <g fill="#f0e6cf" stroke="#a89a7d" stroke-width="1">
+    <circle cx="205" cy="330" r="4"/><circle cx="196" cy="368" r="4"/><circle cx="214" cy="402" r="4"/>
+    <circle cx="200" cy="440" r="4"/><circle cx="222" cy="470" r="4"/>
+  </g>
+  <!-- 나침반 -->
+  <g transform="translate(846,72)">
+    <circle r="26" fill="#e6d9ba" stroke="#6b5f4d" stroke-width="2"/>
+    <path d="M 0,-20 L 5,0 L 0,20 L -5,0 Z" fill="#6b5f4d"/>
+    <text y="-30" text-anchor="middle" font-size="13" fill="#4a3b2a" font-weight="bold">北</text>
+  </g>
+</g>
+</defs>
+</svg>
+
+<!-- ══════════ 지도 1 ══════════ -->
+<h2>지도 1 — W.0 무렵 : 첫 사람들 (이름 없는 대륙)</h2>
+<p class="note">대륙에 인간은 남쪽 해안의 몇 백 명뿐. 말이 없으니 땅에도 이름이 없다 — 회색 글씨는 전부 "훗날 그렇게 불릴" 이름.</p>
+<svg viewBox="0 0 900 700" width="900" height="700">
+  <use href="#terrain"/>
+  <g font-size="14" fill="#8d8271" font-style="italic">
+    <text x="330" y="120">(이름 없음 — 훗날 하른 초원)</text>
+    <text x="560" y="200">(훗날 어스름 숲)</text>
+    <text x="700" y="470">(훗날 잿빛 고지)</text>
+    <text x="248" y="415">(훗날 사르보르)</text>
+    <text x="480" y="395">(훗날 케라 강)</text>
+    <text x="690" y="670" fill="#a08c67">(재의 사막)</text>
+    <text x="60" y="250" fill="#dfe9ee">무른 바다</text>
+  </g>
+  <!-- 첫 사람들 -->
+  <g>
+    <circle cx="470" cy="655" r="7" fill="#b5493a" stroke="#f2e8d5" stroke-width="2"/>
+    <circle cx="505" cy="668" r="5" fill="#b5493a" stroke="#f2e8d5" stroke-width="1.5"/>
+    <circle cx="440" cy="668" r="5" fill="#b5493a" stroke="#f2e8d5" stroke-width="1.5"/>
+    <text x="470" y="632" text-anchor="middle" font-size="15" fill="#7a2d22" font-weight="bold">첫 사람들 (몇 백 명)</text>
+  </g>
+  <text x="20" y="688" font-size="12" fill="#4a3b2a">인구: 수백 명 · 불 없음 · 말 없음 · 이름 없음</text>
+</svg>
+<p class="cap">붉은 점 = 인간 거주지. 이 시대의 전부다.</p>
+
+<!-- ══════════ 지도 2 ══════════ -->
+<h2>지도 2 — W.1,500 무렵 : 채움 — 대륙이 사람으로 차는 중</h2>
+<p class="note">말(~W.150)과 불(~W.180)은 첫 세대들에 이미 여물었다. 불어난 무리가 갈라져 해안과 강을 따라 걷는 중 — ~W.2,300이면 걸을 수 있는 땅 전부에 발자국이 닿는다. 땅이 이름을 얻는 중이다.</p>
+<svg viewBox="0 0 900 700" width="900" height="700">
+  <use href="#terrain"/>
+  <!-- 이동 화살표 -->
+  <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7a2d22"/></marker></defs>
+  <g stroke="#7a2d22" stroke-width="3" fill="none" stroke-dasharray="7 5" marker-end="url(#arr)" opacity="0.85">
+    <path d="M 450,640 C 430,560 460,510 480,465"/>
+    <path d="M 430,650 C 350,600 300,560 260,500"/>
+    <path d="M 500,650 C 560,600 610,560 650,520"/>
+    <path d="M 480,460 C 520,400 545,350 565,305"/>
+  </g>
+  <!-- 거주지 점 -->
+  <g fill="#b5493a" stroke="#f2e8d5" stroke-width="1.5">
+    <circle cx="455" cy="645" r="7"/><circle cx="420" cy="660" r="5"/><circle cx="500" cy="660" r="5"/>
+    <circle cx="470" cy="490" r="5"/><circle cx="255" cy="495" r="5"/><circle cx="230" cy="440" r="4"/>
+    <circle cx="640" cy="530" r="4"/><circle cx="560" cy="330" r="4"/>
+  </g>
+  <g font-size="14" fill="#4a3b2a">
+    <text x="360" y="690" font-weight="bold">갈대 삼각주 (가장 오랜 땅, 인구 최다)</text>
+    <text x="250" y="470">해안길 무리들</text>
+    <text x="500" y="440">강을 거슬러 오르는 무리들</text>
+    <text x="60" y="250" fill="#dfe9ee">무른 바다</text>
+    <text x="470" y="330" fill="#5f8aa6" font-weight="bold">케라 강 (첫 이름을 얻은 강)</text>
+    <text x="380" y="110" fill="#8d8271" font-style="italic">(아직 빈 초원)</text>
+    <text x="700" y="670" fill="#a08c67" font-style="italic">(아무도 안 간 사막)</text>
+  </g>
+  <text x="20" y="688" font-size="12" fill="#4a3b2a">인구: ~1만 · 말과 불은 이미 오래된 것 · 무리마다 "우리를 데려온 첫 사람" 이야기가 자라는 중</text>
+</svg>
+<p class="cap">점선 화살표 = 수천 년에 걸친 이동. 남쪽이 가장 오래 산 땅이라 인구도 이야기도 남쪽이 제일 두껍다.</p>
+
+<!-- ══════════ 지도 3 ══════════ -->
+<h2>지도 3 — W.9000 무렵 : 굳은 문화들의 시대 (루가·엔야·이샤의 세계)</h2>
+<p class="note">대륙이 다 찼다. 지리가 문화를 만들었다 — 이동하는 땅은 버리는 법을, 머무는 땅은 돌보는 법을 배웠다. 인구 약 35만.</p>
+<svg viewBox="0 0 900 700" width="900" height="700">
+  <use href="#terrain"/>
+  <!-- 뿔바람 무리 이동 경로 -->
+  <g stroke="#8a6d3b" stroke-width="2.5" fill="none" stroke-dasharray="4 4" opacity="0.9">
+    <ellipse cx="480" cy="105" rx="200" ry="48"/>
+  </g>
+  <!-- 봄 모임 -->
+  <path d="M 355,150 l 6,13 14,2 -10,10 2,14 -12,-7 -12,7 2,-14 -10,-10 14,-2 z" fill="#c9762e" stroke="#6b3d12" stroke-width="1.5"/>
+  <!-- 엔야의 이동 -->
+  <g stroke="#7a2d22" stroke-width="3" fill="none" stroke-dasharray="7 5" marker-end="url(#arr)">
+    <path d="M 370,170 C 430,220 490,240 540,265"/>
+  </g>
+  <!-- 무리 점: 밀도 표현 -->
+  <g fill="#b5493a" stroke="#f2e8d5" stroke-width="1">
+    <!-- 초원 (성김) -->
+    <circle cx="300" cy="90" r="3.5"/><circle cx="430" cy="70" r="3.5"/><circle cx="560" cy="95" r="3.5"/><circle cx="690" cy="80" r="3.5"/><circle cx="620" cy="140" r="3.5"/>
+    <!-- 케라 유역 (조밀) -->
+    <circle cx="520" cy="360" r="3.5"/><circle cx="498" cy="398" r="3.5"/><circle cx="540" cy="330" r="3.5"/>
+    <circle cx="478" cy="440" r="4.5" stroke-width="2"/><circle cx="452" cy="470" r="3.5"/><circle cx="505" cy="430" r="3.5"/>
+    <circle cx="468" cy="510" r="3.5"/><circle cx="440" cy="545" r="3.5"/>
+    <!-- 숲 (성김) -->
+    <circle cx="590" cy="255" r="3.5"/><circle cx="640" cy="290" r="3.5"/>
+    <!-- 고지 (극소) -->
+    <circle cx="790" cy="380" r="3.5"/>
+    <!-- 해안 -->
+    <circle cx="222" cy="350" r="3.5"/><circle cx="205" cy="410" r="3.5"/><circle cx="230" cy="460" r="3.5"/>
+    <!-- 삼각주 (최조밀) -->
+    <circle cx="420" cy="620" r="3.5"/><circle cx="450" cy="635" r="3.5"/><circle cx="478" cy="618" r="3.5"/>
+    <circle cx="435" cy="600" r="3.5"/><circle cx="465" cy="600" r="3.5"/><circle cx="495" cy="640" r="3.5"/>
+  </g>
+  <!-- 라벨 -->
+  <g font-size="15" fill="#4a3b2a" font-weight="bold">
+    <text x="330" y="55">하른 초원 — 유기 문화 · 이동 수렵</text>
+    <text x="545" y="200">어스름 숲 — 고립 · 괴담</text>
+    <text x="735" y="480">잿빛 고지 — 추방자의 땅</text>
+    <text x="120" y="300">사르보르</text>
+    <text x="330" y="690">갈대 삼각주 — 풍요 · 최초의 빈부</text>
+    <text x="300" y="430">케라 강 유역</text>
+  </g>
+  <g font-size="12.5" fill="#6b5138">
+    <text x="330" y="73">"걷지 못하는 자는 얼음에 남는다" → 약한 것은 능력이 있어도 걸러지는 땅</text>
+    <text x="368" y="140">★봄 모임 (정보 허브)</text>
+    <text x="418" y="187" fill="#7a2d22" font-weight="bold">엔야의 길 (W.9048~)</text>
+    <text x="300" y="448">반정주 → 돌봄 문화 → 능력 지닌 아이 생존율 최고</text>
+    <text x="122" y="318">도구 궁리의 땅</text>
+    <text x="330" y="668" fill="#6b5138">정착·권력이 먼저 태어날 땅</text>
+    <text x="700" y="655" fill="#a08c67" font-style="italic">재의 사막 (미지)</text>
+    <text x="60" y="250" fill="#dfe9ee" font-size="14">무른 바다</text>
+  </g>
+  <!-- 강굽이/뼈 무리 표시 -->
+  <g font-size="12" fill="#7a2d22" font-weight="bold">
+    <text x="360" y="475">└ 강굽이 무리 (훗날 이샤, W.9300)</text>
+    <text x="512" y="415">뼈 무리 ↗</text>
+  </g>
+  <!-- 뿔바람 라벨 -->
+  <text x="560" y="128" font-size="12" fill="#6b5138">↺ 뿔바람 무리의 한 해 (루가, W.9001~9050)</text>
+  <!-- 범례 -->
+  <g transform="translate(30,570)">
+    <rect x="-10" y="-22" width="215" height="118" fill="#f2e8d5" opacity="0.92" stroke="#6b5f4d"/>
+    <circle cx="4" cy="-4" r="3.5" fill="#b5493a"/><text x="16" y="0" font-size="12" fill="#4a3b2a">무리(점 하나 ≈ 무리 여럿)</text>
+    <path d="M -4,16 l 5,10 10,1 -7,7 1,11 -9,-6 -9,6 1,-11 -7,-7 10,-1 z" transform="translate(8,0) scale(0.7)" fill="#c9762e"/>
+    <text x="16" y="26" font-size="12" fill="#4a3b2a">봄 모임 터</text>
+    <path d="M 0,46 l 22,0" stroke="#7a2d22" stroke-width="3" stroke-dasharray="6 4"/><text x="28" y="50" font-size="12" fill="#4a3b2a">인물의 이동(릴레이)</text>
+    <path d="M 0,70 l 22,0" stroke="#8a6d3b" stroke-width="2.5" stroke-dasharray="4 4"/><text x="28" y="74" font-size="12" fill="#4a3b2a">유목 순환로</text>
+  </g>
+  <text x="20" y="688" font-size="12" fill="#4a3b2a">인구: ~35만 · 무리 ~9천 · 능력자 ~7천(수련 발명 전야 — 힘은 타고난 만큼이 전부)</text>
+</svg>
+<p class="cap">다음 지도는 큰 변화가 생길 때(정착 개시, 첫 도시 등) 추가.</p>
+
+<!-- ══════════ 지도 4 ══════════ -->
+<h2>지도 4 — W.9136~9213 : 벽의 시대가 열리다 — 켈두르 (대륙 최초의 성벽 마을)</h2>
+<p class="note">누테의 어살이 사람을 붙박았고(재주가 정주를 만들었다), 물의 전쟁(W.9134)이 벽을 만들었다. 벽 안에 화로(공공 학교)·사당(누테의 무덤)·셈막대(명부의 원형)가 선다. 서쪽 물길이 벽을 모방한다 — 대륙에 벽이 둘, 첫 이웃 정치가 시작된다. 대륙의 나머지는 아직 지도 3의 세계다.</p>
+<svg viewBox="0 0 900 700" width="900" height="700">
+  <use href="#terrain"/>
+  <!-- 대륙 나머지: 변화 없음 표시(옅게) -->
+  <g font-size="12.5" fill="#8d8271" font-style="italic">
+    <text x="340" y="60">하른 초원 — 변화 없음 (순록의 아이 전설 각색 중)</text>
+    <text x="545" y="200">어스름 숲</text>
+    <text x="742" y="478">잿빛 고지</text>
+    <text x="120" y="300">사르보르</text>
+  </g>
+  <!-- 케라 유역: 강굽이 표시 -->
+  <circle cx="478" cy="440" r="4.5" fill="#b5493a" stroke="#f2e8d5" stroke-width="2"/>
+  <g font-size="12" fill="#6b5138">
+    <text x="360" y="475">└ 강굽이 무리 — 자장가 화석화 완료 (이샤 출생 W.9300까지 87년)</text>
+    <text x="520" y="330">이끼바위 화로 2대째 (유른 계보)</text>
+  </g>
+  <circle cx="540" cy="330" r="3.5" fill="#b5493a" stroke="#f2e8d5" stroke-width="1"/>
+  <!-- ★ 켈두르 (첫 성벽 마을) -->
+  <g>
+    <circle cx="455" cy="612" r="14" fill="#c9a35c" stroke="#6b3d12" stroke-width="3"/>
+    <g stroke="#6b3d12" stroke-width="2">
+      <line x1="455" y1="596" x2="455" y2="600"/><line x1="466" y1="600" x2="463" y2="603"/>
+      <line x1="471" y1="612" x2="467" y2="612"/><line x1="466" y1="624" x2="463" y2="621"/>
+      <line x1="455" y1="628" x2="455" y2="624"/><line x1="444" y1="624" x2="447" y2="621"/>
+      <line x1="439" y1="612" x2="443" y2="612"/><line x1="444" y1="600" x2="447" y2="603"/>
+    </g>
+    <text x="475" y="600" font-size="15" fill="#7a2d22" font-weight="bold">켈두르 (W.9136~)</text>
+    <text x="475" y="616" font-size="11.5" fill="#6b5138">★대륙 최초의 성벽 마을 · 인구 ~700 (W.9200)</text>
+    <text x="475" y="630" font-size="11.5" fill="#6b5138">벽 · 화로(공공 학교) · 사당 · 셈막대(명부)</text>
+  </g>
+  <!-- 모방 둑 (서쪽 물길) -->
+  <g>
+    <circle cx="398" cy="646" r="9" fill="#d3b984" stroke="#6b3d12" stroke-width="2" stroke-dasharray="3 2"/>
+    <text x="300" y="668" font-size="12" fill="#6b5138" font-weight="bold">모방 둑 (무렛의 아들, W.9180s)</text>
+    <text x="300" y="682" font-size="11" fill="#8d8271">벽은 표식이라 모방된다 — 첫 이웃 정치</text>
+  </g>
+  <!-- 물의 전쟁 -->
+  <g stroke="#7a2d22" stroke-width="2.5">
+    <line x1="420" y1="634" x2="432" y2="646"/><line x1="432" y1="634" x2="420" y2="646"/>
+  </g>
+  <text x="352" y="628" font-size="11.5" fill="#7a2d22" font-weight="bold">물의 전쟁 W.9134</text>
+  <!-- 죽은 자의 섬 -->
+  <g>
+    <ellipse cx="340" cy="655" rx="20" ry="9" fill="#d3c9ad" stroke="#a89a7d" stroke-width="2"/>
+    <path d="M 334,653 l 4,-6 l 4,6 z" fill="#8d8271"/><path d="M 344,654 l 3,-5 l 3,5 z" fill="#8d8271"/>
+    <text x="245" y="642" font-size="11.5" fill="#4a3b2a" font-weight="bold">죽은 자의 섬 — 누테·니바의 무덤(=사당)</text>
+  </g>
+  <!-- 모여드는 사람들 화살표 -->
+  <g stroke="#7a2d22" stroke-width="2.5" fill="none" stroke-dasharray="6 4" marker-end="url(#arr)" opacity="0.8">
+    <path d="M 468,540 C 464,565 460,585 458,596"/>
+    <path d="M 500,640 C 486,632 476,624 469,618"/>
+  </g>
+  <text x="500" y="560" font-size="11.5" fill="#7a2d22">사람이 벽으로 모인다</text>
+  <!-- 확대 삽도: 둑 내부 -->
+  <g transform="translate(40,330)">
+    <rect x="0" y="0" width="230" height="215" fill="#f2e8d5" opacity="0.95" stroke="#6b5f4d" stroke-width="2" rx="6"/>
+    <text x="115" y="20" text-anchor="middle" font-size="13" fill="#4a3013" font-weight="bold">⌕ 켈두르 내부 (W.9200)</text>
+    <ellipse cx="115" cy="115" rx="88" ry="72" fill="none" stroke="#6b3d12" stroke-width="4"/>
+    <rect x="108" y="38" width="14" height="10" fill="#e6d9ba" stroke="#6b3d12"/>
+    <text x="130" y="47" font-size="10" fill="#6b5138">문</text>
+    <g fill="#b08d57" stroke="#6b3d12">
+      <rect x="70" y="80" width="13" height="10"/><rect x="95" y="72" width="13" height="10"/>
+      <rect x="128" y="78" width="13" height="10"/><rect x="152" y="92" width="13" height="10"/>
+      <rect x="66" y="110" width="13" height="10"/><rect x="148" y="120" width="13" height="10"/>
+    </g>
+    <circle cx="100" cy="140" r="8" fill="#c9762e" stroke="#6b3d12" stroke-width="1.5"/>
+    <text x="60" y="162" font-size="10.5" fill="#4a3013" font-weight="bold">화로(공공 학교)</text>
+    <rect x="140" y="145" width="22" height="14" fill="#d9d3a0" stroke="#6b3d12"/>
+    <text x="140" y="174" font-size="10.5" fill="#4a3013">창고·셈막대</text>
+    <text x="26" y="200" font-size="10" fill="#6b5138">사당(무덤)은 벽 밖 — 죽은 자의 섬</text>
+  </g>
+  <text x="60" y="250" fill="#dfe9ee" font-size="14">무른 바다</text>
+  <text x="700" y="655" fill="#a08c67" font-size="12" font-style="italic">재의 사막 (미지)</text>
+  <text x="20" y="688" font-size="12" fill="#4a3b2a">대륙 ~35만(불변) · 켈두르 ~700 · 벽 2개 · 새 발명: 성벽·공공 학교·사당·셈막대(명부)·평판</text>
+</svg>
+<p class="cap">벽·장부·학교·사당 — 후대 세계의 부품들이 전부 이 진흙 마을에서 처음 구워졌다. 다음 지도는 다음 큰 변화(두 둑의 시대의 귀결, 혹은 정착의 북상) 때 추가.</p>
+
+<!-- ══════════ 지도 5 ══════════ -->
+<h2>지도 5 — W.9300 무렵 : 두 둑과 조약의 시대 — 이샤가 태어난 세계</h2>
+<p class="note">삼각주에는 벽 둘이 부절(쪼갠 눈금 막대)과 혼인으로 묶였고, 그 사이 탈렌에 시장이 자란다. 그리고 이야기가 강을 거슬러 올랐다 — 제도는 걸어가고 이야기는 흘러간다. 상류의 무리 세계에 닿은 것은 동화와 자장가뿐이고, 그 공기 속에서 강굽이의 이샤가 태어난다.</p>
+<svg viewBox="0 0 900 700" width="900" height="700">
+  <use href="#terrain"/>
+  <!-- 이야기의 역류 화살표 (강을 거슬러) -->
+  <defs><marker id="arr5" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8a5a9e"/></marker></defs>
+  <g stroke="#8a5a9e" stroke-width="3" fill="none" stroke-dasharray="3 6" marker-end="url(#arr5)" opacity="0.9">
+    <path d="M 440,600 C 455,545 470,500 490,455"/>
+    <path d="M 495,445 C 515,395 535,355 555,315"/>
+  </g>
+  <text x="505" y="520" font-size="12.5" fill="#8a5a9e" font-weight="bold" transform="rotate(-63 505,520)">이야기의 역류 (동화·자장가·소문)</text>
+  <!-- 켈두르 -->
+  <g>
+    <circle cx="455" cy="622" r="11" fill="#c9762e" stroke="#6b3d12" stroke-width="2.5"/>
+    <text x="472" y="618" font-size="13.5" fill="#4a3013" font-weight="bold">켈두르 (~800)</text>
+  </g>
+  <!-- 버들 둑 -->
+  <g>
+    <circle cx="392" cy="638" r="9" fill="#c9762e" stroke="#6b3d12" stroke-width="2"/>
+    <text x="298" y="628" font-size="13" fill="#4a3013" font-weight="bold">버들 둑 (~500)</text>
+  </g>
+  <!-- 부절 연결선 (조약) -->
+  <path d="M 401,633 L 445,626" stroke="#4a3013" stroke-width="2.5" stroke-dasharray="2 3"/>
+  <text x="330" y="662" font-size="11.5" fill="#4a3013">━ 부절+혼인 (조약이 전쟁을 이겼다, W.9261)</text>
+  <!-- 탈렌 -->
+  <g>
+    <rect x="418" y="596" width="12" height="9" fill="#e8c46a" stroke="#6b3d12" stroke-width="1.5" transform="rotate(-8 424,600)"/>
+    <text x="336" y="590" font-size="12" fill="#7a5c2e" font-weight="bold">탈렌 (제3 정주지, 자라는 중)</text>
+  </g>
+  <!-- 죽은 자의 섬 -->
+  <circle cx="482" cy="648" r="5" fill="#8d8271" stroke="#4a3b2a" stroke-width="1.5"/>
+  <text x="492" y="652" font-size="11" fill="#4a3b2a">죽은 자의 섬 (사당=중립지)</text>
+  <!-- 강굽이 -->
+  <g>
+    <circle cx="478" cy="440" r="6" fill="#b5493a" stroke="#f2e8d5" stroke-width="2"/>
+    <text x="492" y="437" font-size="13" fill="#7a2d22" font-weight="bold">강굽이 무리 — ★이샤 출생 (W.9300)</text>
+    <text x="492" y="453" font-size="11" fill="#6b5138">자장가·물고기 왕 동화·"남쪽 불" 소문이 쌓인 공기</text>
+  </g>
+  <!-- 상류 화로 -->
+  <circle cx="560" cy="310" r="5" fill="#c9762e" stroke="#6b3d12" stroke-width="1.5"/>
+  <text x="572" y="308" font-size="11" fill="#6b5138">이끼바위 — 유른 계보의 화로 (2대째)</text>
+  <text x="60" y="250" fill="#dfe9ee" font-size="14">무른 바다</text>
+  <text x="700" y="672" fill="#a08c67" font-size="12" font-style="italic">재의 사막 (미지)</text>
+  <text x="20" y="688" font-size="12" fill="#4a3b2a">대륙 ~36만 · 벽 2 + 탈렌 · 새 발명: 부절(계약)·혼인 동맹의 제도화·중립지 — 상류는 여전히 무리의 세계(제도가 걷는 속도보다 강이 길다)</text>
+</svg>
+<p class="cap">보라 점선 = 이야기의 역류. 남쪽이 벽과 조약을 굽는 동안, 상류에 닿은 것은 이야기의 부스러기뿐 — 그 공기가 이샤의 무대다. 다음 지도는 이샤 이후(W.9347~)의 큰 변화 때.</p>
+
+<!-- ══════════ 지도 6 ══════════ -->
+<h2>지도 6 — W.9441 무렵 : 세 쪽 부절의 시대 — 주인 없는 마을이 제 법을 만들다</h2>
+<p class="note">두 둑 사이의 탈렌이 인구 사백의 자치 마을이 됐다 — 벽 없이, 우두머리 없이: 막대 기둥(명부)·세 저울(판결)·세 귀(공증)·장 닫기(처벌). W.9441의 세 쪽 부절로 두 둑이 자치를 승인했다 — 탈렌을 지키는 것은 창이 아니라 두 이웃의 탐의 균형이다. 그리고 둑과 장의 방식이 장삿배를 타고 강을 거슬러 북상하기 시작했다 — 이야기(지도 5)가 먼저 갔던 길을, 이제 제도가 따라간다.</p>
+<svg viewBox="0 0 900 700" width="900" height="700">
+  <use href="#terrain"/>
+  <!-- 제도의 북상 화살표 (장삿배) -->
+  <defs><marker id="arr6" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#a4622a"/></marker></defs>
+  <g stroke="#a4622a" stroke-width="3" fill="none" stroke-dasharray="7 4" marker-end="url(#arr6)" opacity="0.85">
+    <path d="M 442,595 C 458,540 472,498 490,458"/>
+  </g>
+  <text x="508" y="530" font-size="12.5" fill="#a4622a" font-weight="bold" transform="rotate(-63 508,530)">제도의 북상 (장삿배·부절·거간)</text>
+  <!-- 켈두르 -->
+  <g>
+    <circle cx="455" cy="622" r="12" fill="#c9762e" stroke="#6b3d12" stroke-width="2.5"/>
+    <text x="472" y="618" font-size="13.5" fill="#4a3013" font-weight="bold">켈두르 (~900)</text>
+  </g>
+  <!-- 버들 둑 -->
+  <g>
+    <circle cx="392" cy="638" r="10" fill="#c9762e" stroke="#6b3d12" stroke-width="2"/>
+    <text x="298" y="628" font-size="13" fill="#4a3013" font-weight="bold">버들 둑 (~550)</text>
+  </g>
+  <!-- ★자치 탈렌 -->
+  <g>
+    <rect x="415" y="592" width="18" height="13" fill="#e8c46a" stroke="#8a5a1e" stroke-width="2.5" transform="rotate(-8 424,598)"/>
+    <line x1="424" y1="590" x2="424" y2="580" stroke="#8a5a1e" stroke-width="2"/>
+    <text x="284" y="580" font-size="13" fill="#7a5c2e" font-weight="bold">★탈렌 (자치, ~400)</text>
+    <text x="264" y="595" font-size="10.5" fill="#7a5c2e">막대 기둥 · 세 저울 · 세 귀 · 장 닫기</text>
+  </g>
+  <!-- 세 쪽 부절 (삼자 조약) -->
+  <g stroke="#4a3013" stroke-width="2.5" stroke-dasharray="2 3">
+    <path d="M 401,633 L 417,606"/>
+    <path d="M 432,600 L 447,614"/>
+    <path d="M 401,633 L 444,626"/>
+  </g>
+  <text x="330" y="662" font-size="11.5" fill="#4a3013">━ 세 쪽 부절 (W.9441 — 최초의 자치 헌장, 균형이 지키는 안전)</text>
+  <!-- 죽은 자의 섬 -->
+  <circle cx="482" cy="648" r="5" fill="#8d8271" stroke="#4a3b2a" stroke-width="1.5"/>
+  <text x="492" y="652" font-size="11" fill="#4a3b2a">죽은 자의 섬 (사당=만나는 곳 · 위인 셋: 누테·니바·위라)</text>
+  <!-- 강굽이 -->
+  <g>
+    <circle cx="478" cy="440" r="6" fill="#b5493a" stroke="#f2e8d5" stroke-width="2"/>
+    <text x="492" y="437" font-size="13" fill="#7a2d22" font-weight="bold">강굽이 무리 — 로네 이후: 섞이는 밤 곁</text>
+    <text x="492" y="453" font-size="11" fill="#6b5138">누가 능력자인지 바깥에서 알 수 없는 땅 · 장삿배 정기 기항</text>
+  </g>
+  <!-- 상류 화로 -->
+  <circle cx="560" cy="310" r="5" fill="#c9762e" stroke="#6b3d12" stroke-width="1.5"/>
+  <text x="572" y="308" font-size="11" fill="#6b5138">이끼바위 — 유른 계보의 화로 (3대째)</text>
+  <text x="60" y="250" fill="#dfe9ee" font-size="14">무른 바다</text>
+  <text x="700" y="672" fill="#a08c67" font-size="12" font-style="italic">재의 사막 (미지)</text>
+  <text x="20" y="688" font-size="12" fill="#4a3b2a">대륙 ~37만 · 정주지 3(벽 2 + 자치 탈렌) · 새 발명: 장 닫기·자치 명부(어제를 안 묻는 막대)·세 저울·세 귀 공증·세 쪽 부절·속지(屬地)의 셈</text>
+</svg>
+<p class="cap">가운데 노란 집 = 대륙 최초의 자치 마을. 법이 처음으로 사람이 아니라 땅을 탔고("장 안에서는 장의 셈"), 안전이 처음으로 창이 아니라 균형에서 나왔다 — 먼 훗날 재건의 협약이 다시 발명할 셈의 첫 판. 다음 지도는 정착의 북상(케라 중류 첫 붙박이 마을) 혹은 바다(첫 배가 곶을 넘는 날) 때.</p>
+
+<!-- ══════════ 지도 7 ══════════ -->
+<h2>지도 7 — W.9510 무렵 : 나루의 시대 — 정착이 강을 거슬러 오르다</h2>
+<p class="note">소금 창고 하나가 케라 중류에 첫 붙박이 마을(강굽이 나루)을 세웠다 — 무리의 시대를 끝낸 것은 전쟁이 아니라 창고다. 이웃 무리들은 겨울마다 나루 곁으로 궤도를 좁힌다(함락이 아니라 공전). 남쪽에서 올라온 막대(명부)는 강굽이에서 새 답을 얻었다 — 밤 곁은 통째로 한 눈금("세어지되 비추어지지 않는 법"). 그리고 한 능력자 소년이 제 발로 값을 부르러 강을 내려갔다.</p>
+<svg viewBox="0 0 900 700" width="900" height="700">
+  <use href="#terrain"/>
+  <!-- 옌의 남하 (야망의 물길) -->
+  <defs><marker id="arr7" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7a2d22"/></marker></defs>
+  <g stroke="#7a2d22" stroke-width="2.5" fill="none" stroke-dasharray="4 5" marker-end="url(#arr7)" opacity="0.85">
+    <path d="M 486,455 C 470,500 456,545 444,592"/>
+  </g>
+  <text x="508" y="512" font-size="12" fill="#7a2d22" font-weight="bold" transform="rotate(-64 508,512)">옌의 남하 (제 발로 값을 부르러)</text>
+  <!-- ★강굽이 나루 -->
+  <g>
+    <rect x="468" y="430" width="16" height="12" fill="#e8c46a" stroke="#8a5a1e" stroke-width="2.5" transform="rotate(-5 476,436)"/>
+    <circle cx="478" cy="452" r="4" fill="#b5493a" stroke="#f2e8d5" stroke-width="1.5"/>
+    <text x="496" y="434" font-size="13.5" fill="#7a5c2e" font-weight="bold">★강굽이 나루 (~180) — 중류 첫 붙박이 마을</text>
+    <text x="496" y="450" font-size="10.5" fill="#6b5138">소금 창고(W.9478) · 막대 기둥 · 밤 곁=한 눈금 · 이야기 밤</text>
+  </g>
+  <!-- 겨울 공전 궤도 -->
+  <ellipse cx="476" cy="440" rx="58" ry="42" fill="none" stroke="#8d8271" stroke-width="1.8" stroke-dasharray="3 5"/>
+  <text x="388" y="392" font-size="11" fill="#8d8271">이웃 무리들의 겨울 공전</text>
+  <!-- 남쪽 3정주지 -->
+  <g>
+    <circle cx="455" cy="622" r="12" fill="#c9762e" stroke="#6b3d12" stroke-width="2.5"/>
+    <text x="472" y="618" font-size="12.5" fill="#4a3013" font-weight="bold">켈두르 (~950)</text>
+    <circle cx="392" cy="638" r="10" fill="#c9762e" stroke="#6b3d12" stroke-width="2"/>
+    <text x="304" y="630" font-size="12.5" fill="#4a3013" font-weight="bold">버들 둑 (~600)</text>
+    <rect x="416" y="593" width="16" height="12" fill="#e8c46a" stroke="#8a5a1e" stroke-width="2" transform="rotate(-8 424,599)"/>
+    <text x="300" y="586" font-size="12" fill="#7a5c2e" font-weight="bold">탈렌 (자치, ~450)</text>
+  </g>
+  <!-- 상류 화로 -->
+  <circle cx="560" cy="310" r="5" fill="#c9762e" stroke="#6b3d12" stroke-width="1.5"/>
+  <text x="572" y="308" font-size="11" fill="#6b5138">이끼바위 — 유른 계보의 화로</text>
+  <text x="60" y="250" fill="#dfe9ee" font-size="14">무른 바다</text>
+  <text x="700" y="672" fill="#a08c67" font-size="12" font-style="italic">재의 사막 (미지)</text>
+  <text x="20" y="688" font-size="12" fill="#4a3b2a">대륙 ~38만 · 정주지 4(벽 2·자치 탈렌·강굽이 나루) · 새 발명: 창고 겨울나기·밤 곁=한 눈금(이름 없는 조합)·집단 임대·수련의 은닉</text>
+</svg>
+<p class="cap">노란 집이 강을 거슬러 올라왔다 — 남쪽이 사백 년 걸려 구운 부품(창고·명부·이야기 밤)이 북쪽에서는 한 세대 만에 조립된다. 붉은 점선 = 옌의 남하(사슬 최초의 야망 — 운명 미정). 다음 지도는 바다(첫 배) 혹은 다음 큰 변화 때.</p>
+
+<!-- ══════════ 지도 8 ══════════ -->
+<h2>지도 8 — W.9610 무렵 : 바닷길의 시대 — 곶은 벽이 아니라 문이었다</h2>
+<p class="note">W.9591, 사르보르의 배 목수 넬라가 검은 곶("바다가 셈을 안 하는 물")을 돌아 갈대 삼각주에 닿았다. 강을 거슬러 걷던 세계에 옆문이 생긴 것이다 — 뭍길 반 계절이 배로 엿새. 항로는 독점되지 않았다(넬라가 길을 가르쳐 여럿의 것으로) — 뱃사람의 화로가 서고, 철마다 수십 척이 곶을 돈다. 수평선 남쪽에는 섬들이 보인다는 말이 돈다.</p>
+<svg viewBox="0 0 900 700" width="900" height="700">
+  <use href="#terrain"/>
+  <!-- 바닷길 -->
+  <defs><marker id="arr8" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1f5f7a"/></marker></defs>
+  <path d="M 200,470 C 205,545 235,612 298,645 C 340,667 385,665 415,658" fill="none" stroke="#1f5f7a" stroke-width="3.5" stroke-dasharray="8 5" marker-end="url(#arr8)" opacity="0.9"/>
+  <text x="196" y="576" font-size="13" fill="#1f5f7a" font-weight="bold" transform="rotate(58 196,576)">바닷길 (W.9591~)</text>
+  <!-- 검은 곶 -->
+  <circle cx="299" cy="572" r="5" fill="#3d3a33" stroke="#1f1d18" stroke-width="1.5"/>
+  <text x="310" y="568" font-size="11.5" fill="#3d3a33" font-weight="bold">검은 곶 — 옛 금기, 이제 문</text>
+  <!-- 사르보르 -->
+  <g>
+    <rect x="222" y="440" width="15" height="11" fill="#e8c46a" stroke="#8a5a1e" stroke-width="2" transform="rotate(4 229,445)"/>
+    <text x="244" y="442" font-size="13" fill="#7a5c2e" font-weight="bold">사르보르 마을들</text>
+    <text x="244" y="458" font-size="10.5" fill="#6b5138">뱃사람의 화로 · 지지대 배 · 배 무덤(첫 배)</text>
+  </g>
+  <!-- 남쪽 3정주지 -->
+  <g>
+    <circle cx="455" cy="622" r="12" fill="#c9762e" stroke="#6b3d12" stroke-width="2.5"/>
+    <text x="472" y="618" font-size="12.5" fill="#4a3013" font-weight="bold">켈두르 (~1000)</text>
+    <circle cx="392" cy="638" r="10" fill="#c9762e" stroke="#6b3d12" stroke-width="2"/>
+    <text x="398" y="678" font-size="12" fill="#4a3013" font-weight="bold">버들 둑 (~600)</text>
+    <rect x="416" y="593" width="16" height="12" fill="#e8c46a" stroke="#8a5a1e" stroke-width="2" transform="rotate(-8 424,599)"/>
+    <text x="300" y="586" font-size="11.5" fill="#7a5c2e" font-weight="bold">탈렌 (자치)</text>
+  </g>
+  <!-- 강굽이 나루 -->
+  <g>
+    <rect x="468" y="430" width="16" height="12" fill="#e8c46a" stroke="#8a5a1e" stroke-width="2" transform="rotate(-5 476,436)"/>
+    <text x="492" y="438" font-size="12" fill="#7a5c2e" font-weight="bold">강굽이 나루 (~200)</text>
+  </g>
+  <!-- 수린 군도 예고 -->
+  <text x="120" y="668" font-size="12" fill="#4a6d80" font-style="italic">수평선 남쪽 — "맑은 날 섬들이 보인다" (미답)</text>
+  <text x="60" y="250" fill="#dfe9ee" font-size="14">무른 바다</text>
+  <text x="700" y="640" fill="#a08c67" font-size="12" font-style="italic">재의 사막 (미지)</text>
+  <text x="20" y="688" font-size="12" fill="#4a3b2a">대륙 ~39만 · 정주지 4+해안 마을들 · 새 발명: 지지대 배·바닷길(세계의 옆문)·뱃사람의 화로·바람 아는 자=뱃길의 눈·배 무덤</text>
+</svg>
+<p class="cap">푸른 점선 = 바닷길. 강(세로의 길)만 있던 세계에 바다(모든 곳으로 가는 길)가 열렸다 — 서쪽 궁리의 땅과 남쪽 시장의 땅이 직결되고, 수린 군도가 여백에서 수평선으로 올라왔다. 다음 지도는 수평선의 섬들 혹은 다음 큰 변화 때.</p>
+
+<!-- ══════════ 지도 9 ══════════ -->
+<h2>지도 9 — W.9800 무렵 : 어제를 받지 않는 땅 — 대륙 일곱 지역이 모두 이야기를 가졌다</h2>
+<p class="note">잿빛 고지가 이야기를 얻었다(대륙 마지막 미구현 지역 — 이제 재의 사막만 여백이다). W.9773 도망 온 능력 지닌 아이를 쫓아온 거간의 부절을 산 전체가 거절하며 이 땅의 첫 법이 소리 내어 말해졌다 — "이 산은 어제를 받지 않는다." 남쪽 장삿길에 소문이 내려앉아 사라지고 싶은 이들에게 처음으로 방위가 생겼다: 동쪽으로, 위로. 고개 아래에는 고개의 화로(사흘의 불)가, 마른 골짜기들에는 샘 노인(부절을 거부한 큰 자 둔 — 산은 그 이름을 모른다)의 돌무더기가 있다. 같은 시대 남쪽: 잔줄의 참사(W.9648) 뒤 여섯 큰 자가 서로의 저울이 됐고, 탈렌의 눈금이 그림을 배워 글자가 됐다(W.9705~).</p>
+<svg viewBox="0 0 900 700" width="900" height="700">
+  <use href="#terrain"/>
+  <defs><marker id="arr9" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#7a4a3a"/></marker></defs>
+  <!-- 도망길 -->
+  <path d="M 470,608 C 560,560 640,480 725,368" fill="none" stroke="#7a4a3a" stroke-width="3" stroke-dasharray="7 5" marker-end="url(#arr9)" opacity="0.85"/>
+  <path d="M 492,436 C 580,430 660,400 718,352" fill="none" stroke="#7a4a3a" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#arr9)" opacity="0.65"/>
+  <text x="555" y="512" font-size="13" fill="#7a4a3a" font-weight="bold" transform="rotate(-28 555,512)">도망길 — "동쪽으로, 위로" (W.9773~)</text>
+  <!-- 고개의 화로 -->
+  <g>
+    <path d="M 728,352 c -3,-7 2,-11 4,-15 c 1,4 7,7 5,14 c -1,4 -7,5 -9,1 z" fill="#d8722a" stroke="#8a3d10" stroke-width="1.5"/>
+    <text x="700" y="378" font-size="12.5" fill="#8a3d10" font-weight="bold">고개의 화로 (사흘의 불)</text>
+  </g>
+  <!-- 어제를 받지 않는 땅 표기 -->
+  <text x="738" y="196" font-size="14" fill="#5c554a" font-weight="bold">잿빛 고지 (~500)</text>
+  <text x="700" y="470" font-size="12" fill="#5c554a" font-style="italic">"이 산은 어제를 받지 않는다" (W.9773)</text>
+  <!-- 샘 노인의 돌무더기 -->
+  <g fill="#6e675c" stroke="#4a453d" stroke-width="1">
+    <circle cx="772" cy="308" r="3"/><circle cx="778" cy="306" r="2.4"/><circle cx="775" cy="303" r="2"/>
+    <circle cx="806" cy="382" r="3"/><circle cx="812" cy="380" r="2.4"/><circle cx="809" cy="377" r="2"/>
+    <circle cx="758" cy="420" r="3"/><circle cx="764" cy="418" r="2.4"/><circle cx="761" cy="415" r="2"/>
+  </g>
+  <text x="826" y="310" font-size="10.5" fill="#5c554a">돌무더기 =</text>
+  <text x="826" y="323" font-size="10.5" fill="#5c554a">숨은 샘의 표식</text>
+  <!-- 남쪽 3정주지 -->
+  <g>
+    <circle cx="455" cy="622" r="12" fill="#c9762e" stroke="#6b3d12" stroke-width="2.5"/>
+    <text x="472" y="618" font-size="12.5" fill="#4a3013" font-weight="bold">켈두르 (~1100)</text>
+    <circle cx="392" cy="638" r="10" fill="#c9762e" stroke="#6b3d12" stroke-width="2"/>
+    <text x="398" y="678" font-size="12" fill="#4a3013" font-weight="bold">버들 둑 (~650)</text>
+    <rect x="416" y="593" width="16" height="12" fill="#e8c46a" stroke="#8a5a1e" stroke-width="2" transform="rotate(-8 424,599)"/>
+    <text x="255" y="586" font-size="11.5" fill="#7a5c2e" font-weight="bold">탈렌 (자치 · ★그림 글자)</text>
+  </g>
+  <!-- 강굽이 나루 · 사르보르 -->
+  <g>
+    <rect x="468" y="430" width="16" height="12" fill="#e8c46a" stroke="#8a5a1e" stroke-width="2" transform="rotate(-5 476,436)"/>
+    <text x="470" y="422" font-size="12" fill="#7a5c2e" font-weight="bold">강굽이 나루 (~250)</text>
+    <rect x="222" y="440" width="15" height="11" fill="#e8c46a" stroke="#8a5a1e" stroke-width="2" transform="rotate(4 229,445)"/>
+    <text x="244" y="442" font-size="12" fill="#7a5c2e" font-weight="bold">사르보르 마을들</text>
+  </g>
+  <!-- 바닷길(기존) -->
+  <path d="M 200,470 C 205,545 235,612 298,645 C 340,667 385,665 415,658" fill="none" stroke="#1f5f7a" stroke-width="2" stroke-dasharray="8 5" opacity="0.45"/>
+  <text x="60" y="250" fill="#dfe9ee" font-size="14">무른 바다</text>
+  <text x="700" y="640" fill="#a08c67" font-size="12" font-style="italic">재의 사막 (마지막 여백)</text>
+  <text x="20" y="688" font-size="12" fill="#4a3b2a">대륙 ~40만 · 새 발명: 큰 자들의 부절(서로가 서로의 저울)·그림 글자(문자의 새벽)·어제를 받지 않는 땅·고개의 화로(도착의 화로)·도망의 지리</text>
+</svg>
+<p class="cap">갈색 점선 = 도망길(사라지고 싶은 자들의 방위 — 남쪽 질서의 그림자가 지리를 얻었다). 산속 돌 세 무더기 = 샘 노인의 유산(물과 사람을 지키는 돌). 일곱 지역이 모두 이야기를 가졌다 — 다음 지도는 수평선의 섬들 혹은 다음 큰 변화 때.</p>
+
+<!-- ══════════ 지도 10 ══════════ -->
+<h2>지도 10 — W.9870 무렵 : 퍼짐의 재개 — 인류가 뭍이 찬 지 칠천 년 만에 새 땅을 딛었다</h2>
+<p class="note">W.9840, 라니의 배 두 척이 빈 물(뭍이 안 보이는 물)을 건너 수린 군도에 닿았다 — 사람이 처음 딛는 땅, 어제가 없는 땅. 밤의 길(별의 자리·너울=뭍의 메아리)이 항법이 됐고, 몫의 부절(위험의 분할=첫 공동 사업)이 셈이 됐고, 빈 배 장례(시신 없는 죽음의 문법)가 값이 됐다. 철새 궤도(봄 도항·가을 귀항)를 거쳐 W.9860년대 큰 섬 만(灣)에 바다 건너 첫 붙박이 — 첫 퍼짐은 맨몸이 걸어갔고, 둘째 퍼짐은 제도가 배를 타고 갔다. W.9878 라니의 무덤 = 수린의 첫 어제.</p>
+<svg viewBox="0 0 900 700" width="900" height="700">
+  <use href="#terrain"/>
+  <defs><marker id="arr10" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1f5f7a"/></marker></defs>
+  <!-- 기존 바닷길 -->
+  <path d="M 200,470 C 205,545 235,612 298,645 C 340,667 385,665 415,658" fill="none" stroke="#1f5f7a" stroke-width="2" stroke-dasharray="8 5" opacity="0.4"/>
+  <!-- 수린 군도 -->
+  <g>
+    <ellipse cx="150" cy="645" rx="26" ry="13" fill="#cfc3a2" stroke="#a89a7c" stroke-width="2" transform="rotate(-12 150,645)"/>
+    <ellipse cx="196" cy="668" rx="14" ry="7" fill="#cfc3a2" stroke="#a89a7c" stroke-width="1.5" transform="rotate(8 196,668)"/>
+    <ellipse cx="112" cy="676" rx="11" ry="6" fill="#cfc3a2" stroke="#a89a7c" stroke-width="1.5"/>
+    <ellipse cx="230" cy="690" rx="12" ry="5" fill="#cfc3a2" stroke="#a89a7c" stroke-width="1.5"/>
+    <circle cx="146" cy="642" r="4" fill="#c9762e" stroke="#6b3d12" stroke-width="1.5"/>
+    <text x="96" y="622" font-size="13" fill="#4a5d6b" font-weight="bold">수린 군도 (W.9840~)</text>
+    <text x="96" y="636" font-size="10.5" fill="#5c6d78">첫 붙박이 · 검은 유리 · 라니의 무덤(첫 어제)</text>
+  </g>
+  <!-- 밤의 길 -->
+  <path d="M 288,585 C 255,600 215,618 176,638" fill="none" stroke="#1f5f7a" stroke-width="3.5" stroke-dasharray="4 6" marker-end="url(#arr10)" opacity="0.95"/>
+  <text x="205" y="590" font-size="12.5" fill="#1f5f7a" font-weight="bold" transform="rotate(24 205,590)">밤의 길 — 빈 물 (이틀 밤)</text>
+  <!-- 검은 곶 -->
+  <circle cx="299" cy="572" r="5" fill="#3d3a33" stroke="#1f1d18" stroke-width="1.5"/>
+  <text x="310" y="568" font-size="11" fill="#3d3a33">검은 곶</text>
+  <!-- 주요 정주지(요약) -->
+  <g>
+    <circle cx="455" cy="622" r="12" fill="#c9762e" stroke="#6b3d12" stroke-width="2.5"/>
+    <text x="472" y="618" font-size="12" fill="#4a3013" font-weight="bold">켈두르 (~1200)</text>
+    <circle cx="392" cy="638" r="10" fill="#c9762e" stroke="#6b3d12" stroke-width="2"/>
+    <rect x="416" y="593" width="16" height="12" fill="#e8c46a" stroke="#8a5a1e" stroke-width="2" transform="rotate(-8 424,599)"/>
+    <rect x="468" y="430" width="16" height="12" fill="#e8c46a" stroke="#8a5a1e" stroke-width="2" transform="rotate(-5 476,436)"/>
+    <rect x="222" y="440" width="15" height="11" fill="#e8c46a" stroke="#8a5a1e" stroke-width="2" transform="rotate(4 229,445)"/>
+    <text x="244" y="442" font-size="12" fill="#7a5c2e" font-weight="bold">사르보르 — 밤의 길의 원산지</text>
+  </g>
+  <text x="60" y="250" fill="#dfe9ee" font-size="14">무른 바다</text>
+  <text x="700" y="640" fill="#a08c67" font-size="12" font-style="italic">재의 사막 (마지막 여백)</text>
+  <text x="20" y="688" font-size="12" fill="#4a3b2a">대륙+군도 ~41만 · 새 발명: 밤의 길(별 항법)·몫의 부절(위험의 분할)·빈 배 장례·검은 유리 교역축·바다 건너 첫 붙박이</text>
+</svg>
+<p class="cap">촘촘한 푸른 점선 = 밤의 길(뭍 없는 물을 건너는 항법 — 별·너울·새·구름). 지도 왼쪽 아래에 새 땅이 떠올랐다 — 뭍이 찬 지 칠천 년 만의 퍼짐 재개, 이번에는 제도가 배를 타고 갔다. 다음 지도는 다음 큰 변화 때.</p>
+
+</body>
+</html>

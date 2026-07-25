@@ -1,0 +1,68 @@
+loaded Map_Main
+total actors=23
+===== SKELETAL MESH ACTORS =====
+ACTOR label=SKM_Hayakawa_Main | class=SkeletalMeshActor | mesh=SKM_Hayakawa_Main
+   loc=(230.0,0.0,0.0) yaw=0.0
+   bounds origin=(230.1,7.7,81.4) extent=(25.9,41.5,86.6) top_z=168.0 bot_z=-5.2
+   materials(19): ['MI_Kawa_Morth1', 'MI_Kawa_Outline', 'MI_Kawa_Hair', 'MI_Kawa_Cloth', 'MI_Mask', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Cloth', 'MI_Kawa_Face', 'MI_Kawa_EyeBrow', 'MI_Kawa_Brow', 'MI_Kawa_Morth', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_Morth', 'MI_Kawa_HairShadow', 'MI_Kawa_Body']
+ACTOR label=CR_Hayakawa | class=SkeletalMeshActor | mesh=SKM_Hayakawa_Main
+   loc=(540.0,0.0,0.0) yaw=0.0
+   bounds origin=(537.3,1.3,80.7) extent=(31.4,34.5,86.9) top_z=167.6 bot_z=-6.3
+   materials(19): ['MI_Kawa_Morth1', 'MI_Kawa_Outline', 'MI_Kawa_Hair', 'MI_Kawa_Cloth', 'MI_Mask', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Cloth', 'MI_Kawa_Face', 'MI_Kawa_EyeBrow', 'MI_Kawa_Brow', 'MI_Kawa_Morth', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_Morth', 'MI_Kawa_HairShadow', 'MI_Kawa_Body']
+ACTOR label=CR_Hayakawa2 | class=SkeletalMeshActor | mesh=SKM_Hayakawa_Main
+   loc=(640.0,0.0,0.0) yaw=0.0
+   bounds origin=(637.3,1.3,80.7) extent=(31.4,34.5,86.9) top_z=167.6 bot_z=-6.3
+   materials(19): ['MI_Kawa_Morth1', 'MI_Kawa_Outline', 'MI_Kawa_Hair', 'MI_Kawa_Cloth', 'MI_Mask', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Cloth', 'MI_Kawa_Face', 'MI_Kawa_EyeBrow', 'MI_Kawa_Brow', 'MI_Kawa_Morth', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_Morth', 'MI_Kawa_HairShadow', 'MI_Kawa_Body']
+ACTOR label=CR_Hayakawa3 | class=SkeletalMeshActor | mesh=SKM_Hayakawa_Main
+   loc=(440.0,0.0,0.0) yaw=0.0
+   bounds origin=(437.3,1.3,80.7) extent=(31.4,34.5,86.9) top_z=167.6 bot_z=-6.3
+   materials(19): ['MI_Kawa_Morth1', 'MI_Kawa_Outline', 'MI_Kawa_Hair', 'MI_Kawa_Cloth', 'MI_Mask', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Cloth', 'MI_Kawa_Face', 'MI_Kawa_EyeBrow', 'MI_Kawa_Brow', 'MI_Kawa_Morth', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_Morth', 'MI_Kawa_HairShadow', 'MI_Kawa_Body']
+ACTOR label=CR_Hayakawa4 | class=SkeletalMeshActor | mesh=SKM_Hayakawa_Main
+   loc=(740.0,0.0,0.0) yaw=0.0
+   bounds origin=(739.2,1.3,80.6) extent=(29.6,34.5,86.8) top_z=167.4 bot_z=-6.3
+   materials(19): ['MI_Kawa_Morth1', 'MI_Kawa_Outline', 'MI_Kawa_Hair', 'MI_Kawa_Cloth', 'MI_Mask', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Cloth', 'MI_Kawa_Face', 'MI_Kawa_EyeBrow', 'MI_Kawa_Brow', 'MI_Kawa_Morth', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_Morth', 'MI_Kawa_HairShadow', 'MI_Kawa_Body']
+ACTOR label=CR_Hayakawa5 | class=SkeletalMeshActor | mesh=SKM_Hayakawa_Main
+   loc=(340.0,0.0,0.0) yaw=0.0
+   bounds origin=(339.3,-4.4,80.5) extent=(28.4,28.8,87.3) top_z=167.8 bot_z=-6.7
+   materials(19): ['MI_Kawa_Morth1', 'MI_Kawa_Outline', 'MI_Kawa_Hair', 'MI_Kawa_Cloth', 'MI_Mask', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Cloth', 'MI_Kawa_Face', 'MI_Kawa_EyeBrow', 'MI_Kawa_Brow', 'MI_Kawa_Morth', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_Morth', 'MI_Kawa_HairShadow', 'MI_Kawa_Body']
+ACTOR label=CR_Hayakawa6 | class=SkeletalMeshActor | mesh=SKM_Hayakawa_Main
+   loc=(370.0,200.0,0.0) yaw=0.0
+   bounds origin=(367.3,201.3,80.7) extent=(31.4,34.5,86.9) top_z=167.6 bot_z=-6.3
+   materials(19): ['MI_Kawa_Morth1', 'MI_Kawa_Outline', 'MI_Kawa_Hair', 'MI_Kawa_Cloth', 'MI_Mask', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Cloth', 'MI_Kawa_Face', 'MI_Kawa_EyeBrow', 'MI_Kawa_Brow', 'MI_Kawa_Morth', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_Morth', 'MI_Kawa_HairShadow', 'MI_Kawa_Body']
+ACTOR label=CR_Hayakawa7 | class=SkeletalMeshActor | mesh=SKM_Hayakawa_Main
+   loc=(640.0,200.0,0.0) yaw=0.0
+   bounds origin=(640.1,207.7,81.4) extent=(25.9,41.5,86.6) top_z=168.0 bot_z=-5.2
+   materials(19): ['MI_Kawa_Morth1', 'MI_Kawa_Outline', 'MI_Kawa_Hair', 'MI_Kawa_Cloth', 'MI_Mask', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Cloth', 'MI_Kawa_Face', 'MI_Kawa_EyeBrow', 'MI_Kawa_Brow', 'MI_Kawa_Morth', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_Morth', 'MI_Kawa_HairShadow', 'MI_Kawa_Body']
+ACTOR label=CR_Hayakawa8 | class=SkeletalMeshActor | mesh=SKM_Hayakawa_Main
+   loc=(500.0,200.0,0.0) yaw=0.0
+   bounds origin=(508.7,206.3,78.3) extent=(41.2,40.6,84.9) top_z=163.2 bot_z=-6.5
+   materials(19): ['MI_Kawa_Morth1', 'MI_Kawa_Outline', 'MI_Kawa_Hair', 'MI_Kawa_Cloth', 'MI_Mask', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Cloth', 'MI_Kawa_Face', 'MI_Kawa_EyeBrow', 'MI_Kawa_Brow', 'MI_Kawa_Morth', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_Morth', 'MI_Kawa_HairShadow', 'MI_Kawa_Body']
+ACTOR label=BP_Character | class=BP_Character_C | mesh=SKM_Hayakawa_Main
+   loc=(0.0,0.0,90.0) yaw=90.0
+   bounds origin=(-50.0,500.0,110.0) extent=(1010.0,1010.0,1010.0) top_z=1120.0 bot_z=-900.0
+   materials(19): ['MI_Kawa_Morth1', 'MI_Kawa_Outline', 'MI_Kawa_Hair', 'MI_Kawa_Cloth', 'MI_Mask', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Cloth', 'MI_Kawa_Face', 'MI_Kawa_EyeBrow', 'MI_Kawa_Brow', 'MI_Kawa_Morth', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_Morth', 'MI_Kawa_HairShadow', 'MI_Kawa_Body']
+ACTOR label=BP_Character | class=BP_Character_C | mesh=SKM_Hayakawa_Main
+   loc=(0.0,0.0,90.0) yaw=90.0
+   bounds origin=(-50.0,500.0,110.0) extent=(1010.0,1010.0,1010.0) top_z=1120.0 bot_z=-900.0
+   materials(19): ['MI_Kawa_Morth1', 'MI_Kawa_Outline', 'MI_Kawa_Hair', 'MI_Kawa_Cloth', 'MI_Mask', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Cloth', 'MI_Kawa_Face1', 'MI_Kawa_EyeBrow', 'MI_Kawa_Brow', 'MI_Kawa_Morth', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_Morth', 'MI_Kawa_HairShadow', 'MI_Kawa_Body']
+ACTOR label=BP_Character | class=BP_Character_C | mesh=SKM_Hayakawa_Main
+   loc=(0.0,0.0,90.0) yaw=90.0
+   bounds origin=(-50.0,500.0,110.0) extent=(1010.0,1010.0,1010.0) top_z=1120.0 bot_z=-900.0
+   materials(19): ['MI_Kawa_Morth1', 'MI_Kawa_Outline', 'MI_Kawa_Hair', 'MI_Kawa_Cloth', 'MI_Mask', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Cloth', 'MI_Kawa_Face', 'MI_Kawa_EyeBrow', 'MI_Kawa_Brow', 'MI_Kawa_Morth', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_EyeShadow', 'MI_Kawa_Morth2', 'MI_Kawa_Morth', 'MI_Kawa_HairShadow', 'MI_Kawa_Body']
+ACTOR label=BP_Character | class=BP_Character_C | mesh=SKM_Hayakawa_VecterMask
+   loc=(0.0,0.0,90.0) yaw=90.0
+   bounds origin=(-50.0,500.0,110.0) extent=(1010.0,1010.0,1010.0) top_z=1120.0 bot_z=-900.0
+   materials(19): ['MI_Kawa_Morth', 'MI_Kawa_Cloth1', 'MI_Kawa_Hair', 'MI_Kawa_Cloth', 'MI_Mask', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Cloth', 'MI_Kawa_Face', 'MI_Kawa_EyeBrow', 'MI_Kawa_Brow', 'MI_Kawa_Morth', 'MI_Mask', 'MI_Kawa_Morth', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Morth', 'MI_Kawa_Hair1', 'MI_Kawa_Body']
+ACTOR label=BP_Character | class=BP_Character_C | mesh=SKM_Hayakawa_VecterMask
+   loc=(0.0,0.0,90.0) yaw=90.0
+   bounds origin=(-50.0,500.0,110.0) extent=(1010.0,1010.0,1010.0) top_z=1120.0 bot_z=-900.0
+   materials(19): ['MI_Kawa_Morth', 'MI_Kawa_Cloth1', 'MI_Kawa_Hair', 'MI_Kawa_Cloth', 'MI_Mask', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Cloth', 'MI_Kawa_Face', 'MI_Kawa_EyeBrow', 'MI_Kawa_Brow', 'MI_Kawa_Morth', 'MI_Mask', 'MI_Kawa_Morth', 'MI_Mask', 'MI_Mask', 'MI_Kawa_Morth', 'MI_Kawa_Hair1', 'MI_Kawa_Body']
+ACTOR label=BP_Character | class=BP_Character_C | mesh=SKM_Quinn_Simple
+   loc=(0.0,0.0,90.0) yaw=90.0
+   bounds origin=(-50.0,500.0,110.0) extent=(1010.0,1010.0,1010.0) top_z=1120.0 bot_z=-900.0
+   materials(2): ['MI_Quinn_01', 'MI_Quinn_02']
+===== CAMERAS =====
+CAM label=CameraActor0 class=CameraActor loc=(140.0,3.2,143.7) rot=(p-3.8,y-177.4,r0.0)
+===== DIRECTIONAL LIGHTS =====
+SUN label=DirectionalLight fwd=(-0.01,-0.96,0.28) rot=(p16.3,y-90.7)
+===== POSTPROCESS / EXPOSURE =====

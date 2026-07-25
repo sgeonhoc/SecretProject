@@ -1,0 +1,8 @@
+몸통값: ShadowColor=(0.66,0.63,0.70) Smooth=0.18000000715255737 Offset=0.5 UseSSS=False
+얼굴 MI = /Game/TestCharacter/CiciVRoid/MI_Cici_03_N0000000Face00SKINInstan
+  switch UseSDF = False
+  switch UseOMR = False
+  switch Use SSS Tex = False
+  switch UseRamp = False
+[3] 얼굴 SKIN <- MI_Cici_03_N0000000Face00SKINInstan
+==== 얼굴 일체화 완료(슬롯 1개). SDF 끔. 눈/입/눈썹 원본 유지. PIE Play로 확인.

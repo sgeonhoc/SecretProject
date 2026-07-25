@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>📕 이야기 전서 통독 — 첫 인간부터 지금까지</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=Gowun+Batang:wght@400;700&display=swap');
+  :root{
+    --bg:#0a141b; --surface:#161d23; --surface-2:#1c242b;
+    --ink:#ece5d4; --ink-soft:#cbc3b1; --muted:#8f8877;
+    --line:#2b343c;
+    --accent:#d3b064; --accent-deep:#ecd79a; --accent-soft:rgba(211,176,100,.10);
+    --serif:'Nanum Myeongjo','Gowun Batang','Batang','바탕',serif;
+    --shadow:0 1px 2px rgba(60,45,25,.04), 0 8px 28px rgba(60,45,25,.07);
+  }
+  *{ box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); margin:0; padding:0;
+         font-family:'Pretendard','Malgun Gothic',system-ui,-apple-system,sans-serif;
+         -webkit-font-smoothing:antialiased; }
+  .page { max-width:800px; margin:0 auto; background:var(--surface);
+          border-left:1px solid var(--line); border-right:1px solid var(--line);
+          min-height:100vh; padding:40px 56px 72px; font-size:16.5px; line-height:1.9; color:var(--ink-soft); }
+  h1 { font-family:var(--serif); font-size:29px; font-weight:800; color:var(--ink); margin:6px 0 4px; letter-spacing:-.01em; line-height:1.3; }
+  .meta { font-size:13px; color:var(--muted); margin-bottom:20px; display:block; line-height:1.7; }
+  .meta b { color:var(--ink-soft); }
+  h3 { font-family:var(--serif); margin:28px 0 8px; font-size:18px; font-weight:700; color:var(--accent-deep); border-bottom:1px solid var(--line); padding-bottom:5px; }
+  p { margin:0 0 16px; }
+  b { color:var(--ink); font-weight:700; }
+  .nav { font-size:13.5px; margin:0 0 16px; padding:0 0 12px; border-bottom:1px solid var(--line); }
+  .nav a, .navend a { color:var(--accent-deep); text-decoration:none; margin-right:16px; font-weight:600; }
+  .nav a:hover, .navend a:hover { text-decoration:underline; }
+  .navend { font-size:13.5px; margin-top:36px; padding-top:14px; border-top:1px solid var(--line); }
+  h2.story { font-family:var(--serif); font-size:23px; font-weight:800; color:var(--ink); margin:48px 0 2px; padding-top:28px; border-top:2px solid var(--line); letter-spacing:-.01em; }
+  .smeta { font-size:12.5px; color:var(--muted); display:block; margin-bottom:14px; }
+  .toc { background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:14px 20px; font-size:13.5px; line-height:1.95; margin-bottom:12px; }
+  .toc a { color:var(--accent-deep); text-decoration:none; font-weight:600; }
+  .toc a:hover { text-decoration:underline; }
+  .top { position:fixed; right:22px; bottom:22px; background:var(--accent); color:#1a1205; border-radius:50%; width:46px; height:46px; line-height:46px; text-align:center; cursor:pointer; font-size:19px; user-select:none; box-shadow:var(--shadow); opacity:.92; }
+  .top:hover{ background:var(--accent-deep); }
+  @media (max-width:820px){ .page{ padding:26px 20px; } }
+</style>
+</head>
+<body>
+<div class="page">
+<div class="nav"><a href="세계관_세계지도.html">← 세계 전도(지도)</a> <a href="세계관_페이지_세계관설정.html">🌌 세계관 설정</a> <a href="세계관_페이지_힘의구조.html">⚡ 힘의 구조</a></div>
+<h1>📕 이야기 전서 통독</h1>
+<span class="meta">첫 인간(W.0)부터 지금까지 — 인생에서 인생으로 바통을 넘기며 이어 온 이야기 전체를 시간 순서대로 한 페이지에서 읽는다. 원본 데이터 = 세계관_이야기_데이터.js(지도 페이지와 공유·자동 동기화).</span>
+<p style="font-size:12.5px;color:var(--muted)">몇 가지 말: <b>얇은 자</b> = 안에서 밖으로 밀 줄 아는 사람(쉰에 하나꼴 — 사람들은 '세상과 저 사이의 벽이 얇아서'라 믿지만 진짜 까닭은 아무도 모른다). <b>민다</b> = 그들이 힘을 쓰는 것을 이르는 이 시대의 말. <b>W</b> = 첫 인간들의 해를 0으로 세는 기록용 연도(세계 안 사람들은 이 셈을 모른다).</p>
+<div class="toc" id="toc"><b>차례</b><br></div>
+<div id="all"></div>
+<div class="navend"><a href="세계관_세계지도.html">← 세계 전도(지도)로 돌아가기</a></div>
+</div>
+<div class="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+<script src="세계관_이야기_데이터.js" charset="UTF-8"></script>
+<script>
+/* 읽기 정리: 작업용 연도코드(W.####)·강조 별(★)·회차표기 제거 — 사건·문장은 그대로 */
+function polish(html){
+  let s = html;
+  s = s.replace(/\(\s*W\.\d+(?:\s*[~〜]\s*\d*)?\s*기준\s*\)/g, "");
+  s = s.replace(/\(\s*W\.\d+(?:\s*[~〜]\s*\d*)?\s*[—–,-]\s*/g, "(");
+  s = s.replace(/\(\s*W\.\d+(?:\s*[~〜]\s*\d*)?\s*\)/g, "");
+  s = s.replace(/W\.\d+\s*년대/g, "그 무렵");
+  s = s.replace(/W\.\d+(?:\s*[~〜]\s*\d*)?\s*[—–]\s*/g, "");
+  s = s.replace(/W\.\d+(?:\s*[~〜]\s*\d*)?/g, "");
+  s = s.replace(/\(\s*바통\s*\d+\s*\)/g, "");
+  s = s.replace(/\(\s*[,)]\s*/g, "(");
+  s = s.replace(/\(\s*\)/g, "");
+  s = s.replace(/\s+([.,)])/g, "$1");
+  s = s.replace(/\(\s+/g, "(");
+  s = s.replace(/ {2,}/g, " ");
+  s = s.replace(/★\s*/g, "");
+  return s;
+}
+function cleanMeta(m){
+  if(!m) return "";
+  let parts = m.split('·').map(x=>x.trim()).filter(Boolean)
+    .filter(seg => !/바통/.test(seg) && !/^W\.\d/.test(seg));
+  let s = polish(parts.join(' · '));
+  s = s.replace(/\(\s*\)/g,'').replace(/\s{2,}/g,' ').replace(/\s+·/g,' ·').replace(/·\s+/g,' · ');
+  return s.replace(/·\s*$/,'').replace(/^·\s*/,'').trim();
+}
+(function(){
+  let toc = "", html = "";
+  ORDER.forEach((k, i) => {
+    const s = S[k];
+    toc += (i+1) + ". <a href='#s_" + k + "'>" + s.title + "</a><br>";
+    const meta = cleanMeta(s.meta) + (ONELINE[k] ? " · " + ONELINE[k] : "");
+    html += "<h2 class='story' id='s_" + k + "'>" + (i+1) + ". " + s.title + "</h2>" +
+            "<span class='smeta'>" + meta + "</span>" + polish(s.body);
+  });
+  document.getElementById('toc').innerHTML += toc;
+  document.getElementById('all').innerHTML = html;
+})();
+</script>
+</body>
+</html>

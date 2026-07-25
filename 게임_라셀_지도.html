@@ -1,0 +1,171 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>라셀 배치 지도 — 레벨이 실제로 어디에 있나</title>
+<style>
+:root{color-scheme:dark}
+body{margin:0;background:#0f0d09;color:#e8dcc4;font-family:'Malgun Gothic',system-ui,sans-serif;line-height:1.55}
+.wrap{max-width:1100px;margin:0 auto;padding:26px 18px 70px}
+h1{font-size:23px;margin:0 0 2px;color:#f3e6c8}
+.sub{color:#9c8c68;font-size:13px;margin:0 0 16px}
+.mapbox{background:#15110b;border:1px solid #2f2718;border-radius:14px;padding:10px;overflow-x:auto}
+svg{display:block;width:100%;max-width:1080px;margin:0 auto;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin:14px 2px 0;font-size:12px;color:#b9a986}
+.legend b{color:#e0b060}
+.lg{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;border-radius:3px;display:inline-block}
+h2{font-size:16px;margin:28px 0 8px;color:#d8b87e;border-bottom:1px solid #3a3020;padding-bottom:5px}
+ul{margin:6px 0;padding-left:20px}li{margin:3px 0;font-size:13px}
+.q{background:#241a10;border:1px solid #6b4f22;border-radius:12px;padding:14px 16px;margin-top:14px;font-size:13px}
+.q b{color:#f0c878}
+code{color:#e8c98a;font-size:12px}
+.foot{color:#6f6248;font-size:11px;margin-top:32px;border-top:1px solid #2a2216;padding-top:10px}
+</style>
+<div class="wrap">
+<h1>🧭 라셀 배치 지도 — 레벨이 실제로 어디에 있나</h1>
+<p class="sub">개념도가 아니라 <b>실제 위치·방위</b>. 원점 = L01 큰길. 강·위층 = 북(위) · 상류 옛도읍 = 서(왼) · 하구 바다 = 동(오). 데이터 정본 = <code>기획/02_게임설계/2_레벨/게임_라셀_배치정본.md</code>. 실선 = 지은 문 · 점선 = 예정·이동수단.</p>
+
+<div class="mapbox">
+<svg viewBox="0 0 1100 780" font-family="Malgun Gothic,sans-serif">
+<defs>
+<marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c9a06a"/></marker>
+<linearGradient id="river" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#16303a"/><stop offset="1" stop-color="#1c3a44"/></linearGradient>
+</defs>
+
+<!-- 나침반 -->
+<g transform="translate(1030,66)">
+<circle r="34" fill="#161009" stroke="#5a4a30"/>
+<path d="M0,-28 L6,0 L0,-6 L-6,0 Z" fill="#c9a06a"/><path d="M0,28 L6,0 L0,6 L-6,0 Z" fill="#4a3f2a"/>
+<text x="0" y="-16" fill="#f0d69a" font-size="12" text-anchor="middle">N</text>
+<text x="0" y="24" fill="#8a7a58" font-size="11" text-anchor="middle">S</text>
+<text x="22" y="4" fill="#a08a5a" font-size="11" text-anchor="middle">E</text>
+<text x="-22" y="4" fill="#a08a5a" font-size="11" text-anchor="middle">W</text>
+</g>
+
+<!-- 강 (북, 동서로 흐름) + 위층은 강 건너 북 -->
+<rect x="60" y="150" width="1010" height="70" fill="url(#river)"/>
+<text x="130" y="192" fill="#5a8a96" font-size="12">◀ 상류(서)</text>
+<text x="980" y="192" fill="#5a8a96" font-size="12">하구·바다(동) ▶</text>
+<text x="560" y="140" fill="#5a8a96" font-size="12" text-anchor="middle">라셀 강 (서→동)</text>
+
+<!-- D 강 건너 유리탑 (위층 · 강 북안) -->
+<rect x="360" y="34" width="600" height="106" rx="10" fill="#141a1f" stroke="#3a5560"/>
+<text x="660" y="54" fill="#8fb4c2" font-size="12" text-anchor="middle">[D] 강 건너 유리탑(위층) · 중반 — 다리로만 닿음</text>
+<g><rect x="380" y="70" width="150" height="52" rx="6" fill="#1a2228" stroke="#4a7080"/><text x="455" y="90" fill="#bcd6e0" font-size="11" text-anchor="middle">L13 세이르 재단</text><text x="455" y="106" fill="#7a9aa6" font-size="9" text-anchor="middle">요양원·처치실</text></g>
+<g><rect x="580" y="70" width="150" height="52" rx="6" fill="#1a2228" stroke="#4a7080"/><text x="655" y="90" fill="#bcd6e0" font-size="11" text-anchor="middle">L14 셀란 수련원</text><text x="655" y="106" fill="#7a9aa6" font-size="9" text-anchor="middle">깊이 읽는 자</text></g>
+<g><rect x="780" y="70" width="160" height="52" rx="6" fill="#1a2228" stroke="#4a7080"/><text x="860" y="90" fill="#bcd6e0" font-size="11" text-anchor="middle">L15 네르한 저택</text><text x="860" y="106" fill="#7a9aa6" font-size="9" text-anchor="middle">다락 궤 →부두</text></g>
+
+<!-- F 상류 옛 도읍 (서쪽 끝) -->
+<rect x="40" y="250" width="200" height="150" rx="10" fill="#1a1712" stroke="#5a4a30"/>
+<text x="140" y="270" fill="#b89a5e" font-size="12" text-anchor="middle">[F] 상류 옛도읍 · 후반</text>
+<g><rect x="56" y="286" width="76" height="46" rx="6" fill="#241d13" stroke="#6b5a3e"/><text x="94" y="306" fill="#cbb98a" font-size="11" text-anchor="middle">L18 성문</text><text x="94" y="320" fill="#8f7f5e" font-size="9" text-anchor="middle">앞뜰</text></g>
+<g><rect x="146" y="286" width="80" height="46" rx="6" fill="#241d13" stroke="#6b5a3e"/><text x="186" y="306" fill="#cbb98a" font-size="11" text-anchor="middle">L19 빈 성</text><text x="186" y="320" fill="#8f7f5e" font-size="9" text-anchor="middle">고대 물건</text></g>
+<text x="140" y="360" fill="#7a6a48" font-size="9" text-anchor="middle">강이 옮겨 앉으며 버린 마른 자리 ·</text>
+<text x="140" y="374" fill="#7a6a48" font-size="9" text-anchor="middle">아래층 통로가 여기로 올라옴(L17→L18)</text>
+
+<!-- A 아랫장터 (중앙, 원점) — 큰길 동서, 북측에 건물, 그 뒤(북)에 뒷골목 -->
+<rect x="280" y="250" width="300" height="290" rx="10" fill="#1c160f" stroke="#c9a06a" stroke-width="2"/>
+<text x="430" y="270" fill="#e0b060" font-size="13" text-anchor="middle" font-weight="700">[A] 아랫장터 · 처음부터 · 지은 핵</text>
+<!-- 뒷골목 = 북측(위) -->
+<g><rect x="356" y="284" width="150" height="38" rx="6" fill="#2b241a" stroke="#c9a06a"/><text x="431" y="300" fill="#e8d6a8" font-size="11" text-anchor="middle">L03 뒷골목(북)</text><text x="431" y="313" fill="#9f8f68" font-size="9" text-anchor="middle">젖은 돌 · 환기구↓L16</text></g>
+<!-- 북측 건물: 골동상(동)·흥신소(서) -->
+<g><rect x="300" y="332" width="118" height="46" rx="6" fill="#2b241a" stroke="#c9a06a"/><text x="359" y="351" fill="#e8d6a8" font-size="11" text-anchor="middle">L04 흥신소(서·2층)</text><text x="359" y="365" fill="#9f8f68" font-size="9" text-anchor="middle">창 남향→큰길</text></g>
+<g><rect x="440" y="332" width="122" height="46" rx="6" fill="#2b241a" stroke="#c9a06a"/><text x="501" y="351" fill="#e8d6a8" font-size="11" text-anchor="middle">L02 골동상(동)</text><text x="501" y="365" fill="#9f8f68" font-size="9" text-anchor="middle">앞문↓ 뒷문↑골목</text></g>
+<!-- L01 큰길 = 중앙 동서 대로 -->
+<g><rect x="300" y="392" width="262" height="46" rx="7" fill="#3a2f22" stroke="#f0d69a" stroke-width="2"/><text x="431" y="412" fill="#f4e8cc" font-size="12" text-anchor="middle" font-weight="700">L01 장터 큰길 (동서 대로 · 허브)</text><text x="431" y="428" fill="#c9b98a" font-size="9" text-anchor="middle">← 서   ·   원점(0,0)   ·   동 →</text></g>
+<!-- 남측: 밥집 -->
+<g><rect x="300" y="452" width="118" height="42" rx="6" fill="#2b241a" stroke="#c9a06a"/><text x="359" y="470" fill="#e8d6a8" font-size="11" text-anchor="middle">L05 밥집(남)</text><text x="359" y="483" fill="#9f8f68" font-size="9" text-anchor="middle">문 북향→큰길</text></g>
+<!-- 동편 옥상: 요아 셋방 -->
+<g><rect x="440" y="452" width="122" height="42" rx="6" fill="#241d13" stroke="#7a6a48"/><text x="501" y="468" fill="#cbb98a" font-size="10.5" text-anchor="middle">L22 요아셋방(동·옥상)</text><text x="501" y="481" fill="#8f7f5e" font-size="8.5" text-anchor="middle">창 서향→장터·강</text></g>
+<!-- A 내부 연결(실선=지은 문) -->
+<line x1="380" y1="392" x2="360" y2="378" stroke="#c9a06a" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="480" y1="392" x2="500" y2="378" stroke="#c9a06a" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="360" y1="438" x2="360" y2="452" stroke="#c9a06a" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="500" y1="332" x2="470" y2="322" stroke="#c9a06a" stroke-width="2" marker-end="url(#ar)"/>
+<text x="516" y="330" fill="#c9a06a" font-size="8">골동상 뒷문↑</text>
+
+<!-- B 학당가·의원 (동, 강 쪽) -->
+<rect x="600" y="250" width="190" height="200" rx="10" fill="#181c14" stroke="#5a6a3e"/>
+<text x="695" y="270" fill="#9cb46a" font-size="12" text-anchor="middle">[B] 학당가·의원 · 처음부터</text>
+<g><rect x="616" y="284" width="158" height="38" rx="6" fill="#20261a" stroke="#6a7a48"/><text x="695" y="308" fill="#c6d69a" font-size="11" text-anchor="middle">L07 강둑(북·강변)</text></g>
+<g><rect x="616" y="330" width="158" height="38" rx="6" fill="#20261a" stroke="#6a7a48"/><text x="695" y="354" fill="#c6d69a" font-size="11" text-anchor="middle">L06 학당가 거리</text></g>
+<g><rect x="616" y="376" width="158" height="38" rx="6" fill="#20261a" stroke="#6a7a48"/><text x="695" y="400" fill="#c6d69a" font-size="11" text-anchor="middle">L08 의원 병동(남)</text></g>
+<line x1="695" y1="330" x2="695" y2="322" stroke="#7a7a5a" stroke-width="1.5" stroke-dasharray="4 3"/>
+<!-- A ↔ B 지하철 -->
+<line x1="580" y1="415" x2="600" y2="400" stroke="#7a7a5a" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="590" y="435" fill="#8a8a6a" font-size="8" text-anchor="middle">지하철</text>
+
+<!-- C 신항·부두 (북동, 하구) -->
+<rect x="810" y="250" width="200" height="290" rx="10" fill="#1c1810" stroke="#7a5a2e"/>
+<text x="910" y="270" fill="#c69a5a" font-size="12" text-anchor="middle">[C] 신항·부두 · 초반</text>
+<g><rect x="826" y="284" width="168" height="40" rx="6" fill="#241d13" stroke="#8a6a3e"/><text x="910" y="303" fill="#e0bc82" font-size="11" text-anchor="middle">L09 신항 공사판</text><text x="910" y="316" fill="#9f8f68" font-size="9" text-anchor="middle">옛 켜를 건드림</text></g>
+<g><rect x="826" y="330" width="168" height="34" rx="6" fill="#191309" stroke="#5a4a2e" stroke-dasharray="3 2"/><text x="910" y="351" fill="#b89a5e" font-size="10" text-anchor="middle">↓ L10 굴착 갱(지하)</text></g>
+<g><rect x="826" y="418" width="168" height="38" rx="6" fill="#1a2226" stroke="#5a7a86"/><text x="910" y="442" fill="#bcd6e0" font-size="11" text-anchor="middle">L11 부두 하역장(동)</text></g>
+<g><rect x="826" y="462" width="168" height="38" rx="6" fill="#1a2226" stroke="#5a7a86"/><text x="910" y="486" fill="#bcd6e0" font-size="11" text-anchor="middle">L12 부두 창고</text></g>
+<line x1="910" y1="364" x2="910" y2="418" stroke="#6a7a7a" stroke-width="1.5" stroke-dasharray="4 3"/>
+<!-- B ↔ C -->
+<line x1="790" y1="360" x2="810" y2="360" stroke="#7a7a5a" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+<!-- 바다 + L20 화물선 (동쪽 끝) -->
+<rect x="1010" y="400" width="70" height="150" fill="#12262e"/>
+<text x="1045" y="392" fill="#4a7a86" font-size="11" text-anchor="middle">바다</text>
+<g><rect x="1000" y="500" width="86" height="40" rx="6" fill="#12262e" stroke="#5a8a96"/><text x="1043" y="518" fill="#a6d0da" font-size="10" text-anchor="middle">[F] L20</text><text x="1043" y="531" fill="#6a9aa6" font-size="9" text-anchor="middle">화물선</text></g>
+<line x1="994" y1="480" x2="1000" y2="510" stroke="#4a7a86" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+<!-- L15 네르한 → L11 부두 (궤가 부두로) -->
+<path d="M860,122 C880,300 905,360 910,418" fill="none" stroke="#6a7080" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+
+<!-- E 아래층 (지하, 하단 띠) -->
+<rect x="280" y="600" width="730" height="150" rx="10" fill="#0d0b07" stroke="#4a3a5a" stroke-dasharray="5 3"/>
+<text x="645" y="622" fill="#9a7ab4" font-size="12" text-anchor="middle">[E] ▼ 아래층·지하수로 · 중반 — 검은물이 옛 세계 켜를 얕고 어지럽게 묻은 지하</text>
+<g><rect x="330" y="640" width="150" height="42" rx="6" fill="#16101e" stroke="#6a4a8a"/><text x="405" y="660" fill="#c6a6e0" font-size="11" text-anchor="middle">L16 폐선 승강장</text><text x="405" y="674" fill="#8a6aaa" font-size="9" text-anchor="middle">환기구↑L03</text></g>
+<g><rect x="560" y="640" width="150" height="42" rx="6" fill="#16101e" stroke="#6a4a8a"/><text x="635" y="660" fill="#c6a6e0" font-size="11" text-anchor="middle">L17 묻힌 도시</text><text x="635" y="674" fill="#8a6aaa" font-size="9" text-anchor="middle">→상류 성문 · ↑갱</text></g>
+<g><rect x="790" y="640" width="150" height="42" rx="6" fill="#160f0d" stroke="#6a4a3a" stroke-dasharray="3 2"/><text x="865" y="666" fill="#b89078" font-size="10" text-anchor="middle">L21 딘 은신처(거점)</text></g>
+<!-- 아래층 입구 연결 -->
+<path d="M431,438 C420,560 410,600 405,640" fill="none" stroke="#a06a6a" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#ar)"/>
+<text x="392" y="580" fill="#a06a6a" font-size="9">L03 환기구↓</text>
+<path d="M910,364 C820,560 700,610 660,640" fill="none" stroke="#8a6aaa" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#ar)"/>
+<text x="770" y="600" fill="#8a6aaa" font-size="9">L10 갱↓</text>
+<line x1="480" y1="661" x2="560" y2="661" stroke="#8a6aaa" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+<!-- L17 → 상류 L18 -->
+<path d="M560,655 C300,700 150,480 140,400" fill="none" stroke="#7a5a6a" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#ar)"/>
+<text x="250" y="700" fill="#7a5a6a" font-size="9">상류로 뻗은 통로↖</text>
+</svg>
+</div>
+
+<div class="legend">
+<span class="lg"><span class="sw" style="background:#3a2f22;border:2px solid #f0d69a"></span> <b>지은 핵</b>(조합식 6맵)</span>
+<span class="lg"><span class="sw" style="background:#2b241a;border:1px solid #c9a06a"></span> A 아랫장터</span>
+<span class="lg"><span class="sw" style="background:#20261a;border:1px solid #6a7a48"></span> B 학당·의원</span>
+<span class="lg"><span class="sw" style="background:#241d13;border:1px solid #8a6a3e"></span> C 신항·부두</span>
+<span class="lg"><span class="sw" style="background:#1a2228;border:1px solid #4a7080"></span> D 위층</span>
+<span class="lg"><span class="sw" style="background:#16101e;border:1px solid #6a4a8a"></span> E 아래층</span>
+<span class="lg"><span class="sw" style="background:#241d13;border:1px solid #6b5a3e"></span> F 상류·물위</span>
+<span class="lg">— 실선 = 지은 문 · ┄ 점선 = 예정·이동(다리·배·지하철·계단)</span>
+</div>
+
+<h2>★A 아랫장터 배치로 잡은 모순 교정</h2>
+<ul>
+<li><b>뒷골목(L03)을 큰길 북측 건물 뒤(북)로 옮겼다.</b> 그러면 <b>L02 골동상이 큰길(남)↔뒷골목(북)을 앞뒤로 관통</b>해서 앞문·뒷문이 자연스러워진다. (지금 빌더는 골목이 큰길 남측이라 골동상 뒷문과 방위가 어긋났다.)</li>
+<li>L04 흥신소는 큰길 북측 서쪽 <b>이층</b> — 창이 남쪽 큰길을 내려다본다(정본 §12-3).</li>
+<li>L05 밥집은 큰길 남측, 문이 북쪽 큰길로.</li>
+<li>L22 요아 셋방은 장터 동편 옥상 — 창이 서쪽 장터 지붕·강을 본다. 낮엔 동쪽 부두(C) 창고로 통근.</li>
+</ul>
+
+<h2>아래층·상류로 이어지는 두 입구</h2>
+<ul>
+<li><b>L03 뒷골목 환기구 → L16 폐선</b> (아랫장터에서 내려가는 입구, 이미 지음).</li>
+<li><b>L10 신항 갱 돌리는 벽 → L17 묻힌 도시</b> (신항에서 뚫린 입구).</li>
+<li>둘 다 <b>아래층</b>에서 만나고, L17에서 <b>상류로 뻗은 통로 → L18 성문</b>으로 옛 도읍과 이어진다.</li>
+</ul>
+
+<div class="q">
+<b>★네가 정할 것</b> — 이 방위·배치가 네 라셀과 맞는지.
+<ul>
+<li>강·위층 = 북(위) / 상류 = 서(왼) / 바다·부두 = 동(오). 뒤집을까?</li>
+<li>A구역 뒷골목을 북측으로 옮기는 교정 — OK면 L01 빌더부터 고친다.</li>
+<li>학당가(B)를 아랫장터 동에 뒀는데, 강 쪽이면 더 북일 수도. 위치 조정할 데 있으면 짚어줘.</li>
+</ul>
+확정되면 이 좌표대로 ①L01 빌더 골목 교정 ②각 레벨 빌더 창밖·문 방향 ③포탈 배선을 다시 건다.
+</div>
+
+<p class="foot">실제 위치·방위 지도 · 데이터 정본 = 기획/02_게임설계/2_레벨/게임_라셀_배치정본.md · 확정 후 빌더·배선이 이 좌표를 따른다</p>
+</div>

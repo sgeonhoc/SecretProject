@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>조율 다이브 — 전투 설계 연구</title>
+<style>
+  :root{
+    --bg:#0e0f13; --panel:#171922; --panel2:#1e2130; --ink:#e8e9ee; --dim:#9aa0b4;
+    --line:#2b2f40; --hot:#e8663a; --frost:#57b6e0; --gold:#e0b24d; --leaf:#6fca7d;
+    --violet:#a98be0; --accent:#e8663a;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f4f2ec; --panel:#fff; --panel2:#f0ede4; --ink:#20222a; --dim:#5c6273;
+      --line:#ddd8cc; --hot:#c8471c; --frost:#2c82b8; --gold:#a9832a; --leaf:#3f9b52; --violet:#7d5bc0;}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Pretendard","Malgun Gothic",system-ui,-apple-system,sans-serif;line-height:1.65}
+  .wrap{max-width:960px;margin:0 auto;padding:34px 20px 90px}
+  header.top{text-align:center;padding:24px 0 8px;border-bottom:1px solid var(--line);margin-bottom:30px}
+  .eyebrow{letter-spacing:.32em;font-size:12px;color:var(--dim);text-transform:uppercase}
+  h1{font-size:clamp(28px,5vw,42px);margin:.28em 0 .1em;font-weight:800;letter-spacing:-.01em}
+  .sub{color:var(--dim);font-size:15px;max-width:640px;margin:.2em auto 0}
+  .tag{display:inline-block;font-size:11px;color:var(--dim);border:1px solid var(--line);
+    border-radius:20px;padding:3px 11px;margin-top:14px}
+  h2{font-size:22px;margin:52px 0 6px;font-weight:750;letter-spacing:-.01em}
+  h2 .n{color:var(--accent);font-variant-numeric:tabular-nums;margin-right:.4em}
+  .lead{color:var(--dim);font-size:14.5px;margin:0 0 18px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:16px 0}
+  .quote{border-left:3px solid var(--accent);padding:12px 16px;background:var(--panel2);
+    border-radius:0 10px 10px 0;color:var(--ink);font-size:14.5px;margin:14px 0}
+  .quote b{color:var(--accent)}
+  figure{margin:20px 0;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+  figure svg{display:block;width:100%;height:auto}
+  figcaption{color:var(--dim);font-size:13px;margin-top:10px;text-align:center}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px;display:block;overflow-x:auto}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);font-weight:700;white-space:nowrap}
+  .good{color:var(--leaf);font-weight:700}
+  .bad{color:var(--hot);font-weight:700}
+  .axis-tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;margin-right:6px}
+  .a-a{background:rgba(232,102,58,.16);color:var(--hot)}
+  .a-b{background:rgba(87,182,224,.16);color:var(--frost)}
+  .a-c{background:rgba(224,178,77,.16);color:var(--gold)}
+  ul.tight{margin:8px 0;padding-left:20px}
+  ul.tight li{margin:5px 0}
+  .wfix{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0;background:var(--panel)}
+  .wfix .w{color:var(--hot);font-weight:750;font-size:14.5px}
+  .wfix .f{color:var(--leaf);font-weight:700}
+  .wfix p{margin:7px 0 0;font-size:14px}
+  .foot{margin-top:60px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px;text-align:center}
+  code{background:var(--panel2);padding:1px 6px;border-radius:5px;font-size:.9em}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">SECRET PROJECT · 전투 설계 연구</div>
+  <h1>조율 다이브</h1>
+  <div class="sub">랜덤디펜스의 "80분 쌓아 올리는 재미"를 우리 숙련 마법 설정 위에 얹는 하나의 아이디어 — 그리고 그것을 무너뜨리려는 약점들과 그 보완.</div>
+  <div class="tag">2026-07-22 · 진행 중 · 확정 아님 · 검수용</div>
+</header>
+
+<div class="quote">
+  <b>발제(사용자):</b> "랜덤디펜스류엔 클리어 횟수로 조합식이 풀리잖아. 우리도 파먹기·스토리 진행으로 조합 기술이 늘게 하고 싶어. 근데 고민은 — <b>80분 쌓아 올리는 조합의 재미</b>를 느끼면서 <b>우리 마법 설정을 살리는</b> 게 어렵다는 거야."
+</div>
+
+<h2><span class="n">0</span>긴장의 해부 — 왜 어려운가</h2>
+<p class="lead">랜덤디펜스의 재미는 두 겹이고, 설정과 부딪히는 정도가 완전히 다르다. 어려움의 핵은 <b>단 하나의 겹</b>이다.</p>
+
+<figure>
+<svg viewBox="0 0 900 250" role="img" aria-label="두 겹 분해">
+  <defs>
+    <linearGradient id="gGood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6fca7d" stop-opacity=".22"/><stop offset="1" stop-color="#6fca7d" stop-opacity=".05"/></linearGradient>
+    <linearGradient id="gBad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8663a" stop-opacity=".22"/><stop offset="1" stop-color="#e8663a" stop-opacity=".05"/></linearGradient>
+  </defs>
+  <rect x="40" y="40" width="380" height="170" rx="14" fill="url(#gGood)" stroke="#6fca7d" stroke-opacity=".5"/>
+  <rect x="480" y="40" width="380" height="170" rx="14" fill="url(#gBad)" stroke="#e8663a" stroke-opacity=".5"/>
+  <text x="230" y="72" text-anchor="middle" fill="#6fca7d" font-size="15" font-weight="800">메타 겹 · 판과 판 사이</text>
+  <text x="230" y="100" text-anchor="middle" fill="#e8e9ee" font-size="13">클리어 수 → 조합식 해금</text>
+  <text x="230" y="132" text-anchor="middle" fill="#9aa0b4" font-size="12.5">= 우리 습득(스토리·비전서·길T·도감)</text>
+  <text x="230" y="152" text-anchor="middle" fill="#9aa0b4" font-size="12.5">그 자체</text>
+  <text x="230" y="188" text-anchor="middle" fill="#6fca7d" font-size="13" font-weight="800">충돌 0 — 이미 우리 것</text>
+  <text x="670" y="72" text-anchor="middle" fill="#e8663a" font-size="15" font-weight="800">런 안 겹 · 한 판 80분</text>
+  <text x="670" y="100" text-anchor="middle" fill="#e8e9ee" font-size="13">바닥부터 조합을 쌓아 올림</text>
+  <text x="670" y="132" text-anchor="middle" fill="#9aa0b4" font-size="12.5">숙련 모델 = "한 번 익히면 항상 안다"</text>
+  <text x="670" y="152" text-anchor="middle" fill="#9aa0b4" font-size="12.5">→ 매 판 리셋하면 설정이 깨진다</text>
+  <text x="670" y="188" text-anchor="middle" fill="#e8663a" font-size="13" font-weight="800">여기 하나가 진짜 어려움</text>
+</svg>
+<figcaption>재미의 두 겹. 메타 겹은 이미 우리 시스템이다. 이 연구는 <b>런 안 겹 하나</b>만 판다.</figcaption>
+</figure>
+
+<div class="card">
+  <b>리셋의 딜레마</b> — 무엇을 리셋하느냐가 전부다.
+  <ul class="tight">
+    <li>리셋 = <b class="bad">아는 기술</b> → 쌓기 재미 강함, 그러나 "캐릭터가 갑자기 바보가 됐다" + 설정 정면충돌.</li>
+    <li>리셋 = <b class="bad">아무것도 아님</b>(항상 풀파워) → 위화감 0, 설정 깔끔, 그러나 80분 곡선이 없어 재미가 죽음.</li>
+  </ul>
+</div>
+
+<h2><span class="n">1</span>잡은 하나의 아이디어 — 조율 다이브</h2>
+<div class="quote" style="border-color:var(--frost)">
+  <b style="color:var(--frost)">한 문장:</b> 능력자는 배운 기술을 영구히 갖되, <b style="color:var(--frost)">낯선 아래층에 내려갈 때마다 그 땅의 마력을 바닥부터 길들여(조율) 쓸 수 있는 폭을 다시 쌓아 올린다.</b>
+</div>
+<p class="lead">리셋되는 축을 "아는 지식"이 아니라 <b>"이 땅에서의 조율 상태"</b>로 옮긴다 — 이게 딜레마의 열쇠다. 그리고 이 리셋의 이유는 게임 규칙이 아니라 캐논이다.</p>
+
+<div class="grid2">
+  <div class="card"><b>조련의 법 §1-2</b><br><span style="color:var(--dim);font-size:13.5px">"알아듣는 것은 마력이 아니라 <b style="color:var(--ink)">길</b>이다… 이 법은 그들을 묶는 사슬이 아니라 그들이 딛는 <b style="color:var(--ink)">계단</b>이다."<br>→ 계단 = in-run 성장 곡선. 설정이 이미 "쌓아 올리는 것"을 말한다.</span></div>
+  <div class="card"><b>라셀 아래층 = 고대 마력 짙음</b><br><span style="color:var(--dim);font-size:13.5px">내려갈수록 오래된 것 → 마력 밀도·성질이 다르다. <b style="color:var(--ink)">낯선 땅의 마력은 처음부터 다시 길들여야 한다</b> = 리셋의 세계 내 이유. 억지 규칙이 아님.</span></div>
+</div>
+<p class="lead" style="margin-top:14px"><b>→ 설정을 "살리는" 게 아니라, 설정이 곧 매커니즘이다.</b> 조련의 법 한 법이 랜덤디펜스식 쌓기를 정당화한다.</p>
+
+<h2><span class="n">2</span>다이브 안에서 쌓이는 세 축</h2>
+<p class="lead">한 다이브 = 여러 층을 깨며 내려가는 한 줄기. 아래 셋이 층을 건너 누적되다 다이브 끝에 흩어진다.</p>
+
+<figure>
+<svg viewBox="0 0 900 300" role="img" aria-label="세 축">
+  <!-- axis A: honing gauge -->
+  <text x="150" y="34" text-anchor="middle" fill="#e8663a" font-size="14" font-weight="800">A · 길든 결</text>
+  <text x="150" y="52" text-anchor="middle" fill="#9aa0b4" font-size="11.5">쌓기의 본체</text>
+  <g transform="translate(60,70)">
+    <rect x="0" y="0" width="180" height="26" rx="6" fill="#1e2130" stroke="#2b2f40"/>
+    <rect x="0" y="0" width="52" height="26" rx="6" fill="#e8663a" fill-opacity=".35"/>
+    <text x="26" y="17" text-anchor="middle" fill="#e8e9ee" font-size="10">서툰</text>
+    <text x="95" y="17" text-anchor="middle" fill="#9aa0b4" font-size="10">익음</text>
+    <text x="158" y="17" text-anchor="middle" fill="#9aa0b4" font-size="10">여문</text>
+  </g>
+  <text x="150" y="128" text-anchor="middle" fill="#9aa0b4" font-size="11">쓸수록 그 계열이</text>
+  <text x="150" y="145" text-anchor="middle" fill="#e8e9ee" font-size="11.5">빨라지고 · 싸지고 · 여문다</text>
+  <text x="150" y="168" text-anchor="middle" fill="#6fca7d" font-size="11">못 쓰는 게 아니라 서툴게 쓴다</text>
+  <text x="150" y="184" text-anchor="middle" fill="#6fca7d" font-size="11">→ 위화감 해소</text>
+
+  <!-- axis B: slot room bar -->
+  <text x="450" y="34" text-anchor="middle" fill="#57b6e0" font-size="14" font-weight="800">B · 칸 방</text>
+  <text x="450" y="52" text-anchor="middle" fill="#9aa0b4" font-size="11.5">큰 수를 여는 시간 예산</text>
+  <g transform="translate(370,70)">
+    <rect x="0" y="14" width="20" height="16" rx="3" fill="#57b6e0" fill-opacity=".8"/>
+    <rect x="26" y="8" width="20" height="22" rx="3" fill="#57b6e0" fill-opacity=".7"/>
+    <rect x="52" y="0" width="20" height="30" rx="3" fill="#57b6e0" fill-opacity=".6"/>
+    <rect x="78" y="-8" width="20" height="38" rx="3" fill="#57b6e0" fill-opacity=".5"/>
+    <rect x="104" y="-16" width="20" height="46" rx="3" fill="#57b6e0" fill-opacity=".4"/>
+    <rect x="130" y="-24" width="20" height="54" rx="3" fill="#57b6e0" fill-opacity=".3"/>
+    <text x="10" y="46" text-anchor="middle" fill="#9aa0b4" font-size="10">3칸</text>
+    <text x="140" y="46" text-anchor="middle" fill="#9aa0b4" font-size="10">9칸</text>
+  </g>
+  <text x="450" y="128" text-anchor="middle" fill="#9aa0b4" font-size="11">층이 깊어질수록 예산이 넓어짐</text>
+  <text x="450" y="150" text-anchor="middle" fill="#e8e9ee" font-size="11.5">초반 자잘기 → 후반 겹영창·큰 진</text>
+  <text x="450" y="172" text-anchor="middle" fill="#57b6e0" font-size="11">80분 곡선의 척추</text>
+
+  <!-- axis C: cache -->
+  <text x="750" y="34" text-anchor="middle" fill="#e0b24d" font-size="14" font-weight="800">C · 주운 조각</text>
+  <text x="750" y="52" text-anchor="middle" fill="#9aa0b4" font-size="11.5">랜덤·리플레이의 자리</text>
+  <g transform="translate(700,66)" fill="#e0b24d" fill-opacity=".55">
+    <path d="M28 0 l8 16 -16 0 z"/><rect x="52" y="4" width="16" height="16" rx="3"/>
+    <circle cx="30" cy="34" r="8"/><path d="M56 28 l10 0 0 14 -10 0 z" fill-opacity=".4"/>
+  </g>
+  <text x="750" y="128" text-anchor="middle" fill="#9aa0b4" font-size="11">땅이 주는 것 = 드래프트</text>
+  <text x="750" y="150" text-anchor="middle" fill="#e8e9ee" font-size="11.5">고대 조각 · 촉매 · 임시 새김</text>
+  <text x="750" y="172" text-anchor="middle" fill="#e0b24d" font-size="11">랜덤은 능력이 아니라 던전의 것</text>
+  <text x="750" y="188" text-anchor="middle" fill="#e0b24d" font-size="11">→ 설정 위반 0</text>
+
+  <line x1="300" y1="90" x2="360" y2="90" stroke="#2b2f40"/><line x1="600" y1="90" x2="690" y2="90" stroke="#2b2f40"/>
+</svg>
+<figcaption>세 축이 한 다이브 동안 함께 자란다. A=쌓기 본체 · B=곡선 척추 · C=매 판 다른 갈래를 유도하는 랜덤.</figcaption>
+</figure>
+
+<table>
+<tr><th>조련도</th><th>상태</th><th>게임 값 (조련의 법 그대로)</th></tr>
+<tr><td>서툰 0~30</td><td>안 길든 길</td><td>+시전 박자, +칸 비용, −명중/신뢰(흐릿하면 벙어리)</td></tr>
+<tr><td>익음 30~70</td><td>손에 붙기 시작</td><td>정가(도감 표기값)</td></tr>
+<tr><td>여문 70~100</td><td>이 땅과 한 몸</td><td>−칸, 고속, 연쇄 환급 우선, 겹 얹기 열림</td></tr>
+</table>
+
+<h2><span class="n">3</span>다이브 곡선 — 바닥에서 피날레로</h2>
+<p class="lead">세 축이 합쳐지면 한 다이브가 이 곡선을 그린다. 랜덤디펜스의 스노볼을 우리 문법으로 옮긴 것. <b>적 난도가 같이 올라 받아준다</b>(아래로 갈수록 고대 마력 짙음 = 세계관이 곧 난도).</p>
+
+<figure>
+<svg viewBox="0 0 900 340" role="img" aria-label="다이브 곡선">
+  <defs>
+    <linearGradient id="pow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8663a" stop-opacity=".35"/><stop offset="1" stop-color="#e8663a" stop-opacity="0"/></linearGradient>
+  </defs>
+  <!-- axes -->
+  <line x1="70" y1="290" x2="850" y2="290" stroke="#2b2f40"/>
+  <line x1="70" y1="40" x2="70" y2="290" stroke="#2b2f40"/>
+  <text x="60" y="50" text-anchor="end" fill="#9aa0b4" font-size="11">위력</text>
+  <text x="850" y="312" text-anchor="end" fill="#9aa0b4" font-size="11">다이브 진행 →</text>
+  <!-- my power area -->
+  <path d="M70 268 C 200 262, 300 235, 400 205 S 620 120, 760 62 L 760 290 L 70 290 Z" fill="url(#pow)"/>
+  <path d="M70 268 C 200 262, 300 235, 400 205 S 620 120, 760 62" fill="none" stroke="#e8663a" stroke-width="3"/>
+  <!-- enemy line -->
+  <path d="M70 276 C 220 270, 340 250, 460 220 S 660 150, 800 95" fill="none" stroke="#57b6e0" stroke-width="2.4" stroke-dasharray="6 5"/>
+  <!-- floor markers -->
+  <g fill="#9aa0b4" font-size="11" text-anchor="middle">
+    <line x1="185" y1="285" x2="185" y2="295" stroke="#2b2f40"/><text x="185" y="310">1층</text>
+    <line x1="300" y1="285" x2="300" y2="295" stroke="#2b2f40"/><text x="300" y="310">2</text>
+    <line x1="415" y1="285" x2="415" y2="295" stroke="#2b2f40"/><text x="415" y="310">3</text>
+    <line x1="530" y1="285" x2="530" y2="295" stroke="#2b2f40"/><text x="530" y="310">4</text>
+    <line x1="645" y1="285" x2="645" y2="295" stroke="#2b2f40"/><text x="645" y="310">5</text>
+    <line x1="760" y1="285" x2="760" y2="295" stroke="#2b2f40"/><text x="760" y="310">6·보스</text>
+  </g>
+  <!-- annotations -->
+  <text x="150" y="245" fill="#e8663a" font-size="12" font-weight="700">서툰 시작</text>
+  <text x="120" y="262" fill="#9aa0b4" font-size="10.5">특화 헤드스타트로 무력하진 않음</text>
+  <text x="600" y="90" fill="#e8663a" font-size="12" font-weight="700">여문 · 겹영창</text>
+  <text x="560" y="200" fill="#57b6e0" font-size="11">적 난도(고대 마력)</text>
+  <circle cx="760" cy="62" r="6" fill="#e8663a"/>
+  <text x="770" y="46" fill="#e8e9ee" font-size="11.5" font-weight="700">피냐타 보스</text>
+</svg>
+<figcaption>내 위력(주황)과 적 난도(파랑)가 함께 오른다. 다이브 끝의 벌어짐 = 만개한 빌드로 보스를 부수는 뽕맛. 곡선의 <b>모양</b>은 베테랑이어도 보존된다(§약점 W9).</figcaption>
+</figure>
+
+<h2><span class="n">4</span>스트레스 테스트 — 약점을 찾아 때운다</h2>
+<p class="lead">이 아이디어를 재미없게/무너지게 만들 지점을 억지로 찾아내고 각각 보완한다. 이게 연구의 본론이다.</p>
+
+<div class="wfix"><span class="w">W1 · 캐릭터가 갑자기 바보가 됐다 (위화감)</span>
+<p><span class="f">때움:</span> 리셋은 지식이 아니라 조련도. 턴 1에도 아는 건 다 쓴다 — 서툴 뿐(느리고 비쌈). "이 낯선 땅을 아직 안 길들였다"는 캐논 프레이밍. 못 쓰는 벽이 성장 여지로 바뀐다.</p></div>
+
+<div class="wfix"><span class="w">W2 · 랜덤이 내 빌드 투자를 무시하나 (불 몰빵인데 물 층)</span>
+<p><span class="f">때움 ①</span> 특화 헤드스타트 — 메타 투자한 계열은 다이브 시작부터 반쯤 길든 상태(진짜 바닥이 아니라 <b>내 특화 baseline에서</b> 재길들임). <span class="f">②</span> 땅은 <b>이점</b>을 줄 뿐 내 계열을 잠그지 않음 → 강제 리빌드가 아니라 "내 빌드 + 상황 유혹".</p></div>
+
+<div class="wfix"><span class="w">W3 · 매 다이브 같은 걸 다시 길들이는 노가다 ★성패의 급소</span>
+<p><span class="f">때움 — 길들이기가 복구가 아니라 분기여야 한다:</span> 땅의 조각·촉매가 매번 다른 꼴·맺음 갈래를 열고(같은 불이라도 번짐→폭발→불벽 유지), 좁은 예산 안에서 어느 하위 라인을 팔지 <b>플레이어가 고른다</b>. → 불 몰빵러가 <b>매 다이브 다른 불 빌드</b>가 된다. 이게 숙련 프레임 안의 랜덤디펜스 조합 재미.</p></div>
+
+<div class="grid2">
+<div class="wfix"><span class="w">W4 · 스노볼 밸런스</span>
+<p><span class="f">때움:</span> 다이브 = PvE 축. 층 깊이 = 적 강도(고대 마력 캐논). 스노볼은 의도, 층 난도가 받아줌. PvP·스토리는 다이브 리셋 없이 풀 baseline(§5).</p></div>
+<div class="wfix"><span class="w">W5 · 초반 지루함</span>
+<p><span class="f">때움:</span> 헤드스타트(무력 X) + 직격기 즉시 사용 + 첫 층 짧게 + 첫 드래프트를 이르게(에이전시 조기 발동).</p></div>
+</div>
+
+<div class="grid2">
+<div class="wfix"><span class="w">W7 · 외곬 빌드가 손해 보나</span>
+<p><span class="f">때움:</span> 외곬의 한 문장은 다이브 시작부터 만개(영구 벼림, 리셋 X). 대신 칸 방이 좁아 초반 발사 제한 → "완벽한 한 자루, 자랄 때까진 아껴 쏨" = 다른 곡선.</p></div>
+<div class="wfix"><span class="w">W9 · 베테랑은 곡선이 사라지나</span>
+<p><span class="f">때움:</span> 헤드스타트를 상한의 일정 비율로 캡. 심층 다이브는 칸 방·결·난도 상한↑. 절대 수치는 커지되 <b>곡선의 모양은 보존</b>.</p></div>
+</div>
+
+<h2><span class="n">5</span>두 성장 루프가 사실은 하나다</h2>
+<p class="lead">사용자가 원한 <b>"80분 쌓기"</b>와 <b>"클리어 횟수 해금"</b>은 한 시스템의 두 시간축이다.</p>
+
+<figure>
+<svg viewBox="0 0 900 250" role="img" aria-label="통합 톱니">
+  <!-- in-dive loop -->
+  <rect x="60" y="70" width="300" height="110" rx="14" fill="#171922" stroke="#e8663a" stroke-opacity=".5"/>
+  <text x="210" y="100" text-anchor="middle" fill="#e8663a" font-size="14" font-weight="800">다이브 안 (분)</text>
+  <text x="210" y="126" text-anchor="middle" fill="#e8e9ee" font-size="12.5">임시 조련도 오름 (서툰→여문)</text>
+  <text x="210" y="150" text-anchor="middle" fill="#9aa0b4" font-size="12">다이브 끝에 흩어짐</text>
+  <!-- meta loop -->
+  <rect x="540" y="70" width="300" height="110" rx="14" fill="#171922" stroke="#57b6e0" stroke-opacity=".5"/>
+  <text x="690" y="100" text-anchor="middle" fill="#57b6e0" font-size="14" font-weight="800">다이브 밖 (판 거듭)</text>
+  <text x="690" y="126" text-anchor="middle" fill="#e8e9ee" font-size="12.5">여문 반복 → 영구 벼림 적립</text>
+  <text x="690" y="150" text-anchor="middle" fill="#9aa0b4" font-size="12">발견 조각 → 도감 드래프트 후보</text>
+  <!-- arrows -->
+  <path d="M360 110 L 540 110" fill="none" stroke="#9aa0b4" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="450" y="100" text-anchor="middle" fill="#9aa0b4" font-size="11">방울 적립</text>
+  <path d="M540 150 L 360 150" fill="none" stroke="#9aa0b4" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="450" y="170" text-anchor="middle" fill="#9aa0b4" font-size="11">다음 다이브 헤드스타트 ↑</text>
+  <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#9aa0b4"/></marker></defs>
+  <text x="450" y="220" text-anchor="middle" fill="#e0b24d" font-size="13" font-weight="700">같은 조련 시스템 · 시간축만 다름</text>
+</svg>
+<figcaption>in-run 임시 조련이 cross-run 영구 벼림을 먹인다. 조련의 법 한 법이 두 재미를 동시에 낳는다 — "설정을 살리면서"의 완성형.</figcaption>
+</figure>
+
+<h2><span class="n">6</span>모드 배치</h2>
+<div class="card">
+전투 코어(손패30·조립·연쇄환급·전리·수싸움)는 <b>그대로.</b> 다이브는 그 위의 모드 래퍼다.
+<ul class="tight">
+  <li><b style="color:var(--gold)">파먹기(다이브) = PvE 로그라이크</b> — 조율 리셋 + 스노볼. 사용자가 말한 "파먹기"의 자리.</li>
+  <li><b style="color:var(--frost)">스토리·결투</b> — 다이브 리셋 없이 영구 baseline으로 겨룸. 스노볼을 PvP에 안 들여 밸런스 보호.</li>
+</ul>
+<b>→ 같은 전투, 두 껍질.</b> 한쪽은 매번 쌓아 올리는 재미, 한쪽은 완성된 내 빌드로 겨루는 재미.
+</div>
+
+<h2><span class="n">7</span>검수 때 정할 열린 물음</h2>
+<table>
+<tr><th>물음</th><th>저울</th></tr>
+<tr><td>"한 판"의 그릇 = 다이브(여러 층)로 확정? 개별 전투 안에도 쌓임을 넣나?</td><td>진행 단위</td></tr>
+<tr><td>리셋 강도 — 매 다이브 완전 흩어짐 vs 일부 물고 가는 반영구</td><td>깔끔함 ↔ 연속성</td></tr>
+<tr><td>헤드스타트 비율 — 특화가 얼마나 앞서 시작하나</td><td>투자 보상 ↔ 곡선 보존</td></tr>
+<tr><td>드래프트 랜덤 폭 — 땅이 얼마나 강하게 빌드를 유도하나</td><td>유혹 ↔ 강제</td></tr>
+</table>
+
+<h2><span class="n">8</span>패스 2 — 종이 시뮬이 아이디어를 바꿨다</h2>
+<p class="lead">불 몰빵 언령술사로 6층을 턴 단위로 굴렸더니, 세 축이 <b>같은 시점에 정점을 찍으면 곡선이 무너진다</b>는 게 나왔다. 축을 시간축으로 어긋나게(엇박) 배치해야 한다.</p>
+
+<figure>
+<svg viewBox="0 0 900 300" role="img" aria-label="엇박 스태거">
+  <line x1="70" y1="250" x2="850" y2="250" stroke="#2b2f40"/>
+  <text x="850" y="272" text-anchor="end" fill="#9aa0b4" font-size="11">다이브 진행 (F1 → 보스) →</text>
+  <!-- A: front-loaded, settles fast -->
+  <path d="M70 240 C 120 130, 180 95, 260 90 C 400 88, 700 88, 830 88" fill="none" stroke="#e8663a" stroke-width="2.6"/>
+  <text x="150" y="80" fill="#e8663a" font-size="12" font-weight="700">A 조련도</text>
+  <text x="150" y="62" fill="#9aa0b4" font-size="10.5">앞머리 · 빨리 정착</text>
+  <!-- C: mid -->
+  <path d="M70 245 C 250 240, 340 150, 460 140 C 620 130, 740 128, 830 126" fill="none" stroke="#e0b24d" stroke-width="2.6" stroke-dasharray="1 0"/>
+  <text x="470" y="120" fill="#e0b24d" font-size="12" font-weight="700">C 조각</text>
+  <text x="470" y="103" fill="#9aa0b4" font-size="10.5">가운데 · 빌드 분기</text>
+  <!-- B: back-loaded -->
+  <path d="M70 248 C 350 246, 520 235, 640 205 C 740 178, 800 120, 830 60" fill="none" stroke="#57b6e0" stroke-width="3"/>
+  <text x="700" y="150" fill="#57b6e0" font-size="12" font-weight="700">B 칸 방</text>
+  <text x="690" y="168" fill="#9aa0b4" font-size="10.5">뒤꼬리 · 80분 척추</text>
+  <text x="450" y="292" text-anchor="middle" fill="#e8e9ee" font-size="12">세 축이 시점을 나눠 이어달리기 → 다이브 내내 새 자극</text>
+</svg>
+<figcaption>★1차의 "축 A가 쌓기의 본체"는 <b>틀렸다</b>. 시뮬 결과 척추는 <b>칸 방(B)+조각(C)</b> — 매 다이브 진짜로 새로 자라는 것. 조련도(A)는 빨리 정착하는 앞머리·위화감 장치로 내렸다.</figcaption>
+</figure>
+
+<div class="grid2">
+<div class="wfix"><span class="w">P1 · 주력선이 2층에 만개 → 곡선 붕괴</span>
+<p><span class="f">해결:</span> 세 축을 엇박으로. 조련도=앞머리, 칸 방=뒤꼬리, 조각=가운데. 척추를 B+C로 재배치.</p></div>
+<div class="wfix"><span class="w">P3 · 신참은 조련이 느려 초반 질척</span>
+<p><span class="f">해결:</span> <b>첫 성공 캐스트 = 조련도 +25</b>(그 땅의 결을 한 번에 잡음). 서툰 딱지를 1턴에 뗌 → 초반 지루(W5)까지 한 수로 해결.</p></div>
+</div>
+<div class="grid2">
+<div class="wfix"><span class="w">P4 · 드래프트가 스탯 막대면 정체성 X</span>
+<p><span class="f">해결:</span> 3택1 서로 다른 방향(번짐/폭발/불벽 유지). 곧은 업그레이드 금지 → 같은 불 몰빵이 매 다이브 다른 불 빌드.</p></div>
+<div class="wfix"><span class="w">P5 · 스노볼이 보스를 피냐타로만</span>
+<p><span class="f">해결:</span> 보스 국면이 외길 빌드를 시험(불 표면 면역 국면 등) → 마지막 수싸움 + 넓이 드래프트 이유.</p></div>
+</div>
+
+<h2><span class="n">9</span>패스 3 — 세 축은 세 개의 다른 일이다</h2>
+<p class="lead">"조련도를 앞머리로 내렸으면 <b>매번 새 땅</b> 느낌은 뭘로 서나?" — 파보니 세 축은 "성장 막대 3개"가 아니라 <b>서로 다른 설계 직무 3개</b>였다.</p>
+
+<table>
+<tr><th>축</th><th>진짜 하는 일</th><th>신선함?</th></tr>
+<tr><td><span class="axis-tag a-b">B 칸 방</span></td><td><b>곡선</b> — 매 다이브 3→9로 똑같이 오름</td><td class="bad">✗ 오름은 주되 새롭진 않음</td></tr>
+<tr><td><span class="axis-tag a-c">C 조각+지형</span></td><td><b>신선함</b> — 땅이 주는 것·층 성질이 매번 리롤</td><td class="good">✓✓ "새 땅"의 거의 전부</td></tr>
+<tr><td><span class="axis-tag a-a">A 조련도</span></td><td><b>집중↔분산 저울 + 메타 다리</b> — 쓴 계열이 여물어 −칸·고속</td><td class="bad">✗ 별개의 일</td></tr>
+</table>
+<div class="card">
+  <b>급소 발견:</b> "매번 새 땅"의 신선함은 <b style="color:var(--gold)">오직 C(조각+지형)</b>가 짊어진다. 조련도 리셋이 아니라. → <b>조각 풀이 얕으면 리셋을 해도 매 다이브가 같아 보인다.</b> 다이브 정체성의 진짜 급소가 여기라, 드래프트 설계의 판돈이 확 오른다.
+</div>
+
+<h3 style="font-size:17px;margin:32px 0 4px">한숨 돌리기 — 층 사이 (C를 실어 나르는 자리)</h3>
+<figure>
+<svg viewBox="0 0 900 250" role="img" aria-label="한숨 돌리기 루프">
+  <rect x="40" y="90" width="120" height="70" rx="10" fill="#171922" stroke="#2b2f40"/>
+  <text x="100" y="122" text-anchor="middle" fill="#e8e9ee" font-size="13" font-weight="700">층 클리어</text>
+  <text x="100" y="142" text-anchor="middle" fill="#9aa0b4" font-size="11">칸 방 +1</text>
+  <path d="M160 125 L 210 125" stroke="#9aa0b4" stroke-width="2" marker-end="url(#ah2)"/>
+  <!-- draft -->
+  <rect x="215" y="40" width="330" height="80" rx="10" fill="#171922" stroke="#e0b24d" stroke-opacity=".5"/>
+  <text x="380" y="64" text-anchor="middle" fill="#e0b24d" font-size="13" font-weight="800">드래프트 3택1 (매 층·방향이 다름)</text>
+  <text x="270" y="90" text-anchor="middle" fill="#e8e9ee" font-size="11">고대 조각</text><text x="270" y="105" text-anchor="middle" fill="#9aa0b4" font-size="10">새 갈래</text>
+  <text x="380" y="90" text-anchor="middle" fill="#e8e9ee" font-size="11">촉매</text><text x="380" y="105" text-anchor="middle" fill="#9aa0b4" font-size="10">깊이</text>
+  <text x="490" y="90" text-anchor="middle" fill="#e8e9ee" font-size="11">임시 새김</text><text x="490" y="105" text-anchor="middle" fill="#9aa0b4" font-size="10">특성</text>
+  <!-- OR row -->
+  <rect x="215" y="135" width="330" height="80" rx="10" fill="#171922" stroke="#a98be0" stroke-opacity=".5"/>
+  <text x="380" y="159" text-anchor="middle" fill="#a98be0" font-size="13" font-weight="800">대신 택1 (안 해도 됨)</text>
+  <text x="300" y="185" text-anchor="middle" fill="#e8e9ee" font-size="11">길들이기 몰기</text><text x="300" y="200" text-anchor="middle" fill="#9aa0b4" font-size="10">넓이 버리고 깊이</text>
+  <text x="470" y="185" text-anchor="middle" fill="#e8e9ee" font-size="11">되짚기</text><text x="470" y="200" text-anchor="middle" fill="#9aa0b4" font-size="10">큰 보상·험한 다음층</text>
+  <path d="M545 125 L 610 125" stroke="#9aa0b4" stroke-width="2" marker-end="url(#ah2)"/>
+  <rect x="615" y="90" width="120" height="70" rx="10" fill="#171922" stroke="#2b2f40"/>
+  <text x="675" y="122" text-anchor="middle" fill="#e8e9ee" font-size="13" font-weight="700">다음 층</text>
+  <text x="675" y="142" text-anchor="middle" fill="#9aa0b4" font-size="11">더 깊이·더 세게</text>
+  <defs><marker id="ah2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#9aa0b4"/></marker></defs>
+</svg>
+<figcaption>결정은 층당 2개까지(인지부하 방지). 되짚기 리스크는 <b>땅이 험한 것</b>이지 자해가 아니다(능력 대가 금지 캐논).</figcaption>
+</figure>
+
+<h3 style="font-size:17px;margin:32px 0 4px">세 빌드, 세 곡선 — 리셋을 조율에 둔 값</h3>
+<div class="grid2">
+<div class="card"><b class="axis-tag a-a">외곬</b> 단일기술 극연마<br><span style="color:var(--dim);font-size:13px">그 한 문장만 만개(리셋 X). 드래프트를 <b style="color:var(--ink)">한 방을 살리는 세팅</b>(몰이·관통·식힘단축)에 씀. → 후반 칸 방 열리며 연발.</span></div>
+<div class="card"><b class="axis-tag a-b">넓은 수집형</b> 다 답하기<br><span style="color:var(--dim);font-size:13px">헤드스타트 0, 첫캐스트+25로 여러 선을 빠르게 익음. 여문은 거의 없음. → 버스트 천장 낮되 <b style="color:var(--ink)">보스 국면 적응력 최고</b>.</span></div>
+<div class="card"><b class="axis-tag a-c">물리 몸길</b> 즉발·근접<br><span style="color:var(--dim);font-size:13px">문장 없음→되받기 면역. 칸 방=타격·이동 횟수. <b style="color:var(--ink)">전리(근접 리스크)로 스노볼</b>. → 쌓임이 시전시간 아니라 템포·자리.</span></div>
+<div class="card" style="display:flex;align-items:center"><span style="color:var(--leaf);font-weight:700;font-size:13.5px">세 곡선이 실제로 다른 자리에서 정점을 찍는다 — 강제 리빌드였다면 뭉갰을 차이. 리셋을 지식 아닌 조율에 둔 덕.</span></div>
+</div>
+
+<h2><span class="n">10</span>패스 4 — 조각 풀은 캐논 낱말만으로 이미 깊다</h2>
+<p class="lead">"새 땅" 신선함이 C(조각)에 몰린 게 급소였다(§9). 그래서 조각 풀을 <b>캐논 낱말 46개</b>에서 실제로 뽑았다 — 신규 낱말 0. 핵심: <b>신선함은 낱말 수가 아니라 조합에서 나온다.</b></p>
+
+<figure>
+<svg viewBox="0 0 900 260" role="img" aria-label="조각 조합 폭발">
+  <rect x="40" y="60" width="150" height="140" rx="10" fill="#171922" stroke="#e8663a" stroke-opacity=".5"/>
+  <text x="115" y="86" text-anchor="middle" fill="#e8663a" font-size="13" font-weight="800">계열 16</text>
+  <text x="115" y="108" text-anchor="middle" fill="#9aa0b4" font-size="10.5">자르·시스·마이</text>
+  <text x="115" y="124" text-anchor="middle" fill="#9aa0b4" font-size="10.5">후르·켈·무네…</text>
+  <text x="115" y="150" text-anchor="middle" fill="#e8e9ee" font-size="11">무엇을 부르나</text>
+  <text x="210" y="135" text-anchor="middle" fill="#9aa0b4" font-size="20">×</text>
+  <rect x="235" y="60" width="150" height="140" rx="10" fill="#171922" stroke="#57b6e0" stroke-opacity=".5"/>
+  <text x="310" y="86" text-anchor="middle" fill="#57b6e0" font-size="13" font-weight="800">꼴 7</text>
+  <text x="310" y="108" text-anchor="middle" fill="#9aa0b4" font-size="10.5">가르(넓힘)·핀(관통)</text>
+  <text x="310" y="124" text-anchor="middle" fill="#9aa0b4" font-size="10.5">수린(들판)·엔(속사)…</text>
+  <text x="310" y="150" text-anchor="middle" fill="#e8e9ee" font-size="11">어떤 모양으로</text>
+  <text x="405" y="135" text-anchor="middle" fill="#9aa0b4" font-size="20">×</text>
+  <rect x="430" y="60" width="150" height="140" rx="10" fill="#171922" stroke="#e0b24d" stroke-opacity=".5"/>
+  <text x="505" y="86" text-anchor="middle" fill="#e0b24d" font-size="13" font-weight="800">맺음 3</text>
+  <text x="505" y="108" text-anchor="middle" fill="#9aa0b4" font-size="10.5">-타 번짐</text>
+  <text x="505" y="124" text-anchor="middle" fill="#9aa0b4" font-size="10.5">-사 유지 · -노 되받기</text>
+  <text x="505" y="150" text-anchor="middle" fill="#e8e9ee" font-size="11">어떻게 보내나</text>
+  <text x="620" y="135" text-anchor="middle" fill="#9aa0b4" font-size="18">=</text>
+  <rect x="650" y="75" width="210" height="110" rx="12" fill="#e8663a" fill-opacity=".12" stroke="#e8663a" stroke-opacity=".6"/>
+  <text x="755" y="120" text-anchor="middle" fill="#e8663a" font-size="30" font-weight="800">336</text>
+  <text x="755" y="146" text-anchor="middle" fill="#e8e9ee" font-size="12">문장 갈래 (+촉매·특성·지형)</text>
+  <text x="450" y="235" text-anchor="middle" fill="#e8e9ee" font-size="12.5">급소의 답 = 낱말 늘리기가 아니라 <tspan fill="#e0b24d" font-weight="700">지형 편향 표</tspan>로 매 다이브 다른 부분집합을 뽑게 하는 것</text>
+</svg>
+<figcaption>계열 16 × 꼴 7 × 맺음 3 = 336 갈래가 캐논 낱말만으로. 자르 하나가 번짐·관통·불벽·속사로 갈리는 게 "매 다이브 다른 불 빌드"의 엔진.</figcaption>
+</figure>
+
+<h3 style="font-size:17px;margin:32px 0 4px">세 빌드 보스 대역 — 압도 없음 확인 (HP 3000·칸 방 9)</h3>
+<table>
+<tr><th>빌드</th><th>턴당 딜</th><th>클리어</th><th>버스트 천장</th><th>정체성</th></tr>
+<tr><td><span class="axis-tag a-a">외곬</span></td><td>~600</td><td><b>~5턴</b></td><td class="bad">높음(식힘이 천장)</td><td>한 방을 살리는 세팅</td></tr>
+<tr><td><span class="axis-tag a-b">넓은 수집형</span></td><td>~250</td><td><b>~7–8턴</b></td><td>낮음(넓되 얕음)</td><td>국면 적응·안 무너짐</td></tr>
+<tr><td><span class="axis-tag a-c">물리 몸길</span></td><td>~350(전리↑)</td><td><b>~5–6턴</b></td><td>중(전리 다단)</td><td>근접 템포 눈덩이</td></tr>
+</table>
+<div class="card">
+<b>저울 판정:</b> 클리어 5~8턴 — <b class="good">누구도 4턴 이하로 트리비얼화 안 함</b>, <b class="good">수집형도 8턴에 끝남(막히지 않음)</b>. 버스트 천장은 외곬&gt;물리&gt;수집형, 안정성은 역순 → 속도·버스트를 안정·적응과 맞바꾸는 <b>정상 저울</b>. 한 빌드 압도 없음.
+</div>
+
+<h2><span class="n">11</span>패스 5 — 지형이 곧 장소의 성격</h2>
+<p class="lead">급소의 답 "지형 편향 표"를 <b>캐논 표면 물리</b> 위에 실제로 세웠다. 핵심은 지형이 <b>두 몫</b>을 한다는 것 — 드래프트 편향(빌드)과 표면 물리(전술)가 한 자리에서 겹친다.</p>
+
+<table>
+<tr><th>지형</th><th>표면 물리(전투)</th><th>편향 계열</th><th>꼴/촉매</th></tr>
+<tr><td>젖음</td><td>서리 얹으면 얼음판</td><td>마이·시스</td><td>수린·겨울 헐함</td></tr>
+<tr><td>돌먼지</td><td>돌 합 상시</td><td>켈·옴·카르</td><td>도르(솟음)</td></tr>
+<tr><td>불고랑</td><td>바람 얹으면 번짐불</td><td>자르·후르</td><td>가르(번짐)</td></tr>
+<tr><td>어둠</td><td>언령 명중↓·매개 닿음</td><td>무네·루</td><td>옌(명중 보정)</td></tr>
+<tr><td>메아리</td><td>소리 멀리 감</td><td>잔</td><td>핀/렌(관통)</td></tr>
+<tr><td>좁음·벽</td><td>시야 막힘·매개 우회</td><td>두르·람</td><td>케 두르·설치</td></tr>
+<tr><td>트임</td><td>지형 도움 0</td><td>(없음)</td><td>세움 촉매</td></tr>
+<tr><td>봉인방</td><td>되짚기로만</td><td>니르·코르·오르</td><td>희귀·큰 함(위험)</td></tr>
+</table>
+<div class="card">
+<b>지형이 두 몫:</b> 마이 조각을 주는 젖은 층이 곧 마이·시스 얼음판이 <b>물리적으로 이기는</b> 층. 빌드 편향과 전술 편향이 정렬돼 <b style="color:var(--gold)">층마다 일관된 "성격"</b>이 생긴다 — 이게 다이브가 매번 "다른 장소"로 느껴지는 실제 장치. 단순 랜덤 리롤이 아니라 장소의 결.
+</div>
+
+<h3 style="font-size:17px;margin:32px 0 4px">보스 3국면 — 외곬 벌주고 수집형 살림</h3>
+<figure>
+<svg viewBox="0 0 900 190" role="img" aria-label="보스 3국면">
+  <rect x="40" y="55" width="253" height="80" rx="10" fill="#6fca7d" fill-opacity=".1" stroke="#6fca7d" stroke-opacity=".5"/>
+  <text x="166" y="80" text-anchor="middle" fill="#6fca7d" font-size="13" font-weight="800">1국면 · 열림</text>
+  <text x="166" y="103" text-anchor="middle" fill="#e8e9ee" font-size="11.5">방벽 없음 · 아무 빌드나 쏟음</text>
+  <text x="166" y="122" text-anchor="middle" fill="#9aa0b4" font-size="11">외곬 스파이크가 제일 빛남</text>
+  <rect x="323" y="55" width="253" height="80" rx="10" fill="#e0b24d" fill-opacity=".1" stroke="#e0b24d" stroke-opacity=".5"/>
+  <text x="449" y="80" text-anchor="middle" fill="#e0b24d" font-size="13" font-weight="800">2국면 · 방벽 (적응 시험)</text>
+  <text x="449" y="103" text-anchor="middle" fill="#e8e9ee" font-size="11.5">물리 하나에 세금(잠금 아님)</text>
+  <text x="449" y="122" text-anchor="middle" fill="#9aa0b4" font-size="11">외곬 벽 · 수집형 갈아탐</text>
+  <rect x="606" y="55" width="253" height="80" rx="10" fill="#e8663a" fill-opacity=".1" stroke="#e8663a" stroke-opacity=".5"/>
+  <text x="732" y="80" text-anchor="middle" fill="#e8663a" font-size="13" font-weight="800">3국면 · 광폭 (버스트 레이스)</text>
+  <text x="732" y="103" text-anchor="middle" fill="#e8e9ee" font-size="11.5">매 턴 예고된 큰 수</text>
+  <text x="732" y="122" text-anchor="middle" fill="#9aa0b4" font-size="11">외곬 천장·물리 전리 피크</text>
+  <text x="450" y="165" text-anchor="middle" fill="#9aa0b4" font-size="11.5">HP 100% ────── 66% ────── 33% ────── 0%</text>
+</svg>
+<figcaption>세금이지 잠금 아님(단발 직격은 통함). 클리어 대역은 5~8 유지되나 <b>모양을 국면이 빚는다</b> — 외곬조차 곁가지 한 답을 드래프트할 이유(W2 유혹에 이빨).</figcaption>
+</figure>
+
+<h3 style="font-size:17px;margin:32px 0 4px">서사 명분 — 다이브는 붙인 게 아니라 현대 스토리 본체</h3>
+<div class="card">
+라셀 아래층 발굴 캐논을 확인하니 <b>조율 다이브 = 발굴 잠입</b> 그 자체다.
+<ul class="tight">
+  <li><b>다이브</b> = 폐선·지하수로·굴착 갱으로 내려가는 아래층 발굴(내려갈수록 옛 도읍 아래층 = 고대 마력 짙음 = 난도↑).</li>
+  <li><b>조율 리셋</b> = 만 년 아무도 읽지 않은 벽 새김 살란의 땅을 처음부터 길들임.</li>
+  <li><b>드래프트</b> = 삭지 않은 함·벽 새김에서 줍는 고대 조각.</li>
+  <li><b>메타 해금</b> = 안고 나온 비전서 = 영구 습득. ★캐논 대사 그대로 "물건은 아직 땅속에 있다" = 계속 파먹을 이유 → 랜덤디펜스 "클리어 수 해금"과 완전히 포갬.</li>
+  <li><b>되짚기 리스크</b> = 갱에 갇힘(캐논 원문 "함을 안고 나왔는지 갱에 갇혔는지"). 땅이 험한 것이지 자해 아님.</li>
+</ul>
+<b>→ 파먹기 다이브가 현대편 플롯(다섯 손의 발굴 쟁탈)의 게임적 몸. 스토리와 시스템이 한 몸.</b>
+</div>
+
+<h2><span class="n">12</span>패스 6 — 한 판을 통째로 굴려봤다</h2>
+<p class="lead">불 몰빵 언령술사로 6층 발굴을 턴 단위로 완주. 규칙이 매끄럽게 도는지 보고, <b>안 매끄러운 지점을 새 약점으로</b> 잡아냈다.</p>
+
+<figure>
+<svg viewBox="0 0 900 220" role="img" aria-label="완주 시나리오">
+  <line x1="50" y1="110" x2="850" y2="110" stroke="#2b2f40" stroke-width="2"/>
+  <g font-size="10.5" text-anchor="middle">
+    <!-- F1 -->
+    <circle cx="110" cy="110" r="7" fill="#57b6e0"/><text x="110" y="80" fill="#e8e9ee" font-weight="700">F1 젖음</text>
+    <text x="110" y="140" fill="#9aa0b4">불 꺼짐→직격</text><text x="110" y="155" fill="#e0b24d">드래프트: 시스</text>
+    <!-- F2 -->
+    <circle cx="240" cy="110" r="7" fill="#9aa0b4"/><text x="240" y="80" fill="#e8e9ee" font-weight="700">F2 돌먼지</text>
+    <text x="240" y="140" fill="#9aa0b4">여문+캐스케이드</text><text x="240" y="155" fill="#e0b24d">가르→번짐 확정</text>
+    <!-- F3 -->
+    <circle cx="370" cy="110" r="7" fill="#a98be0"/><text x="370" y="80" fill="#e8e9ee" font-weight="700">F3 어둠</text>
+    <text x="370" y="140" fill="#9aa0b4">언령 명중↓</text><text x="370" y="155" fill="#e0b24d">옌 촉매 적응</text>
+    <!-- F4 -->
+    <circle cx="500" cy="110" r="7" fill="#9aa0b4"/><text x="500" y="80" fill="#e8e9ee" font-weight="700">F4 메아리</text>
+    <text x="500" y="140" fill="#9aa0b4">불비 켜짐(칸6)</text><text x="500" y="155" fill="#e8663a">후반 스파이크</text>
+    <!-- F5 -->
+    <circle cx="630" cy="110" r="7" fill="#57b6e0"/><text x="630" y="80" fill="#e8e9ee" font-weight="700">F5 전체젖음</text>
+    <text x="630" y="140" fill="#9aa0b4">번짐 크레이터</text><text x="630" y="155" fill="#6fca7d">묵힌 시스 클러치</text>
+    <!-- F6 -->
+    <circle cx="775" cy="110" r="9" fill="#e8663a"/><text x="775" y="80" fill="#e8e9ee" font-weight="700">F6 보스</text>
+    <text x="775" y="140" fill="#9aa0b4">3국면 ~9턴</text><text x="775" y="155" fill="#e0b24d">P2 전환·전리</text>
+  </g>
+  <text x="450" y="205" text-anchor="middle" fill="#6fca7d" font-size="12">F1에 주운 시스가 4층 묵었다가 F5 젖음에서 클러치 → 첫캐스트+25 룰의 값 검증</text>
+</svg>
+<figcaption>F1 유혹 드래프트(시스)가 F5에서 클러치가 되는 흐름 — 묵힌 옵션 툴박스, 보스 P2 방벽 적응, 칸 방 스파이크가 한 판에서 물린다.</figcaption>
+</figure>
+
+<div class="grid2">
+<div class="wfix"><span class="w">통합 규칙 (신규)</span>
+<p><span class="f">정함:</span> 다이브 모드에선 <b>칸 방(3→9)이 평시 호흡 6을 대체</b>. 스토리·결투는 baseline. → 다이브만 초반 궁핍·후반 풍요.</p></div>
+<div class="wfix"><span class="w">W11 · F1이 최악 지형이면 턴1부터 벌</span>
+<p><span class="f">때움:</span> F1=입구, 표면 순함(중립/유리). 빌드 시험 지형은 F2부터. W5 초반 완충 한 겹 더.</p></div>
+</div>
+<div class="grid2">
+<div class="wfix"><span class="w">W12 · 답 없는 적대 지형 = 불공정</span>
+<p><span class="f">때움:</span> 적대 지형은 그 답을 드래프트에 반드시 하나 보장(어둠엔 옌 촉매). 지형 편향 표에 "보장 카운터" 열 추가.</p></div>
+<div class="wfix"><span class="w">튜닝 · 다이브 길이</span>
+<p><span class="f">노트:</span> 현재 ~20–27턴 ≈ 40–60분, 목표 80분엔 약간 짧음 → 7–8층 or 층당 교전 연장. 구조 문제 아님.</p></div>
+</div>
+<div class="card" style="border-color:var(--leaf)">
+<b class="good">검증된 것:</b> 첫캐스트+25(F5 클러치) · 여문 캐스케이드(F2) · 칸 방 스파이크(F4 불비) · 묵힌 조각 툴박스(F5) · 보스 국면 적응(P2) · W2 유혹의 값(곁가지 없으면 보스 정체) — <b>전부 한 판에서 매끄럽게 맞물림.</b> 규칙이 실제 플레이로 돈다.
+</div>
+
+<h2><span class="n">13</span>검수 — 정할 것만 여섯 개</h2>
+<p class="lead">하나의 아이디어를 7패스에 걸쳐 두들겨 단단해졌다(W1~W12·P1~P5 때움 완료, 새 약점은 완주 시나리오가 잡아 반영). 이제 <b>방향 결정 여섯 개</b>만 정하면 다음 삽이 들어간다.</p>
+
+<table>
+<tr><th>#</th><th>결정할 것</th><th>내 추천 (근거)</th><th>저울</th></tr>
+<tr><td><b>D1</b></td><td>"한 판" 그릇 = 다이브(여러 층)로 확정?</td><td class="good">다이브 확정 — 발굴 캐논=스토리 본체와 포갬</td><td>개별 전투에도 쌓임?</td></tr>
+<tr><td><b>D2</b></td><td>리셋 강도 = 완전 흩어짐 vs 반영구</td><td class="good">완전 흩어짐 + 영구 벼림 다리로 연속성</td><td>깔끔함↔연속감</td></tr>
+<tr><td><b>D3</b></td><td>헤드스타트 비율(특화가 얼마나 앞서 시작)</td><td>상한 ~40% (투자보상+곡선보존)</td><td>투자보상↔곡선</td></tr>
+<tr><td><b>D4</b></td><td>드래프트 랜덤 폭(땅이 얼마나 유도)</td><td>중 (유혹이지 강제 아님)</td><td>유혹↔강제</td></tr>
+<tr><td><b>D5</b></td><td>다이브 길이 = 6층 vs 8층</td><td>8층 (80분 목표) — 시뮬 후 확정</td><td>길이↔밀도</td></tr>
+<tr><td><b>D6</b></td><td>파티 다이브(협력-경쟁)를 넣을지</td><td class="bad">미검토 — 별도 연구 필요</td><td>모드 확장</td></tr>
+</table>
+
+<div class="card" style="border-color:var(--leaf)">
+<b class="good">상태 = 검수 대기.</b> 남은 새 각(디지털 시뮬 밸런스 계측 · 파티 다이브 · 메타 벼림 곡선 수치 · 조립 UI 실물)은 전부 <b>위 D1~D6 방향이 정해져야 값이 서는 것들</b>이라, 지금 깊게 파지 않고 대기한다. 웹으로 훑고 여섯 개만 답하면 이어서 판다.
+</div>
+
+<div class="foot">
+  Secret_Project · 전투 설계 연구 「조율 다이브」 · 정본 문서 <code>기획/02_게임설계/1_전투/시스템/게임_전투_조율다이브_설계연구_20260722.md</code><br>
+  확정 캐논 아님 — 하나의 아이디어를 계속 두들기는 연구록. 검수 후 반영.
+</div>
+</div>
+</body>
+</html>

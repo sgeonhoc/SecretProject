@@ -1,0 +1,145 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>라셀 레벨 검수판</title><style>
+:root{color-scheme:dark}
+body{margin:0;background:#15110c;color:#e8dcc4;font-family:'Malgun Gothic',system-ui,sans-serif;
+line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:28px 20px 80px}
+h1{font-size:24px;margin:0 0 4px;color:#f3e6c8}
+h2{font-size:17px;margin:34px 0 10px;color:#d8b87e;border-bottom:1px solid #3a3020;padding-bottom:6px}
+.sub{color:#9c8c68;font-size:13px;margin:0 0 20px}
+.graph{background:#1c160f;border:1px solid #2f2718;border-radius:12px;padding:16px;text-align:center}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+th,td{text-align:left;padding:6px 10px;border-bottom:1px solid #2a2216}
+th{color:#c9a06a;font-weight:600}
+td code{color:#e8c98a;font-size:12px}
+.ok{color:#8fbf7f}.todo{color:#8a7d5e}.mod{color:#e0b060;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:6px 0}
+.card{background:#1c160f;border:1px solid #2f2718;border-radius:10px;padding:12px 14px}
+.card .n{font-size:22px;font-weight:800;color:#f0d69a}
+.card .l{font-size:12px;color:#9c8c68}
+.decide{background:#241a10;border:1px solid #6b4f22;border-radius:12px;padding:16px 18px;margin-top:12px}
+.decide b{color:#f0c878}
+.warn{color:#c98a5a}
+ul{margin:6px 0;padding-left:20px}li{margin:2px 0}
+.foot{color:#6f6248;font-size:11px;margin-top:40px;border-top:1px solid #2a2216;padding-top:12px}
+</style></head><body><div class="wrap">
+<h1>🏮 라셀 레벨 검수판</h1>
+<p class="sub">자동 생성 — 실제 맵을 긁어 다시 씀 (<code>_scan_links.py</code>). 맵이 곧 정본.</p>
+
+<div class="cards">
+<div class="card"><div class="n">6</div><div class="l">조합식으로 지은 맵</div></div>
+<div class="card"><div class="n">15 / 22</div><div class="l">정본 로스터 중 존재</div></div>
+<div class="card"><div class="n">586</div><div class="l">조합식 6맵 부재 합</div></div>
+<div class="card"><div class="n">75</div><div class="l">우리 저작 부재 종수</div></div>
+</div>
+
+<h2>조합식으로 지은 핵 — 서로 어떻게 이어지나</h2>
+<div class="graph"><svg viewBox="0 0 880 470" width="100%" style="max-width:880px">
+<defs><marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c9a06a"/></marker></defs>
+<line x1="430" y1="250" x2="680" y2="390" stroke="#6b5a3e" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="430" y1="250" x2="200" y2="110" stroke="#6b5a3e" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="430" y1="250" x2="200" y2="390" stroke="#6b5a3e" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="430" y1="250" x2="430" y2="60" stroke="#6b5a3e" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="430" y1="250" x2="680" y2="110" stroke="#6b5a3e" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="200" y1="110" x2="430" y2="250" stroke="#6b5a3e" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="200" y1="110" x2="680" y2="110" stroke="#6b5a3e" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="200" y1="390" x2="430" y2="250" stroke="#6b5a3e" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="200" y1="390" x2="680" y2="110" stroke="#6b5a3e" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="680" y1="110" x2="430" y2="250" stroke="#6b5a3e" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="680" y1="390" x2="430" y2="250" stroke="#6b5a3e" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="430" y1="60" x2="430" y2="250" stroke="#6b5a3e" stroke-width="2" marker-end="url(#ar)"/>
+<g>
+<rect x="368" y="216" width="124" height="68" rx="10" fill="#3a2f22" stroke="#c9a06a" stroke-width="2"/>
+<text x="430" y="238" text-anchor="middle" fill="#f0e2c8" font-size="14" font-weight="700">장터 큰길</text>
+<text x="430" y="253" text-anchor="middle" fill="#b9a986" font-size="10">거리·기준기</text>
+<text x="430" y="269" text-anchor="middle" fill="#8f7f5e" font-size="9">부재 403 · 문 5</text>
+</g>
+<g>
+<rect x="148" y="76" width="104" height="68" rx="10" fill="#2b241a" stroke="#c9a06a" stroke-width="1"/>
+<text x="200" y="98" text-anchor="middle" fill="#f0e2c8" font-size="14" font-weight="700">골동상(낮)</text>
+<text x="200" y="113" text-anchor="middle" fill="#b9a986" font-size="10">감정 가게</text>
+<text x="200" y="129" text-anchor="middle" fill="#8f7f5e" font-size="9">부재 33 · 문 2</text>
+</g>
+<g>
+<rect x="148" y="356" width="104" height="68" rx="10" fill="#2b241a" stroke="#c9a06a" stroke-width="1"/>
+<text x="200" y="378" text-anchor="middle" fill="#f0e2c8" font-size="14" font-weight="700">골동상(밤)</text>
+<text x="200" y="393" text-anchor="middle" fill="#b9a986" font-size="10">사건 뒤</text>
+<text x="200" y="409" text-anchor="middle" fill="#8f7f5e" font-size="9">부재 32 · 문 2</text>
+</g>
+<g>
+<rect x="628" y="76" width="104" height="68" rx="10" fill="#2b241a" stroke="#c9a06a" stroke-width="1"/>
+<text x="680" y="98" text-anchor="middle" fill="#f0e2c8" font-size="14" font-weight="700">뒷골목</text>
+<text x="680" y="113" text-anchor="middle" fill="#b9a986" font-size="10">진·젖은 돌</text>
+<text x="680" y="129" text-anchor="middle" fill="#8f7f5e" font-size="9">부재 54 · 문 2</text>
+</g>
+<g>
+<rect x="628" y="356" width="104" height="68" rx="10" fill="#2b241a" stroke="#c9a06a" stroke-width="1"/>
+<text x="680" y="378" text-anchor="middle" fill="#f0e2c8" font-size="14" font-weight="700">흥신소</text>
+<text x="680" y="393" text-anchor="middle" fill="#b9a986" font-size="10">이층·수사</text>
+<text x="680" y="409" text-anchor="middle" fill="#8f7f5e" font-size="9">부재 33 · 문 1</text>
+</g>
+<g>
+<rect x="378" y="26" width="104" height="68" rx="10" fill="#2b241a" stroke="#c9a06a" stroke-width="1"/>
+<text x="430" y="48" text-anchor="middle" fill="#f0e2c8" font-size="14" font-weight="700">밥집</text>
+<text x="430" y="63" text-anchor="middle" fill="#b9a986" font-size="10">밀담 구석</text>
+<text x="430" y="79" text-anchor="middle" fill="#8f7f5e" font-size="9">부재 31 · 문 1</text>
+</g>
+</svg></div>
+<p class="sub">L01 큰길을 허브로 L02·L03·L05가 걸리고, L03·L04가 실내로 이어진다.
+골동상은 사건 전/후 두 얼굴(StoryFlag <code>op_nesa_dead</code>로 갈림).</p>
+
+<h2>조합식 6맵의 무게</h2>
+<table><tr><th>맵</th><th>부재</th><th>문</th><th>조사</th><th>NPC</th></tr>
+<tr><td><code>L01_Jangteo_Street</code></td><td>403</td><td>5</td><td>5</td><td>4</td></tr>
+<tr><td><code>L02_Antique_Shop</code></td><td>33</td><td>2</td><td>2</td><td>1</td></tr>
+<tr><td><code>L02_Antique_Shop_Burnt</code></td><td>32</td><td>2</td><td>3</td><td>0</td></tr>
+<tr><td><code>L03_Backalley</code></td><td>54</td><td>2</td><td>3</td><td>1</td></tr>
+<tr><td><code>L04_Dolgan_Office</code></td><td>33</td><td>1</td><td>3</td><td>1</td></tr>
+<tr><td><code>L05_Eatery</code></td><td>31</td><td>1</td><td>2</td><td>2</td></tr></table>
+
+<h2>정본 로스터 대조 (기획/02_게임설계/2_레벨/게임_플레이레벨_정본.md)</h2>
+<table><tr><th>#</th><th>정본 Id 꼬리</th><th>상태</th></tr>
+<tr><td>L01</td><td><code>Jangteo_Street</code></td><td><span class="mod">조합식 ✓</span></td></tr>
+<tr><td>L02</td><td><code>Antique_Shop</code></td><td><span class="mod">조합식 ✓</span></td></tr>
+<tr><td>L03</td><td><code>Backalley</code></td><td><span class="mod">조합식 ✓</span></td></tr>
+<tr><td>L04</td><td><code>Dolgan_Office</code></td><td><span class="mod">조합식 ✓</span></td></tr>
+<tr><td>L05</td><td><code>Eatery</code></td><td><span class="mod">조합식 ✓</span></td></tr>
+<tr><td>L06</td><td><code>Academy_Street</code></td><td><span class="ok">지어짐</span></td></tr>
+<tr><td>L07</td><td><code>Riverbank</code></td><td><span class="ok">지어짐</span></td></tr>
+<tr><td>L08</td><td><code>Clinic</code></td><td><span class="ok">지어짐</span></td></tr>
+<tr><td>L09</td><td><code>Newport_Site</code></td><td><span class="ok">지어짐</span></td></tr>
+<tr><td>L10</td><td><code>Newport_Shaft</code></td><td><span class="ok">지어짐</span></td></tr>
+<tr><td>L11</td><td><code>Dock_Wharf</code></td><td><span class="todo">아직</span></td></tr>
+<tr><td>L12</td><td><code>Warehouse</code></td><td><span class="todo">아직</span></td></tr>
+<tr><td>L13</td><td><code>Seir_Sanatorium</code></td><td><span class="todo">아직</span></td></tr>
+<tr><td>L14</td><td><code>Selan_Court</code></td><td><span class="ok">지어짐</span></td></tr>
+<tr><td>L15</td><td><code>Nerhan_Estate</code></td><td><span class="todo">아직</span></td></tr>
+<tr><td>L16</td><td><code>Abandoned_Platform</code></td><td><span class="ok">지어짐</span></td></tr>
+<tr><td>L17</td><td><code>Underlayer</code></td><td><span class="todo">아직</span></td></tr>
+<tr><td>L18</td><td><code>Ruin_Gate</code></td><td><span class="ok">지어짐</span></td></tr>
+<tr><td>L19</td><td><code>Ruin_Keep</code></td><td><span class="ok">지어짐</span></td></tr>
+<tr><td>L20</td><td><code>Cargo_Ship</code></td><td><span class="todo">아직</span></td></tr>
+<tr><td>L21</td><td><code>Din_Safehouse</code></td><td><span class="todo">아직</span></td></tr>
+<tr><td>L22</td><td><code>Yoa_Room</code></td><td><span class="ok">지어짐</span></td></tr></table>
+
+<div class="decide">
+<b>★결정 대기 — 지도 재편 방향</b><br>
+파일 번호가 두 시대(07-20 옛 로스터 / 07-22 정본 재편)로 섞여 어긋나 있습니다.
+다음 중 방향을 정해 주세요:
+<ul>
+<li><b>㉠ 개명</b> — 파일 번호를 정본에 맞춰 일괄 개명 (배선 재작성 동반)</li>
+<li><b>㉡ 새로</b> — 옛 잔재 은퇴 후 정본 L06~L22를 조합식으로 새로 (지금 6맵처럼)</li>
+</ul>
+<span class="warn">옛 로스터 잔재 맵 10개가 아직 살아 있어 번호 어긋남·유령 문의 원인.
+파괴적 작업이라 사용자 확인 전까지 손대지 않습니다.</span>
+</div>
+
+<h2>검수 시 알아둘 헤드리스 한계</h2>
+<ul>
+<li>텍스처·실내 톤·반사(웅덩이·유리)는 커맨들릿 촬영에서 안 보임 → <b>에디터에서 직접</b> 봐야 함</li>
+<li>지오메트리·배치·조명·실루엣은 스크린샷으로 검증됨 (검사기 뜸/박힘/막음 전부 0)</li>
+</ul>
+
+<p class="foot">이 페이지는 26개 맵을 스캔해 만들었습니다 · 라셀 현대편</p>
+</div></body></html>

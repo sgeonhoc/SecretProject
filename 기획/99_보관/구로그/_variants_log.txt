@@ -1,0 +1,16 @@
+imported tex for orig
+imported tex for v1
+imported tex for v3
+imported tex for v4
+imported tex for v5
+MICs for orig
+MICs for v1
+MICs for v3
+MICs for v4
+MICs for v5
+spawned orig @x=-124
+spawned v1 @x=-62
+spawned v3 @x=0
+spawned v4 @x=62
+spawned v5 @x=124
+ROW READY (5)

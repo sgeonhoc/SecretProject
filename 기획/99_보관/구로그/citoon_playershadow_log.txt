@@ -1,0 +1,9 @@
+[BP] BP_PlayerCharacter     :: SkelMeshComp 1개
+   - CharacterMesh0   mesh=SK_VRM               cast_shadow False -> False
+   saved.
+[BP] BP_PlayerCharacter     :: SkelMeshComp 1개
+   - CharacterMesh0   mesh=SK_VRM               cast_shadow False -> False
+   saved.
+[BP] BP_PlayerCharacter     :: SkelMeshComp 1개
+   - CharacterMesh0   mesh=SK_VRM               cast_shadow False -> False
+   saved.

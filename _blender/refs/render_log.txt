@@ -1,0 +1,30 @@
+FBX imported
+slot2tex: 16
+main mesh = SKM_Hayakawa_Main.001 slots=19
+  slot[0] Eye_Sp_M               <- tex_00_EyeSpM.png
+  slot[1] OutLine                <- hidden/none
+  slot[2] Hair                   <- tex_02_Hair.png
+  slot[3] Cloth_Bag              <- tex_03_ClothBag.png
+  slot[4] Cloth_Add_01_M         <- hidden/none
+  slot[5] Cloth_Add_02_M         <- hidden/none
+  slot[6] EyeGlass_Lens_M        <- hidden/none
+  slot[7] Cloth_M                <- tex_07_ClothM.png
+  slot[8] Head_M                 <- tex_08_HeadM.png
+  slot[9] Face_Eye_Mask_M        <- tex_09_FaceEyeMaskM.png
+  slot[10] Face_Eyebrow_Mask_M    <- tex_10_FaceEyebrowMaskM.png
+  slot[11] Face_Iris_Mask_M       <- tex_11_FaceIrisMaskM.png
+  slot[12] Face_Iris_Out_M        <- tex_12_FaceIrisOutM.png
+  slot[13] Eff_Eye_M              <- tex_13_EffEyeM.png
+  slot[14] Eff_Cheek_M            <- tex_14_EffCheekM.png
+  slot[15] Eff_Forehead_M         <- tex_15_EffForeheadM.png
+  slot[16] Face_Eye_White         <- tex_16_FaceEyeWhite.png
+  slot[17] Hair_Shadow            <- hidden/none
+  slot[18] Body_M                 <- tex_18_BodyM.png
+center=<Vector (0.0000, 0.0428, 0.8126)> dims=<Vector (1.3494, 0.3826, 1.6292)>
+engine=BLENDER_EEVEE
+rendered view_+Y
+rendered view_-Y
+rendered view_+X
+rendered view_-X
+rendered portrait_front
+DONE

@@ -1,0 +1,13 @@
+queued T__04 <- C:/Secret_Project/_tripo/our_chars/test7_tex_styled4/T__04.png
+queued T__10 <- C:/Secret_Project/_tripo/our_chars/test7_tex_styled4/T__10.png
+queued T__13 <- C:/Secret_Project/_tripo/our_chars/test7_tex_styled4/T__13.png
+queued T__12 <- C:/Secret_Project/_tripo/our_chars/test7_tex_styled4/T__12.png
+queued T__02 <- C:/Secret_Project/_tripo/our_chars/test7_tex_styled4/T__02.png
+queued T__17 <- C:/Secret_Project/_tripo/our_chars/test7_tex_styled4/T__17.png
+imported T__04 -> ['/Game/TestCharacter/test7/T__04.T__04']
+imported T__10 -> ['/Game/TestCharacter/test7/T__10.T__10']
+imported T__13 -> ['/Game/TestCharacter/test7/T__13.T__13']
+imported T__12 -> ['/Game/TestCharacter/test7/T__12.T__12']
+imported T__02 -> ['/Game/TestCharacter/test7/T__02.T__02']
+imported T__17 -> ['/Game/TestCharacter/test7/T__17.T__17']
+DONE

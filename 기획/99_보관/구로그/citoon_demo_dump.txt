@@ -1,0 +1,81 @@
+===== DEMO / EXPOSURE WIRING DUMP =====
+
+[A] CharacterExposure PP material
+  /Game/OUTLINE/M_CharacterExposure_PP domain=<MaterialDomain.MD_POST_PROCESS: 4> blendable_location=<BlendableLocation.BL_SCENE_COLOR_AFTER_TONEMAPPING: 0> blend=<BlendMode.BLEND_OPAQUE: 0>
+  INST /Game/OUTLINE/M_CharacterExposure_PP_Inst parent=<Object '/Game/OUTLINE/M_CharacterExposure_PP.M_CharacterExposure_PP' (0x0000022DEADE9A00) Class 'Material'>
+     scalar Brightness = 0.9990659952163696
+     scalar Brightness_BG = 1.170119047164917
+     scalar Contrast = 1.0955970287322998
+     scalar Param = 1.0
+     scalar Saturation_Amount = 0.02905300073325634
+     scalar Saturation_Amount_BG = -0.13600000739097595
+     scalar RefractionDepthBias = 0.0
+  INST /Game/OUTLINE/M_CharacterExposure_PP_Inst2 parent=<Object '/Game/OUTLINE/M_CharacterExposure_PP.M_CharacterExposure_PP' (0x0000022DEADE9A00) Class 'Material'>
+     scalar Brightness = 1.0
+     scalar Brightness_BG = 2.0709691047668457
+     scalar Contrast = 5.0
+     scalar Saturation_Amount = 0.0
+     scalar Saturation_Amount_BG = 0.0
+     scalar RefractionDepthBias = 0.0
+  INST /Game/M_CharacterExposure_PP_Inst parent=<Object '/Game/OUTLINE/M_CharacterExposure_PP.M_CharacterExposure_PP' (0x0000022DEADE9A00) Class 'Material'>
+     scalar Brightness = 0.9990659952163696
+     scalar Brightness_BG = 1.170119047164917
+     scalar Contrast = 1.0955970287322998
+     scalar Param = 1.0
+     scalar Saturation_Amount = 0.02905300073325634
+     scalar Saturation_Amount_BG = -0.13600000739097595
+     scalar RefractionDepthBias = 0.0
+
+[B] CiciToon 데모맵 탐색
+  데모맵 후보: ['/Game/CiciToonCharacterShaderPak/Levels/Map_Anim', '/Game/CiciToonCharacterShaderPak/Levels/Map_DoodleDance', '/Game/CiciToonCharacterShaderPak/Levels/Map_Main']
+
+[LEVEL DEMO Map_Anim]
+  actor count=15
+  [DirLight] DirectionalLight intensity=6.0
+  [SkyLight] SkyLight intensity=1.0
+  [SKEL] CR_Hayakawa mesh=SKM_Hayakawa_Main render_custom_depth=False stencil=0 ov_mat0=
+  [SKEL] CR_Hayakawa2 mesh=SKM_Hayakawa_Main render_custom_depth=False stencil=0 ov_mat0=
+  [SKEL] CR_Hayakawa3 mesh=SKM_Hayakawa_Main render_custom_depth=False stencil=0 ov_mat0=
+  [SKEL] CR_Hayakawa4 mesh=SKM_Hayakawa_Main render_custom_depth=False stencil=0 ov_mat0=
+  [SKEL] CR_Hayakawa5 mesh=SKM_Hayakawa_Main render_custom_depth=False stencil=0 ov_mat0=
+  [SKEL] CR_Hayakawa6 mesh=SKM_Hayakawa_Main render_custom_depth=False stencil=0 ov_mat0=
+  [SKEL] CR_Hayakawa7 mesh=SKM_Hayakawa_Main render_custom_depth=False stencil=0 ov_mat0=
+
+[LEVEL DEMO Map_DoodleDance]
+  actor count=12
+  [DirLight] DirectionalLight intensity=0.10000000149011612
+  [PPV] PostProcessVolume2 enabled=True unbound=True prio=0.0 | method=<AutoExposureMethod.AEM_MANUAL: 2>(ov=True) bias=0.0
+  [SKEL] BP_Doodle mesh=SKM_Hayakawa_Main render_custom_depth=False stencil=0 ov_mat0=
+
+[LEVEL Showcase(VRM 커스텀뎁스 확인)]
+  actor count=2903
+  [DirLight] Light Source intensity=15.0
+  [SkyLight] SkyLight intensity=2.0
+  [PPV] PostProcessVolumeMAIN enabled=False unbound=True prio=0.0 | method=<AutoExposureMethod.AEM_HISTOGRAM: 0>(ov=True) bias=1.9809520244598389
+        blendable: M_Unsharp (w=0.0)
+        blendable: None (w=-1.0)
+  [PPV] PostProcessVolume2 enabled=False unbound=False prio=1.0 | method=<AutoExposureMethod.AEM_HISTOGRAM: 0>(ov=False) bias=1.0
+        blendable: M_Unsharp (w=0.0)
+  [PPV] PostProcessVolume3 enabled=False unbound=False prio=1.0 | method=<AutoExposureMethod.AEM_HISTOGRAM: 0>(ov=False) bias=1.0
+        blendable: M_Unsharp (w=0.0)
+  [PPV] PostProcessVolume4 enabled=False unbound=False prio=1.0 | method=<AutoExposureMethod.AEM_HISTOGRAM: 0>(ov=False) bias=1.0
+        blendable: M_Unsharp (w=0.0)
+  [PPV] PostProcessVolume_MAIN enabled=True unbound=False prio=0.0 | method=<AutoExposureMethod.AEM_MANUAL: 2>(ov=True) bias=8.760000228881836
+        blendable: M_CharacterExposure_PP_Inst (w=1.0)
+  [PPV] PostProcessVolume_BASESCENE enabled=True unbound=False prio=0.0 | method=<AutoExposureMethod.AEM_HISTOGRAM: 0>(ov=False) bias=1.0
+  [PPV] PostProcesssVolume_Practice enabled=True unbound=False prio=0.0 | method=<AutoExposureMethod.AEM_MANUAL: 2>(ov=True) bias=1.0
+  [PPV] PostProcessVolume_asianvillageshader enabled=True unbound=True prio=0.0 | method=<AutoExposureMethod.AEM_HISTOGRAM: 0>(ov=False) bias=0.0
+        blendable: MI_postprocess_Inst (w=1.0)
+  [SKEL] BP_Character_Simple mesh=SKM_Hayakawa_Outline render_custom_depth=False stencil=0 ov_mat0=
+  [SKEL] BP_Character_Simple mesh=SKM_Hayakawa_Main render_custom_depth=False stencil=0 ov_mat0=
+  [SKEL] SK_VRM mesh=SK_VRM render_custom_depth=False stencil=0 ov_mat0=
+  [SKEL] BP_ANPCCharacter13 mesh=SK_test13 render_custom_depth=True stencil=1 ov_mat0=
+  [SKEL] BP_ANPCCharacter14 mesh=SK_test15 render_custom_depth=True stencil=1 ov_mat0=
+  [SKEL] BP_ANPCCharacter15 mesh=SK_test17 render_custom_depth=True stencil=1 ov_mat0=
+  [SKEL] BP_ANPCCharacter16 mesh=SK_test20 render_custom_depth=True stencil=1 ov_mat0=
+  [SKEL] BP_ANPCCharacter17 mesh=SK_test21 render_custom_depth=True stencil=1 ov_mat0=
+  [SKEL] BP_ANPCCharacter18 mesh=SK_test13 render_custom_depth=True stencil=1 ov_mat0=
+  [SKEL] BP_PlayerCharacter mesh=SK_VRM render_custom_depth=False stencil=0 ov_mat0=
+  [SKEL] BP_PlayerCharacter2 mesh=SK_VRM render_custom_depth=False stencil=0 ov_mat0=
+
+===== DONE =====

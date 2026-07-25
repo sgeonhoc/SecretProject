@@ -1,0 +1,57 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.8.0",
+	"FriendlyName": "VRoid SDK",
+	"Description": "Load VRM from VRoid Hub with runtime.",
+	"Category": "Rendering",
+	"CreatedBy": "VRoid Project",
+	"CreatedByURL": "https://vroid.com/",
+	"DocsURL": "https://developer.vroid.com/sdk/",
+	"MarketplaceURL": "",
+	"SupportURL": "https://github.com/pixiv/vroid-sdk-developers/discussions",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "VRoidSdk",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"PlatformAllowList": [
+				"Win64"
+			]
+		},
+		{
+			"Name": "VRoidSdkCore",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"PlatformAllowList": [
+				"Win64"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "IKRig",
+			"Enabled": true
+		},
+		{
+			"Name": "VRM4U",
+			"Enabled": true
+		},
+		{
+			"Name": "Iris",
+			"Enabled": true
+		},
+		{
+			"Name": "OnlineSubsystem",
+			"Enabled": true
+		},
+		{
+			"Name": "OnlineSubsystemUtils",
+			"Enabled": true
+		}
+	]
+}

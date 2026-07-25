@@ -1,0 +1,2 @@
+PIPE> Tripo 잔액(credits): 800
+PIPE> multiview_to_model: 4장 → ['front.png', 'back.png', 'left.png', 'right.png']

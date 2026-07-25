@@ -1,0 +1,53 @@
+# ────────────────────────────────────────────────
+#  Secret_Project — .gitignore
+#  2026-07-25 정리: 예전 파일에 heredoc(cat <<EOF)이 통째로 박혀 있어서
+#  실제 규칙만 남기고 다시 씀.
+# ────────────────────────────────────────────────
+
+# ── Unreal Engine 생성물 (전부 재생성됨) ──
+Binaries/*
+Intermediate/*
+DerivedDataCache/*
+FileOpenOrder/*
+Plugins/*/Binaries/
+Plugins/*/Intermediate/
+
+# Saved 는 통째로 제외하되, 세이브 파일만 남긴다
+Saved/*
+!Saved/SaveGames/
+
+# ── 프로젝트 파일 (엔진이 재생성) ──
+*.sln
+*.vcxproj
+*.filters
+*.user
+*.sda
+*.vdb
+*.opendb
+.vsconfig
+
+# ── IDE / 에디터 ──
+.vs/
+.vscode/
+.idea/
+
+# ── 로그·임시 ──
+*.log
+*.report
+*.tmp
+__pycache__/
+*.pyc
+node_modules/
+
+# ── 로컬 전용 (계정 간 채널·비밀·머신 고유 경로) ──
+_ai_sync/
+_secrets/
+.claude-shared/
+Build_Editor.bat
+
+# ── 외부 팩: 재다운로드 가능하므로 깃 추적 제외 ──
+#   디스크에는 그대로 있고 게임도 정상 동작한다. 백업만 안 할 뿐.
+#   ABP/MIXAMO        — Mixamo 애니메이션 (Adobe)
+#   paragonanimRTG... — Paragon 리타겟 애니메이션 (Epic 무료)
+Content/ABP/
+Content/paragonanimRTGtoCharacters/

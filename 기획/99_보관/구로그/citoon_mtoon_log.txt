@@ -1,0 +1,26 @@
+[3] N00_000_00_Face_00_SKIN (Instance)     -> 복원 MI_N00_000_00_Face_00_SKIN__Instance_
+[7] N00_000_00_Body_00_SKIN (Instance)     -> 복원 MI_N00_000_00_Body_00_SKIN__Instance_
+[8] N00_000_00_HairBack_00_HAIR (Instance) -> 복원 MI_N00_000_00_HairBack_00_HAIR__Instance_
+[9] N00_007_01_Tops_01_CLOTH_01 (Instance) -> 복원 MI_N00_007_01_Tops_01_CLOTH_01__Instance_
+[10] N00_005_01_Tops_01_CLOTH (Instance)    -> 복원 MI_N00_005_01_Tops_01_CLOTH__Instance_
+[11] N00_007_01_Tops_01_CLOTH_02 (Instance) -> 복원 MI_N00_007_01_Tops_01_CLOTH_02__Instance_
+[12] N00_010_01_Onepiece_00_CLOTH_01 (Instance) -> 복원 MI_N00_010_01_Onepiece_00_CLOTH_01__Instance_
+[13] N00_010_01_Onepiece_00_CLOTH_02 (Instance) -> 복원 MI_N00_010_01_Onepiece_00_CLOTH_02__Instance_
+[14] N00_004_01_Shoes_01_CLOTH (Instance)   -> 복원 MI_N00_004_01_Shoes_01_CLOTH__Instance_
+[15] N00_000_Hair_00_HAIR (Instance)        -> 복원 MI_N00_000_Hair_00_HAIR__Instance_
+[16] M_Outline                              -> 원본없음 유지 (M_Outline.M_Outline)
+==== 복원 슬롯 10개
+---- MToon 파라미터(베이스에서 전체 이름) + 셀 튜닝 ----
+  BASE M_VrmMToonBaseOpaque
+    SCALARS: ['DitherAlpha', 'DitherAlphaShadowClip', 'mtoon_NormalScale', 'NormalToLightMat', 'NormalToCameraMat', 'NormalUVScaleX', 'NormalUVScale2X', 'mtoon_NormalScale2', 'NormalUVScaleY', 'NormalUVScale2Y', 'NormalFresnelExponent', 'NormalFresnelReflect', 'NormalFresnelScale', 'mtoon_UvAnimScrollY', 'mtoon_UvAnimScrollX', 'mtoon_UvAnimRotation', 'bVRM10Mode', 'mtoon_LightColorAttenuation', 'mtoon_OutlineLightingMix', 'TexturePow', 'TextureSaturate', 'bOpaque', 'diffuse2rate', 'mtoon_OutlineWidth', 'mtoon_OutlineWidthMode', 'OutlineFadeDistance', 'ShadowOrthWidth', 'ShadowMobileMode', 'mtoon_ReceiveShadowRate', 'mtoon_ShadeShift', 'mtoon_ShadeToony', 'mtoon_ShadeShift_rate_2ndShadeColor', 'mtoon_RimLift', 'mtoon_RimLightingMix', 'mtoon_RimFresnelPower', 'MatCapShadowRate', 'MatCapScale', 'MatCapOffsetDirection', 'MatCapOffsetScale', 'MatCapNormalUVScaleX', 'MatCapNormalUVScaleY', 'MatCapNormalScale', 'MatCapNormalToLightMat', 'EmissiveFresnel_FresnelExp', 'EmissiveFresnel_BaseReflectFraction', 'EmissiveFresnel_RangeMax', 'EmissiveFresnel_Pow', 'RoughnessMin', 'RoughnessMax', 'MetallicMin', 'MetallicMax', 'RoughnessUVScaleX', 'RoughnessUVScaleY', 'MetallicUVScaleX', 'MetallicUVScaleY', 'RoughnessFresnelPow', 'RoughnessFresnelOuter', 'SpecularUVScaleX', 'SpecularUVScaleY', 'SpecularMin', 'SpecularMax', 'ZOffset', 'ZOffsetScale_Depth', 'ZOffsetScale_Shadow', 'AnisoNormalUp', 'AngelRingPower', 'FlakeDensity', 'FlakeTintWeight', 'FlakeSize', 'SparkPow', 'SparkSize', 'SparkScreenSize', 'ReflectionScale', 'mtoon_Cutoff', 'mtoon_OutlineScaledMaxDistance', 'mtoon_DebugMode', 'mtoon_BlendMode', 'mtoon_OutlineColorMode', 'mtoon_CullMode', 'mtoon_OutlineCullMode', 'mtoon_s----', 'BaseColorRate', 'PostLightScaleMat', 'aniso', 'UVOffset_U', 'UVOffset_V', 'FilmicTonemapInvWeight', 'BumpHeight', 'BumpHeightScale', 'BumpHeightRationInput', 'FadeAlphaExp', 'FadeAlphaReflectFraction']
+    VECTORS: ['ModelBasePosition', 'SpherePosition', 'SphereNormalScale', 'ShadeHueShift', 'mtoon_ShadeColor', 'mtoon_Color', 'MainHueShift', 'mtoon_OutlineColor', 'm0', 'm1', 'm2', 'm3', 'CastShadowFringe', 'mtoon_RimColor', 'MatCapColorScale', 'MatCapColorScale2', 'mtoon_EmissionColor', 'MRSA', 'AnisoXY_Rot', 'AnisoColor', 'AnisoTexScale', 'CustomAnisoLightDirection', 'AngelRingOffsetXY', 'FlakeTintA', 'FlakeTintB', 'ReflectionNormalUVScale', 'gltf_RM', 'gltf_basecolor', 'mtoon_MainTex_dummy', 'mtoon_ShadeTexture_dummy', 'mtoon_BumpMap_dummy', 'mtoon_ReceiveShadowTexture_dummy', 'mtoon_SphereAdd_dummy', 'mtoon_EmissionMap_dummy', 'mtoon_OutlineWidthTexture_dummy', 'SubsurfaceColorScale', 'EmissiveHueShift']
+  MI_N00_000_00_Face_00_SKIN__Instance_ 셀튜닝: ['mtoon_ShadeShift=0.0', 'mtoon_ShadeToony=0.95', 'mtoon_ShadeShift_rate_2ndShadeColor=0.0']
+  MI_N00_000_00_Body_00_SKIN__Instance_ 셀튜닝: ['mtoon_ShadeShift=0.0', 'mtoon_ShadeToony=0.95', 'mtoon_ShadeShift_rate_2ndShadeColor=0.0']
+  MI_N00_000_00_HairBack_00_HAIR__Instance_ 셀튜닝: ['mtoon_ShadeShift=0.0', 'mtoon_ShadeToony=0.95', 'mtoon_ShadeShift_rate_2ndShadeColor=0.0']
+  MI_N00_007_01_Tops_01_CLOTH_01__Instance_ 셀튜닝: ['mtoon_ShadeShift=0.0', 'mtoon_ShadeToony=0.95', 'mtoon_ShadeShift_rate_2ndShadeColor=0.0']
+  MI_N00_005_01_Tops_01_CLOTH__Instance_ 셀튜닝: ['mtoon_ShadeShift=0.0', 'mtoon_ShadeToony=0.95', 'mtoon_ShadeShift_rate_2ndShadeColor=0.0']
+  MI_N00_007_01_Tops_01_CLOTH_02__Instance_ 셀튜닝: ['mtoon_ShadeShift=0.0', 'mtoon_ShadeToony=0.95', 'mtoon_ShadeShift_rate_2ndShadeColor=0.0']
+  MI_N00_010_01_Onepiece_00_CLOTH_01__Instance_ 셀튜닝: ['mtoon_ShadeShift=0.0', 'mtoon_ShadeToony=0.95', 'mtoon_ShadeShift_rate_2ndShadeColor=0.0']
+  MI_N00_010_01_Onepiece_00_CLOTH_02__Instance_ 셀튜닝: ['mtoon_ShadeShift=0.0', 'mtoon_ShadeToony=0.95', 'mtoon_ShadeShift_rate_2ndShadeColor=0.0']
+  MI_N00_004_01_Shoes_01_CLOTH__Instance_ 셀튜닝: ['mtoon_ShadeShift=0.0', 'mtoon_ShadeToony=0.95', 'mtoon_ShadeShift_rate_2ndShadeColor=0.0']
+  MI_N00_000_Hair_00_HAIR__Instance_ 셀튜닝: ['mtoon_ShadeShift=0.0', 'mtoon_ShadeToony=0.95', 'mtoon_ShadeShift_rate_2ndShadeColor=0.0']

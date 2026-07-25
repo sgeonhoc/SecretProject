@@ -1,0 +1,40 @@
+mesh = SKM_Hayakawa_Main
+FBX export ok=True
+  [0] Eye_Sp_M                       tex=T_Eye_Sp_Tex_Color exported=True
+  [1] OutLine                        tex=T_Cloth_Tex_Color exported=True
+  [2] Hair                           tex=T_Head_Tex_Color exported=True
+  [3] Cloth_Bag                      tex=T_Cloth_Tex_Color exported=True
+  [4] Cloth_Add_01_M                 (no albedo param)
+  [5] Cloth_Add_02_M                 (no albedo param)
+  [6] EyeGlass_Lens_M                (no albedo param)
+  [7] Cloth_M                        tex=T_Cloth_Tex_Color exported=True
+  [8] Head_M                         tex=T_Head_Tex_Color exported=True
+  [9] Face_Eye_Mask_M                tex=T_Head_Tex_Color exported=True
+  [10] Face_Eyebrow_Mask_M            tex=T_Head_Tex_Color exported=True
+  [11] Face_Iris_Mask_M               tex=T_Head_Tex_Color exported=True
+  [12] Face_Iris_Out_M                tex=T_Head_Tex_Color exported=True
+  [13] Eff_Eye_M                      tex=T_Eff_Tex_Color exported=True
+  [14] Eff_Cheek_M                    tex=T_Head_Tex_Color exported=True
+  [15] Eff_Forehead_M                 tex=T_Eff_Tex_Color exported=True
+  [16] Face_Eye_White                 tex=T_Head_Tex_Color exported=True
+  [17] Hair_Shadow                    tex=T_White exported=True
+  [18] Body_M                         tex=T_Body_Tex_Color exported=True
+DONE. files:
+  hayakawa.fbx
+  mapping.json
+  tex_00_EyeSpM.png
+  tex_01_OutLine.png
+  tex_02_Hair.png
+  tex_03_ClothBag.png
+  tex_07_ClothM.png
+  tex_08_HeadM.png
+  tex_09_FaceEyeMaskM.png
+  tex_10_FaceEyebrowMaskM.png
+  tex_11_FaceIrisMaskM.png
+  tex_12_FaceIrisOutM.png
+  tex_13_EffEyeM.png
+  tex_14_EffCheekM.png
+  tex_15_EffForeheadM.png
+  tex_16_FaceEyeWhite.png
+  tex_17_HairShadow.png
+  tex_18_BodyM.png

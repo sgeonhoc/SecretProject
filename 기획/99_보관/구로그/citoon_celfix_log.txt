@@ -1,0 +1,20 @@
+normal_import_method=IMPORT_NORMALS 설정
+import_asset_tasks 호출됨. imported=['/Game/TestCharacter/CelFix/N00_000_00_Body_00_SKIN__Instance_.N00_000_00_Body_00_SKIN__Instance_', '/Game/TestCharacter/CelFix/N00_000_00_EyeHighlight_00_EYE__Instance_.N00_000_00_EyeHighlight_00_EYE__Instance_', '/Game/TestCharacter/CelFix/N00_000_00_EyeIris_00_EYE__Instance_.N00_000_00_EyeIris_00_EYE__Instance_', '/Game/TestCharacter/CelFix/N00_000_00_EyeWhite_00_EYE__Instance_.N00_000_00_EyeWhite_00_EYE__Instance_', '/Game/TestCharacter/CelFix/N00_000_00_Face_00_SKIN__Instance_.N00_000_00_Face_00_SKIN__Instance_', '/Game/TestCharacter/CelFix/N00_000_00_FaceBrow_00_FACE__Instance_.N00_000_00_FaceBrow_00_FACE__Instance_', '/Game/TestCharacter/CelFix/N00_000_00_FaceEyeline_00_FACE__Instance_.N00_000_00_FaceEyeline_00_FACE__Instance_', '/Game/TestCharacter/CelFix/N00_000_00_FaceMouth_00_FACE__Instance_.N00_000_00_FaceMouth_00_FACE__Instance_', '/Game/TestCharacter/CelFix/N00_000_00_HairBack_00_HAIR__Instance_.N00_000_00_HairBack_00_HAIR__Instance_', '/Game/TestCharacter/CelFix/N00_000_Hair_00_HAIR__Instance_.N00_000_Hair_00_HAIR__Instance_', '/Game/TestCharacter/CelFix/N00_004_01_Shoes_01_CLOTH__Instance_.N00_004_01_Shoes_01_CLOTH__Instance_', '/Game/TestCharacter/CelFix/N00_005_01_Tops_01_CLOTH__Instance_.N00_005_01_Tops_01_CLOTH__Instance_', '/Game/TestCharacter/CelFix/N00_007_01_Tops_01_CLOTH_01__Instance_.N00_007_01_Tops_01_CLOTH_01__Instance_', '/Game/TestCharacter/CelFix/N00_007_01_Tops_01_CLOTH_02__Instance_.N00_007_01_Tops_01_CLOTH_02__Instance_', '/Game/TestCharacter/CelFix/N00_010_01_Onepiece_00_CLOTH_01__Instance_.N00_010_01_Onepiece_00_CLOTH_01__Instance_', '/Game/TestCharacter/CelFix/N00_010_01_Onepiece_00_CLOTH_02__Instance_.N00_010_01_Onepiece_00_CLOTH_02__Instance_', '/Game/TestCharacter/CelFix/test2_celfix_PhysicsAsset.test2_celfix_PhysicsAsset', '/Game/TestCharacter/CelFix/test2_celfix_Skeleton.test2_celfix_Skeleton', '/Game/TestCharacter/CelFix/test2_celfix.test2_celfix']
+SkeletalMesh = /Game/TestCharacter/CelFix/test2_celfix.test2_celfix
+  slot N00_000_00_Body_00_SKIN__Instance_ -> KEEP
+  slot N00_000_00_HairBack_00_HAIR__Instance_ -> KEEP
+  slot N00_007_01_Tops_01_CLOTH_01__Instance_ -> KEEP
+  slot N00_005_01_Tops_01_CLOTH__Instance_ -> KEEP
+  slot N00_007_01_Tops_01_CLOTH_02__Instance_ -> KEEP
+  slot N00_010_01_Onepiece_00_CLOTH_01__Instance_ -> KEEP
+  slot N00_010_01_Onepiece_00_CLOTH_02__Instance_ -> KEEP
+  slot N00_004_01_Shoes_01_CLOTH__Instance_ -> KEEP
+  slot N00_000_00_FaceMouth_00_FACE__Instance_ -> KEEP
+  slot N00_000_00_EyeIris_00_EYE__Instance_ -> KEEP
+  slot N00_000_00_EyeHighlight_00_EYE__Instance_ -> KEEP
+  slot N00_000_00_Face_00_SKIN__Instance_ -> KEEP
+  slot N00_000_00_EyeWhite_00_EYE__Instance_ -> KEEP
+  slot N00_000_00_FaceBrow_00_FACE__Instance_ -> KEEP
+  slot N00_000_00_FaceEyeline_00_FACE__Instance_ -> KEEP
+  slot N00_000_Hair_00_HAIR__Instance_ -> KEEP
+배치 완료 CELFIX_test2_FACE @ <Struct 'Vector' (0x0000020D3347C060) {x: 3560.000000, y: 5400.000000, z: -450.000000}>, 레벨 저장

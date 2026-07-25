@@ -1,0 +1,17 @@
+{
+  "name": "_fa_sync",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "pouchdb": "^9.0.0",
+    "pouchdb-replication-stream": "^1.2.9"
+  }
+}

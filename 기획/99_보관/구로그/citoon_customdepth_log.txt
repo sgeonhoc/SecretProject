@@ -1,0 +1,12 @@
+[1] PLAYER BP CDO
+  BP_PlayerCharacter::CharacterMesh0: render_custom_depth False->True, stencil 0->1
+  saved BP_PlayerCharacter
+  BP_PlayerCharacter::CharacterMesh0: render_custom_depth True->True, stencil 1->1
+  saved BP_PlayerCharacter
+  BP_PlayerCharacter::CharacterMesh0: render_custom_depth True->True, stencil 1->1
+  saved BP_PlayerCharacter
+[2] Showcase 배치 액터
+  Level::SK_VRM: render_custom_depth False->True, stencil 0->1
+  Level::BP_PlayerCharacter: render_custom_depth True->True, stencil 1->1
+  Level::BP_PlayerCharacter2: render_custom_depth True->True, stencil 1->1
+  Showcase 저장: VRM 액터 3개 적용

@@ -1,0 +1,42 @@
+STYLE TRANSFER ONLY.
+
+Preserve the original Test7 character identity exactly.
+
+DO NOT alter:
+
+* face shape
+* eye shape
+* eye size
+* eye spacing
+* nose shape
+* mouth shape
+* jawline
+* head proportions
+* hair silhouette
+* body proportions
+* clothing design
+* grid layout
+
+Keep:
+
+* original purple hair color
+* original blue eyes
+* original pale skin tone
+* original white and purple costume colors
+
+Apply ONLY the rendering technique from the Hayakawa reference:
+
+* thin, crisp anime lineart
+* clean cel-shaded shadows
+* sharp hair shadow separation
+* refined anime eye rendering
+* crisp highlight shapes
+* polished visual novel style finish
+
+The result must look like the SAME Test7 character drawn by the Hayakawa artist.
+
+Identity preservation is more important than style strength.
+
+Character structure change = forbidden.
+Color replacement = forbidden.
+Face redesign = forbidden.

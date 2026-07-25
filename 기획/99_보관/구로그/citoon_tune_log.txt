@@ -1,0 +1,22 @@
+몸통 슬롯 [7] N00_000_00_Body_00_SKIN (Instance)
+  -> 현재 MI: /Game/TestCharacter/CiciVRoid/MI_Cici_07_N0000000Body00SKINInstan.MI_Cici_07_N0000000Body00SKINInstan
+---- BEFORE ----
+  Use SSS Tex = False
+  UseOMR      = False
+  UseSDF      = False
+  UseRamp     = False
+  ShadowColor = (0.450, 0.420, 0.500)
+  ShadowOffset= 0.5
+  ShadowSmooth= 0.05000000074505806
+  Ramp        = 0.5
+---- APPLY ----
+  set switch Use SSS Tex = False
+  set switch UseOMR = True
+  set switch UseSDF = False
+  set switch UseRamp = False
+  set vector ShadowColor = (0.45, 0.42, 0.5)
+  set scalar ShadowOffset = 0.5
+  set scalar ShadowSmooth = 0.05
+  set scalar Ramp = 0.5
+==== 저장 완료. 뷰포트에서 몸통 그림자 확인하세요.
+     약하면 SHADOW_COLOR 더 어둡게, 테두리 흐리면 SHADOW_SMOOTH 낮게, 면적은 SHADOW_OFFSET.

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>🥋 무협 참고 원장 — 무엇을 참고했고 어떻게 지웠나</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=Gowun+Batang:wght@400;700&display=swap');
+  :root{
+    --bg:#0a141b; --surface:#161d23; --surface-2:#1c242b;
+    --ink:#ece5d4; --ink-soft:#cbc3b1; --muted:#8f8877;
+    --line:#2b343c;
+    --accent:#d3b064; --accent-deep:#ecd79a; --accent-soft:rgba(211,176,100,.10);
+    --serif:'Nanum Myeongjo','Gowun Batang','Batang','바탕',serif;
+    --shadow:0 1px 2px rgba(60,45,25,.04), 0 8px 28px rgba(60,45,25,.07);
+  }
+  *{ box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); margin:0; padding:0;
+         font-family:'Pretendard','Malgun Gothic',system-ui,-apple-system,sans-serif;
+         -webkit-font-smoothing:antialiased; }
+  .page { max-width:800px; margin:0 auto; background:var(--surface);
+          border-left:1px solid var(--line); border-right:1px solid var(--line);
+          min-height:100vh; padding:40px 56px 72px; font-size:16.5px; line-height:1.9; color:var(--ink-soft); }
+  h1 { font-family:var(--serif); font-size:29px; font-weight:800; color:var(--ink); margin:6px 0 4px; letter-spacing:-.01em; line-height:1.3; }
+  .meta { font-size:13px; color:var(--muted); margin-bottom:20px; display:block; line-height:1.7; }
+  .meta b { color:var(--ink-soft); }
+  h3 { font-family:var(--serif); margin:28px 0 8px; font-size:18px; font-weight:700; color:var(--accent-deep); border-bottom:1px solid var(--line); padding-bottom:5px; }
+  p { margin:0 0 16px; }
+  b { color:var(--ink); font-weight:700; }
+  .nav { font-size:13.5px; margin:0 0 16px; padding:0 0 12px; border-bottom:1px solid var(--line); }
+  .nav a, .navend a { color:var(--accent-deep); text-decoration:none; margin-right:16px; font-weight:600; }
+  .nav a:hover, .navend a:hover { text-decoration:underline; }
+  .navend { font-size:13.5px; margin-top:36px; padding-top:14px; border-top:1px solid var(--line); }
+  table { border-collapse:collapse; width:100%; font-size:13.5px; line-height:1.6; margin:0 0 18px; }
+  th, td { border:1px solid var(--line); padding:6px 10px; text-align:left; vertical-align:top; }
+  th { background:var(--surface-2); color:var(--ink); font-weight:700; }
+  @media (max-width:820px){ .page{ padding:26px 20px; } }
+</style>
+</head>
+<body>
+<div class="page">
+<div class="nav"><a href="세계관_세계지도.html">← 세계 전도(지도)</a> <a href="세계관_페이지_세계관설정.html">🌌 세계관 설정</a> <a href="세계관_페이지_힘의구조.html">⚡ 힘의 구조</a> <a href="세계관_페이지_무협기묘사.html">🌬️ 기 묘사 연구</a> <a href="세계관_페이지_브레인스토밍.html">🧠 브레인스토밍</a></div>
+<h1>🥋 무협 참고 원장 — 무엇을 참고했고 어떻게 지웠나</h1>
+<span class="meta">설계 기록(작가층 — 세계 안 실재 0) · 정본 = 기획/01_세계관/4_체계/능력과_마력/세계관_힘의_구조.md 부록 A + §7 · 능력 체계 설계 시 참고한 무협 구조의 해부 · ⚠️❌ 판정들은 재검토 가능(재수확 후보=🧠 브레인스토밍)</span>
+
+<h3>A.1 무협에서 가져온 큰 그림 하나 — "힘의 회계가 완결돼 있다"</h3>
+<p>무협이 수백 년 장르로 굴러가는 진짜 이유는 검·협·강호가 아니라 <b>힘의 경제가 회계적으로 완결</b>돼 있어서다: 자원이 있고(내공), 저장고가 있고(단전), 회로가 있고(경맥), 기술이 있고(심법·초식), 성장 경로가 있고(수련·영약·기연), 등급이 있고(경지), 파산이 있고(주화입마), 상속·거래·강탈이 있다(사승·비급·흡성대법). <b>칸이 전부 맞물려 있어서 어떤 사건이 나도 수지가 맞는다</b> — 독자가 강함을 믿게 되는 이유. 채택한 것은 이 완결성 하나뿐, 칸을 채우는 부품은 전부 재도출했다.</p>
+
+<h3>A.2 부품 사전 — 무협 안에서의 구실 → 우리 세계의 그 칸</h3>
+<table><tr><th>무협 부품</th><th>무협 안에서의 구실(회계 칸)</th><th>우리 세계의 그 칸</th></tr>
+<tr><td><b>내공</b></td><td>자원 — 쌓을수록 강해지는 축적 에너지. 유한하고 거래·강탈 가능해서 플롯의 화폐</td><td>내림 — 태생 부여분뿐, 축적·거래·강탈 불가</td></tr>
+<tr><td><b>단전</b></td><td>저장고 — 자원이 앉는 해부학적 자리(파괴=폐인 플롯)</td><td>없음 — 몫은 몸 전체에 스밈</td></tr>
+<tr><td><b>경맥·기혈</b></td><td>회로 — 힘이 도는 배선(막힘/뚫음=성장 이벤트)</td><td>없음 — 회로 대신 일의 순서(발동 다섯 마디)</td></tr>
+<tr><td><b>심법</b></td><td>운영 체제 — 같은 내공을 다르게 굴리는 공식(문파의 정체성)</td><td>운용 — 결합식이 물리적으로 미고정이라는 사실 자체가 기술 공간</td></tr>
+<tr><td><b>초식</b></td><td>기술 단위 — 이름 붙은 정형 목록(비전=재산)</td><td>엮음새 세 겹 — 목록이 아니라 몸에 굳은 정형(읽히는 양날)</td></tr>
+<tr><td><b>운기조식</b></td><td>정비 — 수련이자 회복 의식(전투 사이의 리듬)</td><td>수련=통과·반복 / 회복=그냥 쉼(의식 없음)</td></tr>
+<tr><td><b>경지 체계</b>(삼류→일류→절정→화경→현경)</td><td>등급 — 서로 알아보는 공용 사다리(격차의 문법)</td><td>발현 사다리는 실재하되 세계 안에 이름 없음(노리빌)</td></tr>
+<tr><td><b>영약·기연·환골탈태</b></td><td>로또 — 성장의 불연속 점프(개연성 우회 장치)</td><td>없음 — 불연속은 문턱 도박 하나뿐</td></tr>
+<tr><td><b>주화입마</b></td><td>파산 — 과속의 벌(수련 리스크)</td><td>없음 — 수련=안전, 자아 리스크는 반신 문턱 한 곳</td></tr>
+<tr><td><b>흡성대법</b></td><td>강탈 — 남의 자원을 빼앗는 경제 범죄</td><td>원천 봉쇄 — 흡수 시도=재흡수 역류로 저만 녹음</td></tr>
+<tr><td><b>비급</b></td><td>지식 재산 — 글로 배우는 힘(쟁탈전의 맥거핀)</td><td>없음 — 지식≠상호작용, 엮음새는 종이에 안 앉음</td></tr>
+<tr><td><b>사승·문파</b></td><td>전수 제도 — 힘의 상속 구조(계보=정치)</td><td>운용만 전수 — 문파의 자리에 세력의 운용 철학〔세력=가안〕</td></tr>
+<tr><td><b>비무·논검</b></td><td>겨룸 제도 — 죽이지 않고 서열 정하는 문화</td><td>성립 불가 — 진심 대련=목숨 도박 → 실전 경험이 희소 자원</td></tr>
+<tr><td><b>발경·검기·강기</b></td><td>출력 기법 — 숙련이 출력의 질을 바꾸는 문법</td><td>다섯 마디의 겹침 — 마디가 안 보이는 것이 정점</td></tr>
+<tr><td><b>기세·살기</b></td><td>현존감 — 강자가 공기로 느껴지는 문법</td><td>짙음 — 뿜는 게 아니라 새는 것(못 꾸미되 감출 순 있음)</td></tr>
+<tr><td><b>점혈·혈도</b></td><td>정밀 제압 — 몸의 좌표를 짚는 기술</td><td>없음 — 몸을 짚어 힘을 다루는 문법 자체가 부재</td></tr>
+<tr><td><b>보법·경공</b></td><td>기동 — 몸 쓰는 보조 체계</td><td>별도 체계 없음 — 기동은 운용의 일부</td></tr></table>
+
+<h3>A.3 무협의 플롯 동력은 어디로 갔나</h3>
+<p>무협 서사의 엔진은 대부분 <b>힘이 훔칠 수 있는 물건</b>이라는 데서 나온다 — 비급 쟁탈·영약 쟁탈·내공 강탈·멸문과 복수. 우리 세계는 힘을 훔칠 수 없게 만들었으므로(태생 부여·전수 불가·강탈=자멸), 그 플롯 동력이 세 자리로 옮겨 갔다:</p>
+<p>① <b>사람 쟁탈</b> — 힘을 못 뺏으니 힘을 가진 사람을 데려와야 한다 → 스카우트·초대·가문·세력의 인재전(만 년 전 "얇은 아이 값"부터 현대 세력전까지 한 줄). ② <b>지식 통제</b> — 비급이 없으니 아는 것보다 무엇이 알려지느냐가 무기 → 비닉·해석통제·노리빌. ③ <b>유일한 도박판</b> — 성장의 불연속이 문턱 하나뿐이라 거기에 모든 것이 걸린다 → 한계돌파를 장려하는 쪽·돌아가려는 믿음·유리의 프로젝트. <span class="ga">〔어느 세력이 어느 쪽인지는 아직 안 정함〕</span></p>
+<p style="font-size:13px;color:var(--muted)">※ 이 페이지의 무협 부품은 <b>거부 목록이 아니라 열린 참고</b>다 — 구조는 필요하면 다 가져와 우리 식으로 다시 세울 수 있고, 용어(단전·경맥 등)만 그대로 카피하지 않는다.</p>
+<p>★<b>"무협이 생각나지 않게"의 최종 답:</b> 부품을 바꾼 것만이 아니라 <b>플롯의 화폐 자체를 물건에서 사람·해석·도박으로 바꿨다.</b></p>
+
+<div class="navend"><a href="세계관_페이지_힘의구조.html">← 앞: ⚡ 힘의 구조</a> <a href="세계관_페이지_무협기묘사.html">다음: 🌬️ 기 묘사 연구 →</a></div>
+</div>
+</body>
+</html>

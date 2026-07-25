@@ -1,0 +1,4 @@
+loaded Showcase
+기준 SK_VRM loc=<Struct 'Vector' (0x000001DFA12BD9B0) {x: 3560.000000, y: 5080.000000, z: -450.000000}>
+배치 완료: SK_test2 @ <Struct 'Vector' (0x000001DFAAC95050) {x: 3560.000000, y: 5230.000000, z: -450.000000}> (mesh_set=True)
+레벨 저장됨

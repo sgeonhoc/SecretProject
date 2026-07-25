@@ -1,0 +1,3 @@
+[DirLight] 'Light Source' intensity=15.0 cast_dynamic_shadows(before)=True cast_shadows=True
+   -> cast_dynamic_shadows = False (원복: True)
+==== 완료: 라이트 1개 동적그림자 OFF. PIE 다시 Play해서 캐릭터 검은 띠 보세요.

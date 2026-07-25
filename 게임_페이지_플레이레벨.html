@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>플레이 레벨 — 라셀, 사람이 사는 도시</title>
+<style>
+  body{font-family:'Malgun Gothic',sans-serif;background:#f2ecdf;color:#33302a;margin:0;padding:0}
+  .layout{display:flex;align-items:flex-start}
+  nav#side{position:sticky;top:0;height:100vh;overflow-y:auto;width:280px;flex:0 0 280px;
+    background:#ece4d2;border-right:1px solid #cfc4a8;padding:18px 14px;font-size:.85em;box-sizing:border-box}
+  nav#side .tt{font-weight:bold;font-size:1.05em;color:#5a4f3a;border-bottom:2px solid #b3a67f;padding-bottom:6px;margin-bottom:8px}
+  nav#side ul{list-style:none;margin:0;padding:0}
+  nav#side li{margin:2px 0;line-height:1.4}
+  nav#side li.lv3{padding-left:14px;font-size:.93em}
+  nav#side a{color:#6b5d40;text-decoration:none}
+  nav#side a:hover{color:#a13b2e}
+  nav#side .xlinks{margin:0 0 10px;padding:8px 10px;background:#e7dcc3;border:1px solid #c9bc9c;border-radius:8px}
+  nav#side .xlinks a{display:block;font-weight:bold;color:#5a4f3a;margin:3px 0}
+  main#doc{flex:1;min-width:0;max-width:1050px;padding:24px 36px;box-sizing:border-box}
+  main h1{font-size:1.5em;border-bottom:3px solid #8a7a5c;padding-bottom:8px}
+  main h2{font-size:1.18em;margin-top:44px;border-left:6px solid #8a7a5c;padding-left:10px}
+  main h3{font-size:1.05em;margin-top:32px;color:#5a4f3a;border-left:3px solid #c9bc9c;padding-left:8px}
+  main h4{font-size:.98em;margin-top:24px;color:#5a4f3a}
+  main p{line-height:1.75;font-size:.94em}
+  main li{line-height:1.7;font-size:.94em;margin:4px 0}
+  main blockquote{background:#ece2c8;border-left:5px solid #b3a67f;margin:14px 0;padding:10px 14px;border-radius:0 8px 8px 0}
+  main blockquote p{margin:4px 0;font-size:.88em;color:#5f5744}
+  .tblwrap{overflow-x:auto;margin:14px 0}
+  main table{border-collapse:collapse;font-size:.9em;min-width:60%}
+  main th{background:#e7dcc3;border-bottom:2px solid #b3a67f;padding:7px 10px;text-align:left}
+  main td{border-bottom:1px solid #d8cdb0;padding:7px 10px;vertical-align:top}
+  main code{background:#e7dcc3;border-radius:4px;padding:1px 5px;font-size:.9em}
+  main hr{border:none;border-top:1px dashed #c9bc9c;margin:30px 0}
+  .fig{background:#faf6ec;border:1px solid #cfc4a8;border-radius:10px;padding:14px;margin:16px 0;text-align:center;overflow-x:auto}
+  .fig svg{max-width:100%;height:auto}
+  .figcap{font-size:.85em;color:#6b6353;margin-top:8px;line-height:1.5;text-align:left}
+  .note{color:#6b6353;font-size:.9em;line-height:1.6}
+  .top{position:fixed;right:20px;bottom:20px;background:#8a7a5c;color:#f6f1e4;border-radius:50%;
+    width:44px;height:44px;line-height:44px;text-align:center;cursor:pointer;font-size:18px;user-select:none;opacity:.9}
+  #sideBtn{display:none;position:fixed;left:14px;bottom:20px;z-index:30;background:#8a7a5c;color:#f6f1e4;
+    border:none;border-radius:22px;padding:10px 16px;font-size:14px;cursor:pointer;opacity:.92}
+  @media (max-width:1000px){
+    nav#side{position:fixed;left:0;top:0;z-index:20;transform:translateX(-100%);transition:transform .2s;box-shadow:4px 0 18px rgba(0,0,0,.2)}
+    nav#side.open{transform:none}
+    #sideBtn{display:block}
+    main#doc{padding:18px 14px}
+  }
+</style>
+</head>
+<body>
+<button id="sideBtn" onclick="document.getElementById('side').classList.toggle('open')">☰ 차례</button>
+<div class="layout">
+<nav id="side">
+  <div class="tt">플레이 레벨 — 라셀, 사람이 사는 도시</div>
+  <div class="xlinks"><a href="세계관_세계지도.html">↗ 세계관_세계지도.htm</a></div>
+  <ul><li class="lv2"><a href="#m-h1">0. 레벨 스키마 (장소 하나가 갖는 것)</a></li><li class="lv2"><a href="#m-h2">1. 허브 여섯 (도시의 뼈대)</a></li><li class="lv2"><a href="#m-h3">2. 레벨 로스터</a></li><li class="lv3"><a href="#m-h4">H1 — 아랫장터 (구시가)</a></li><li class="lv3"><a href="#m-h5">H2 — 학당가·의원권</a></li><li class="lv3"><a href="#m-h6">H3 — 신항 재개발지</a></li><li class="lv3"><a href="#m-h7">H4 — 강 건너 유리탑</a></li><li class="lv3"><a href="#m-h8">H5 — 폐선 구간·지하수로</a></li><li class="lv3"><a href="#m-h9">H6 — 강 상류 옛 도읍 폐허</a></li><li class="lv2"><a href="#m-h10">3. 도시가 도는 법 (레벨을 잇는 규칙)</a></li><li class="lv2"><a href="#m-h11">4. 구현 계획 (UE)</a></li><li class="lv2"><a href="#m-h12">5. 이어 만들 장소 (못박지 않음)</a></li></ul>
+</nav>
+<main id="doc">
+<h1>플레이 레벨 — 라셀, 사람이 사는 도시</h1>
+<p class="note">인물들이 하루를 보내는 장소 23곳 · 정본은 <b>기획/02_게임설계/2_레벨/게임_플레이레벨_정본.md</b> — 이 페이지는 열람용 산출물이다(2026-07-20 생성 · <code>node _build_md_열람.js</code>로 재생성, 직접 수정 금지).</p>
+<blockquote><p><b>이것이 게임의 레벨이다.</b> 전투 판이 아니라 <b>인물들이 하루를 보내는 장소</b>들 — 자고, 먹고, 배우고, 일하고, 뒤지고, 마주치는 자리. 사건은 이 위에서 벌어지고, 전투는 그중 일부에서만 터진다.</p><p></p><p><b><code>기획/02_게임설계/1_전투/시스템/게임_전투레벨_정본.md</code>와 구분:</b> 그쪽은 전투가 붙었을 때 깔리는 <b>판(헥스 필드)</b> 표다. 이 문서는 <b>도시 그 자체</b> — 걸어 다니는 공간. 한 장소에 전투가 붙으면 그 장소가 어느 전투 판을 쓰는지만 이어 준다.</p><p></p><p><b>근거:</b> <code>기획/01_세계관/3_현대/세계관_현대_이야기.md</code> §1 도심의 결(아랫장터·신항 재개발지·강 건너 유리탑·학당가/의원권·폐선 구간/지하수로) + §2 다섯 손 + §3~ 이야기들. 여기 없는 도시를 지어내지 않는다. <b>작명은 세계 음운</b>(라셀·사렌·에오라 결) 또는 그냥 한국어 보통명사(장터·부두·학당) — 실사 한국 지명·무협식 이름 금지.</p></blockquote>
+<hr>
+<h2 id="m-h1">0. 레벨 스키마 (장소 하나가 갖는 것)</h2>
+<div class="tblwrap"><table><tr><th>필드</th><th>뜻</th></tr><tr><td><code>Id</code></td><td>맵 식별자 (<code>Rasel_Jangteo_Street</code>)</td></tr><tr><td><code>구역</code></td><td>어느 도심의 결에 속하나 (허브 6개 중 하나)</td></tr><tr><td><code>종류</code></td><td>거리(외부 넓음) / 실내(방) / 통로(전이) / 지하(어둠)</td></tr><tr><td><code>무엇 하는 곳</code></td><td>플레이어가 여기 <b>왜</b> 오는가 — 이게 없으면 레벨이 아니다</td></tr><tr><td><code>사는 사람</code></td><td>이 자리를 제 자리로 쓰는 인물·NPC (상주)</td></tr><tr><td><code>낮 / 밤</code></td><td>시간대에 따라 무엇이 바뀌나 (등장 인물·조명·열리는 문)</td></tr><tr><td><code>짚을 것</code></td><td>상호작용 지점 (대화·조사·상점·게시판·잠긴 문)</td></tr><tr><td><code>나가는 곳</code></td><td>이어지는 장소들</td></tr><tr><td><code>전투</code></td><td>붙을 수 있나 · 붙으면 어느 판(전투레벨 L#)</td></tr><tr><td><code>규모</code></td><td>UE 제작 기준 크기 (S=방 하나 / M=거리 한 블록 / L=구역 통짜)</td></tr></table></div>
+<p><b>설계 규칙 넷</b></p>
+<ol>
+<li><b>장소는 기능이 먼저다.</b> "분위기 좋은 골목"은 레벨이 아니다. 자거나·사거나·듣거나·뒤지거나 — 플레이어가 하는 일이 있어야 만든다.</li>
+<li><b>한 장소는 최소 두 번 온다.</b> 한 번 쓰고 버릴 곳은 만들지 않는다. 낮과 밤이 다르거나, 이야기가 진행되면 달라지거나.</li>
+<li><b>사람이 상주한다.</b> 빈 배경 금지. 그 자리를 제 자리로 쓰는 인물이 최소 하나.</li>
+<li><b>위층·아래층이 붙어 있다.</b> 라셀의 결은 표층(장터·학당·유리탑)과 아래층(수로·갱·폐허)이 계단 하나로 이어진다. 어느 표층 장소든 아래로 내려가는 문이 어딘가에 있다.</li>
+</ol>
+<hr>
+<h2 id="m-h2">1. 허브 여섯 (도시의 뼈대)</h2>
+<div class="tblwrap"><table><tr><th>#</th><th>허브</th><th>성격</th><th>언제 열리나</th></tr><tr><td>H1</td><td><b>아랫장터(구시가)</b></td><td>생활의 중심. 밥·잠·물건·소문</td><td>처음부터</td></tr><tr><td>H2</td><td><b>학당가·의원권</b></td><td>배움과 몸. 갓 눈뜬 자가 가장 많은 자리</td><td>처음부터</td></tr><tr><td>H3</td><td><b>신항 재개발지</b></td><td>공사판. 새 조각이 실제로 나오는 곳</td><td>초반</td></tr><tr><td>H4</td><td><b>강 건너 유리탑</b></td><td>위층. 깨끗한 돈과 깨끗한 얼굴</td><td>중반</td></tr><tr><td>H5</td><td><b>폐선 구간·지하수로</b></td><td>아래층 입구. 어둠</td><td>중반</td></tr><tr><td>H6</td><td><b>강 상류 옛 도읍 폐허</b></td><td>옛 뼈. 도시의 법이 안 닿음</td><td>후반</td></tr></table></div>
+<hr>
+<h2 id="m-h3">2. 레벨 로스터</h2>
+<h3 id="m-h4">H1 — 아랫장터 (구시가)</h3>
+<p><b>L01. 장터 큰길</b> — <code>Rasel_Jangteo_Street</code> · 거리 · <b>M</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 이 게임의 시작 거리. 밥집·전당포·좌판이 늘어서고, 다섯 대륙 말이 섞여 들린다. 조각이 가장 먼저 도는 저잣거리.</li>
+<li><b>사는 사람:</b> 좌판 상인들, 골동상 주인, 뱃말 쓰는 뜨내기.</li>
+<li><b>낮:</b> 사람이 빽빽하다. 상점 전부 열림. <b>밤:</b> 셔터가 반쯤 내려가고, 골목 입구가 열린다(낮엔 사람이 많아 못 들어감).</li>
+<li><b>짚을 것:</b> 상점 3(밥집·전당포·잡화), 벽보판(도시 소문·의뢰), 골동상 문.</li>
+<li><b>나가는 곳:</b> L02 골동상, L03 뒷골목, L04 셋집, L07 전차역.</li>
+<li><b>전투:</b> 낮 ✕ / 밤 ○ (판=L2 닫힌 골목)</li>
+</ul>
+<p><b>L02. 골동상 안</b> — <code>Rasel_Antique_Shop</code> · 실내 · <b>S</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 조각(옛 낱장·물건)을 사고파는 곳. 진짜와 가짜가 섞여 있고, 감정을 부탁할 수 있다.</li>
+<li><b>사는 사람:</b> 가게 주인(감정 기능). 뒷방에 손님이 앉아 있는 날이 있다.</li>
+<li><b>낮/밤:</b> 낮엔 물건이 진열대에, 밤엔 뒷방이 열린다.</li>
+<li><b>짚을 것:</b> 진열대(구매), 감정대(가진 낱장 진위 확인), 뒷방 문(조건부).</li>
+<li><b>전투:</b> ✕ (여기서 싸우면 물건이 탄다 — 도시의 암묵)</li>
+</ul>
+<p><b>L03. 장터 뒷골목</b> — <code>Rasel_Backalley</code> · 통로 · <b>S</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 큰길에서 안 보이는 거래가 붙는 자리. 지름길이자 매복 자리.</li>
+<li><b>사는 사람:</b> 밤에만 서 있는 중개인.</li>
+<li><b>짚을 것:</b> 담벼락 낙서(잿마당 표식), 잠긴 뒷문, 하수 맨홀(→ H5).</li>
+<li><b>전투:</b> ○ (판=L2)</li>
+</ul>
+<p><b>L04. 셋집 옥탑</b> — <code>Rasel_Rooftop_Room</code> · 실내 · <b>S</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> <b>거점.</b> 자고, 저장하고, 손패를 정리하고, 익힌 것을 되짚는 방. 창밖으로 장터 지붕과 강이 보인다.</li>
+<li><b>사는 사람:</b> 플레이어 일행. 아래층 주인 노인.</li>
+<li><b>낮/밤:</b> 밤에만 '자기'가 열린다(날짜 넘김).</li>
+<li><b>짚을 것:</b> 침상(취침·저장), 책상(익힌 것 정리·연공서 읽기), 창(도시 조망), 문 앞 쪽지(사건 진입).</li>
+</ul>
+<p><b>L05. 밥집 '두 그릇'</b> — <code>Rasel_Eatery</code> · 실내 · <b>S</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 먹고 회복하고, 사람 이야기를 듣는 자리. 도시 소문이 가장 먼저 도는 곳.</li>
+<li><b>사는 사람:</b> 주인 내외. 저녁마다 같은 자리에 앉는 단골 몇.</li>
+<li><b>짚을 것:</b> 자리 앉기(회복·동행 대화), 옆자리 엿듣기(소문 획득).</li>
+</ul>
+<p><b>L06. 전당포 뒷방</b> — <code>Rasel_Pawnshop_Back</code> · 실내 · <b>S</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 출처를 안 묻는 거래. 값이 세고 위험한 물건이 여기로 온다.</li>
+<li><b>사는 사람:</b> 전당포 주인(장물 중개).</li>
+<li><b>짚을 것:</b> 창구(매각), 장부(조사 시 사건 단서), 뒷문(→ L03).</li>
+</ul>
+<p><b>L07. 전차역·아랫장터 승강장</b> — <code>Rasel_Tram_Jangteo</code> · 통로 · <b>S</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> <b>도시 이동 허브.</b> 여기서 다른 구역으로 간다. 지하 열두 갈래 중 하나.</li>
+<li><b>짚을 것:</b> 노선도(빠른 이동), 승강장 끝 잠긴 철문(→ H5 폐선 구간).</li>
+</ul>
+<hr>
+<h3 id="m-h5">H2 — 학당가·의원권</h3>
+<p><b>L08. 학당 앞 거리</b> — <code>Rasel_Academy_Street</code> · 거리 · <b>M</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 젊은 사람이 가장 많은 거리. 갓 눈뜬 자가 제 몸에 무슨 일이 났는지 모른 채 걸어 다니는 자리.</li>
+<li><b>사는 사람:</b> 학생들, 노점, 전단 붙이는 사람.</li>
+<li><b>낮:</b> 붐빔·수업 종. <b>밤:</b> 텅 빔·가로등·강 쪽 바람.</li>
+<li><b>나가는 곳:</b> L09 교실동, L10 의원, L11 강둑.</li>
+<li><b>전투:</b> 밤 ○ (판=L4 학당가 강둑)</li>
+</ul>
+<p><b>L09. 교실동·빈 강의실</b> — <code>Rasel_Academy_Hall</code> · 실내 · <b>M</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 배우는 곳. 그리고 방과 후 빈 강의실은 아무도 안 보는 자리라, 제 몸에 난 일을 혼자 시험해 보는 자리가 된다.</li>
+<li><b>사는 사람:</b> 강사 한 명, 늦게까지 남는 학생 몇.</li>
+<li><b>짚을 것:</b> 칠판, 책상 서랍(쪽지), 창고 문.</li>
+</ul>
+<p><b>L10. 의원 대기실·병동</b> — <code>Rasel_Clinic</code> · 실내 · <b>M</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> <b>각성이 오진되는 자리.</b> 갓 눈뜬 자가 발작·중독·헛것으로 접수되어 실려 온다(§9). 위층은 이 기록을 긁어 간다.</li>
+<li><b>사는 사람:</b> 당직 의사, 간호인, 침상의 환자들.</li>
+<li><b>낮:</b> 붐빔·접수 창구. <b>밤:</b> 불 꺼진 복도·당직실 하나만 켜짐.</li>
+<li><b>짚을 것:</b> 접수 장부(누가 실려 왔나 — 사건 단서), 병동 침상(대화), 뒷문(밤에 누가 드나든다).</li>
+<li><b>전투:</b> ✕ / 밤 조건부 ○</li>
+</ul>
+<p><b>L11. 학당가 강둑</b> — <code>Rasel_Riverbank</code> · 거리 · <b>M</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 학당 뒤 강둑. 사람 없는 밤에 혼자 제 힘을 켜 보는 자리. 물이 바로 옆이라 불도 얼음도 마음 놓고 세워진다.</li>
+<li><b>사는 사람:</b> 밤낚시하는 노인, 벤치의 학생.</li>
+<li><b>짚을 것:</b> 강물(젖음 지형), 둑 난간, 다리 아래 그늘.</li>
+<li><b>전투:</b> ○ (판=<b>L4 학당가 강둑</b>)</li>
+</ul>
+<p><b>L12. 셀란 수련원 안뜰</b> — <code>Rasel_Selan_Court</code> · 실내 · <b>M</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 명상·호흡 강습의 간판을 쓴 수련원. 회비를 내면 누구나 들어온다. 안쪽에 진짜가 있다.</li>
+<li><b>사는 사람:</b> 수련생들, 강사. 안채는 잠겨 있다.</li>
+<li><b>짚을 것:</b> 접수대(등록), 수련장(연공 훈련 = <b>길별 저울 올리기</b>), 안채 문(조건부 개방), 게시판(강습 일정).</li>
+<li><b>전투:</b> 안뜰 시합 ○ (판=L5 계열, 매끈한 마루·기둥)</li>
+</ul>
+<hr>
+<h3 id="m-h6">H3 — 신항 재개발지</h3>
+<p><b>L13. 공사판 지상</b> — <code>Rasel_Newport_Site</code> · 거리 · <b>L</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 옛 부두를 갈아엎는 공사판. 낮엔 인부와 기계, 밤엔 통째로 빈다. <b>도시에서 새 조각이 실제로 나오는 유일한 표층.</b></li>
+<li><b>사는 사람:</b> 현장 감독, 인부들, 경비.</li>
+<li><b>낮:</b> 굴착기 소음·출입 통제(들어가려면 명분이 필요). <b>밤:</b> 조명탑 몇 개만·경비 순찰 루트.</li>
+<li><b>짚을 것:</b> 현장 사무소, 자재 더미(엄폐), 갱 입구(→ L14), 게시된 굴착 도면(사건 단서).</li>
+<li><b>전투:</b> 밤 ○ (판=L3 신항 굴착 갱 계열)</li>
+</ul>
+<p><b>L14. 굴착 갱 — 지하 열여덟 자</b> — <code>Rasel_Newport_Shaft</code> · 지하 · <b>M</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 내려가는 길. 옛 석축이 드러난 방이 갱 끝에 있다. 굴착 먼지가 자욱하다.</li>
+<li><b>사는 사람:</b> 없음(밤). 대신 위에서 등불이 내려오는 날이 있다.</li>
+<li><b>짚을 것:</b> 옛 석축(조사), 함이 있던 자리, 더 아래로 뚫린 틈(→ L20).</li>
+<li><b>전투:</b> ○ (판=<b>L3 신항 굴착 갱</b>)</li>
+</ul>
+<p><b>L15. 부두 창고 지붕</b> — <code>Rasel_Warehouse_Roof</code> · 거리 · <b>M</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 창고 지붕. 항구 전체가 내려다보이고, 여기서 누가 무엇을 내리는지 셀 수 있다. 감시와 도주로.</li>
+<li><b>사는 사람:</b> 밤에 올라오는 자들(서로 마주치면 곤란한 사이).</li>
+<li><b>짚을 것:</b> 환기탑(엄폐), 망원(부두 관찰 — 어느 배가 무엇을 내리나), 사다리(내려감).</li>
+<li><b>전투:</b> ○ (판=<b>L7 화물창 지붕</b>)</li>
+</ul>
+<hr>
+<h3 id="m-h7">H4 — 강 건너 유리탑</h3>
+<p><b>L16. 유리탑 로비</b> — <code>Rasel_Tower_Lobby</code> · 실내 · <b>M</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 재단·상단·의원의 합법 간판이 선 위층 입구. 대리석과 기둥, 안내 데스크, 출입 통제.</li>
+<li><b>사는 사람:</b> 안내원, 경비, 오가는 정장들 — 대다수는 제가 무엇의 일부인지 모른다.</li>
+<li><b>짚을 것:</b> 안내 데스크(약속 없으면 못 올라감), 방문자 명부(조사), 승강기(조건부).</li>
+<li><b>전투:</b> ✕ / 파국 시 ○ (판=<b>L5 유리탑 로비</b>)</li>
+</ul>
+<p><b>L17. 재단 요양원</b> — <code>Rasel_Sanatorium</code> · 실내 · <b>L</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 겉으로는 조용한 요양원. 갓 눈뜬 자를 데려와 "가라앉히는" 자리. 복도가 길고 창이 높다.</li>
+<li><b>사는 사람:</b> 원장, 간호인, 입소자들(눈이 풀린 사람과 멀쩡한 사람이 섞여 있다).</li>
+<li><b>낮:</b> 방문 가능·안내를 받는다. <b>밤:</b> 안 열리는 문이 열린다.</li>
+<li><b>짚을 것:</b> 입소자 명부, 병실(대화), 지하 처치실(잠김), 소각로.</li>
+<li><b>전투:</b> ○ (판=L5 계열)</li>
+</ul>
+<p><b>L18. 의원 회관 뒷복도</b> — <code>Rasel_Council_Hall</code> · 실내 · <b>M</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 도시의 결정이 내려지는 자리의 뒷면. 여기서 오간 말이 며칠 뒤 거리에서 사람 목숨이 된다.</li>
+<li><b>사는 사람:</b> 보좌관, 기자, 청소부(가장 많이 보는 사람).</li>
+<li><b>짚을 것:</b> 회의 일정표, 열린 문틈(엿듣기), 청소부와의 대화.</li>
+<li><b>전투:</b> ✕</li>
+</ul>
+<hr>
+<h3 id="m-h8">H5 — 폐선 구간·지하수로</h3>
+<p><b>L19. 폐선 승강장</b> — <code>Rasel_Abandoned_Platform</code> · 지하 · <b>M</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 쓰지 않는 지하철 승강장. 아래층으로 내려가는 가장 흔한 입구. 물이 차 있다.</li>
+<li><b>사는 사람:</b> 여기 사는 사람들이 실제로 있다 — 도시가 세지 않는 사람들.</li>
+<li><b>짚을 것:</b> 물에 잠긴 선로, 불 피운 자리(대화), 터널 입구 셋(각각 다른 데로).</li>
+<li><b>전투:</b> ○ (판=<b>L9 침수된 승강장</b>)</li>
+</ul>
+<p><b>L20. 지하수로 갈래</b> — <code>Rasel_Sewer_Junction</code> · 지하 · <b>L</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 삼각주 아래로 뻗은 수로 그물. 길을 모르면 못 나온다. 발굴가와 회수조가 가장 자주 마주치는 어둠.</li>
+<li><b>짚을 것:</b> 벽에 그은 표식(누가 먼저 지나갔나), 물길 갈래, 무너진 관.</li>
+<li><b>전투:</b> ○ (판=<b>L1 폐선 지하수로</b>)</li>
+</ul>
+<p><b>L21. 아래층 회랑</b> — <code>Rasel_Underlayer_Gallery</code> · 지하 · <b>L</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 수로 밑에서 뚫린 <b>옛 켜</b>. 방 하나가 아니라 회랑이 이어진다 — 도시 규모다. 천장이 낮고 기둥이 줄지어 섰다.</li>
+<li><b>사는 사람:</b> 없다. 그런데 무언가 아직 돌아간다.</li>
+<li><b>짚을 것:</b> 기둥의 새김(살란 글 판독), 닫힌 문, 상류로 뻗은 통로(→ H6).</li>
+<li><b>전투:</b> ○ (판=<b>L8 아래층 회랑</b>)</li>
+</ul>
+<hr>
+<h3 id="m-h9">H6 — 강 상류 옛 도읍 폐허</h3>
+<p><b>L22. 무너진 성문 앞뜰</b> — <code>Rasel_Ruin_Gate</code> · 거리 · <b>L</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 옛 도읍으로 드는 문턱. 여기서부터 도시의 법이 안 닿는다. 성문 잔해가 마당을 둘로 가른다.</li>
+<li><b>짚을 것:</b> 성문 새김, 앞서 온 자들의 흔적(야영 자리·버려진 장비).</li>
+<li><b>전투:</b> ○ (판=<b>L10 무너진 성문 앞뜰</b>)</li>
+</ul>
+<p><b>L23. 빈 성 안</b> — <code>Rasel_Ruin_Keep</code> · 지하/실내 · <b>L</b></p>
+<ul>
+<li><b>무엇 하는 곳:</b> 주인 없이도 돌아가는 고대의 물건이 아직 제 일을 하고 있는 자리. 그 곁에서 잔 자가 아침에 없어졌다.</li>
+<li><b>짚을 것:</b> 아직 도는 물건들(건드리면 반응), 무너진 회랑, 아래로 내려가는 계단.</li>
+<li><b>전투:</b> ○ (판=<b>L6 옛 도읍 폐허</b>)</li>
+</ul>
+<hr>
+<h2 id="m-h10">3. 도시가 도는 법 (레벨을 잇는 규칙)</h2>
+<ul>
+<li><b>날짜와 시간:</b> 하루는 <b>낮 / 저녁 / 밤</b> 셋. 잠자리(L04)에서 자면 날짜가 넘어간다. 같은 장소도 시간대에 따라 다른 레벨처럼 굴러야 한다 — 열리는 문, 서 있는 사람, 조명이 바뀐다.</li>
+<li><b>이동:</b> 걸어서 이웃 장소 / 전차역(L07)에서 허브 간 이동. 아래층(H5·H6)은 걸어서만 — 내려가는 것 자체가 각오다.</li>
+<li><b>잠긴 문의 원칙:</b> 잠긴 문은 "나중에 열림"이 아니라 <b>다른 길로 이미 갈 수 있다</b>. 요양원 지하는 정문이 아니라 소각로 쪽으로도 붙어 있고, 폐선 구간은 승강장 철문이 아니라 뒷골목 맨홀로도 든다.</li>
+<li><b>전투가 붙는 자리:</b> 표층은 대개 밤에만. 아래층은 언제나. 붙으면 그 장소가 지정한 전투 판(<code>기획/02_게임설계/1_전투/시스템/게임_전투레벨_정본.md</code> L1~L10)으로 넘어간다.</li>
+</ul>
+<hr>
+<h2 id="m-h11">4. 구현 계획 (UE)</h2>
+<div class="tblwrap"><table><tr><th>단계</th><th>할 일</th><th>상태</th></tr><tr><td>1</td><td>이 정본 → 맵 목록·스키마 확정</td><td>✅ 이 문서</td></tr><tr><td>2</td><td>레벨 생성기 <code>_make_rasel_maps.py</code> — 23개 빈 맵 + 구역별 라이팅/게임모드 지정</td><td>☐</td></tr><tr><td>3</td><td>절차 배치(블록아웃): 거리·방을 박스 지오메트리로 먼저 세워 <b>동선과 크기</b>부터 검증</td><td>☐</td></tr><tr><td>4</td><td>문·전이 볼륨(장소 간 이동) + 전차역 빠른 이동</td><td>☐</td></tr><tr><td>5</td><td>상주 NPC 배치(ArchetypeId 하나로 자동 — [[project-character-archetype]])</td><td>☐</td></tr><tr><td>6</td><td>시간대(낮/저녁/밤) 스위칭 — 조명·NPC·열린 문</td><td>☐</td></tr><tr><td>7</td><td>짚을 것(상호작용) 액터 — 대화·조사·상점·취침</td><td>☐</td></tr><tr><td>8</td><td>아트 패스 (블록아웃을 실제 에셋으로)</td><td>☐</td></tr></table></div>
+<p><b>우선순위:</b> L04 옥탑(거점) → L01 장터 큰길 → L07 전차역 → L08 학당 앞 거리 → L13 공사판 → L19/L20 지하. <b>거점과 거리 하나가 먼저 굴러야</b> 나머지가 붙는다.</p>
+<h2 id="m-h12">5. 이어 만들 장소 (못박지 않음)</h2>
+<p>돌간의 흥신소 사무실 · 잿마당 사람들이 실제로 모이는 자리 · 네르한 가 저택과 다락 · 부두 하역장 · 강 건너 다리 위 · 시장 뒤 목욕탕 · 야간 전차 안. <b>라셀 정본(<code>기획/01_세계관/3_현대/세계관_현대_이야기.md</code>)이 이야기로 연 자리에서만 뽑는다 — 배경을 새로 지어내지 않는다.</b></p>
+</main>
+</div>
+<div class="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+</body>
+</html>
