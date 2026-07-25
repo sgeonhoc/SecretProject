@@ -13,14 +13,12 @@ void FKawaiiPhysics_ExternalForce_Wind::PreApply(FAnimNode_KawaiiPhysics& Node, 
 {
 	Super::PreApply(Node, PoseContext);
 
-	// SkeletalMeshComponentがnullの場合のクラッシュを回避 / Avoid crash when the component is null
+	// SkeletalMeshComponentがnullの場合のクラッシュを回避
 	const USkeletalMeshComponent* SkelComp = PoseContext.AnimInstanceProxy->GetSkelMeshComponent();
 	World = SkelComp ? SkelComp->GetWorld() : nullptr;
 
 	// 風パラメータ（Scene問い合わせ）はフレーム1回だけ取得してキャッシュする。固定サブステップ時に
 	// ワーカースレッドから毎ステップ Scene を触らないため（§7-E）。サブステップ間は同じ風入力を使い回す。
-	// Fetch wind parameters (a Scene query) once per frame and cache them, so the worker thread does not
-	// touch the Scene every substep (§7-E). The same wind input is reused across substeps.
 	const int32 NumBones = Node.ModifyBones.Num();
 	CachedWindDirection.Reset();
 	CachedWindSpeed.Reset();
@@ -32,7 +30,6 @@ void FKawaiiPhysics_ExternalForce_Wind::PreApply(FAnimNode_KawaiiPhysics& Node, 
 	}
 
 	// 添字でアクセスするため ModifyBones と同数で確保。未適用ボーンは Speed=負値のままにする。
-	// Sized to ModifyBones for index access; non-applicable bones keep Speed = negative.
 	CachedWindDirection.SetNumZeroed(NumBones);
 	CachedWindSpeed.Init(-1.0f, NumBones);
 
@@ -50,12 +47,15 @@ void FKawaiiPhysics_ExternalForce_Wind::PreApply(FAnimNode_KawaiiPhysics& Node, 
 			                         EKawaiiPhysicsSimulationSpace::WorldSpace, Bone.PoseLocation),
 		                         WindDirection, WindSpeed, WindMinGust, WindMaxGust);
 
-		// SimulationSpace の風向きと風速を分けて保存（ノイズ・ForceRate・dt は Apply で毎ステップ適用）。
-		// 方向と速度を分離することで、元の VRandCone(dir)*speed をサブステップ毎に忠実に再現する。
-		// Store the SimulationSpace direction and the speed separately (noise / ForceRate / dt are applied per step in Apply).
-		// Keeping them separate reproduces the original VRandCone(dir)*speed faithfully each substep.
-		CachedWindDirection[BoneIndex] = Node.ConvertSimulationSpaceVector(PoseContext,
+		// SimulationSpace の風向きと風速を分けて保存。ForceRate・dt は Apply で毎ステップ適用。
+		// 方向ノイズ(VRandCone)はフレーム頭で1回だけここで適用し、サブステップ間で同一値を使う
+		// （ノイズ分散が NumStep＝フレームレートに依存しないようにする。
+		const FVector SimSpaceDir = Node.ConvertSimulationSpaceVector(PoseContext,
 			EKawaiiPhysicsSimulationSpace::WorldSpace, Node.SimulationSpace, WindDirection);
+		CachedWindDirection[BoneIndex] = (WindDirectionNoiseAngle > 0)
+			                                 ? FMath::VRandCone(
+				                                 SimSpaceDir, FMath::DegreesToRadians(WindDirectionNoiseAngle))
+			                                 : SimSpaceDir;
 		CachedWindSpeed[BoneIndex] = WindSpeed;
 	}
 }
@@ -65,8 +65,6 @@ void FKawaiiPhysics_ExternalForce_Wind::Apply(FKawaiiPhysicsModifyBone& Bone, FA
 {
 	// PreApply でキャッシュ済みの風入力を Bone.Index で参照（Scene には触らない / §7-E）。
 	// 負の風速＝このボーンには未適用（CanApply不可 / Scene無効）、または風速ゼロ → スキップ。
-	// Look up the wind input cached in PreApply by Bone.Index (do not touch the Scene here / §7-E).
-	// Negative speed = not applicable to this bone (CanApply false / no Scene), or zero wind → skip.
 	if (!CachedWindSpeed.IsValidIndex(Bone.Index))
 	{
 		return;
@@ -85,13 +83,9 @@ void FKawaiiPhysics_ExternalForce_Wind::Apply(FKawaiiPhysicsModifyBone& Bone, FA
 		ForceRate = Curve->Eval(Bone.LengthRateFromRoot);
 	}
 
-	// 方向ノイズはサブステップ毎に適用し、その後に風速を乗算（元コードの VRandCone(dir)*speed と同一）。
-	// Scene 問い合わせは PreApply で済ませてある。
-	// Apply directional noise per substep, then multiply by speed (identical to the original VRandCone(dir)*speed).
-	// The Scene query was already done in PreApply.
-	FVector WindDirection = FMath::VRandCone(CachedWindDirection[Bone.Index],
-	                                         FMath::DegreesToRadians(WindDirectionNoiseAngle));
-	WindDirection *= WindSpeed;
+	// 方向ノイズは PreApply でフレーム単位に適用済み。ここでは風速のみ乗算する。
+	// Scene 問い合わせ・乱数をサブステップに依存させない（フレームレート非依存）。
+	const FVector WindDirection = CachedWindDirection[Bone.Index] * WindSpeed;
 	Bone.Location += WindDirection * ForceRate * RandomizedForceScale * Node.GetStepDeltaTime();
 
 #if ENABLE_ANIM_DEBUG

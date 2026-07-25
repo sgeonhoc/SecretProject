@@ -51,3 +51,11 @@ Build_Editor.bat
 #   paragonanimRTG... — Paragon 리타겟 애니메이션 (Epic 무료)
 Content/ABP/
 Content/paragonanimRTGtoCharacters/
+
+# ── Revvy (에디터 AI 어시스턴트) ──
+#   원본은 C:\Revvy (자체 git 저장소). 도구/_upgrade_to_5.8.sh 가 Plugins/Revvy 로 복사한다.
+#   게임 데이터가 아니고 82MB 라 깃에 담지 않는다.
+Plugins/Revvy/
+#   Revvy 가 자동 생성하는 로컬 프로비저닝 파일
+.kimi-code/
+.mcp.json

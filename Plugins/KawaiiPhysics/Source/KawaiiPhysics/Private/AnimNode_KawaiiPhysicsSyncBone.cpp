@@ -16,11 +16,11 @@
 #include "Engine/World.h"
 #include "PhysicsEngine/PhysicsSettings.h"
 
-#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 5
+#if !UE_VERSION_OLDER_THAN(5, 5, 0)
 #include "PhysicsEngine/SkeletalBodySetup.h"
 #endif
 
-#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 6
+#if !UE_VERSION_OLDER_THAN(5, 6, 0)
 #include "Animation/AnimInstance.h"
 #endif
 
@@ -58,7 +58,7 @@ void FAnimNode_KawaiiPhysics::InitSyncBone(FComponentSpacePoseContext& Output, c
 			FAnimationRuntime::GetComponentSpaceTransformRefPose(BoneContainer.GetReferenceSkeleton(),
 			                                                     SyncBone.Bone.BoneIndex).GetLocation();
 
-	// cleanup
+	// 無効なターゲットを除去
 	SyncBone.TargetRoots.RemoveAll([&](const FKawaiiPhysicsSyncTarget& Target)
 	{
 		return !Target.IsValid(BoneContainer);
@@ -75,56 +75,105 @@ void FAnimNode_KawaiiPhysics::InitSyncBone(FComponentSpacePoseContext& Output, c
 			continue;
 		}
 
-		// For Calculate LengthRateFromSyncTargetRoot
-		const float StartLength = ModifyBones[TargetRoot.ModifyBoneIndex].LengthFromRoot;
-		float MaxLength = StartLength;
+		CollectSyncBoneChildTargets(TargetRoot);
+	}
+}
 
-		// Collect Child Bones
-		TArray<int32> IndicesToProcess = ModifyBones[TargetRoot.ModifyBoneIndex].ChildIndices;
-		while (!IndicesToProcess.IsEmpty())
+bool FAnimNode_KawaiiPhysics::IsExcludedFromSyncBoneChildTarget(const FKawaiiPhysicsModifyBone& Bone) const
+{
+	return Bone.bInterBoneDummy || (Bone.bDummy && Bone.InterBoneRealParentIndex >= 0);
+}
+
+void FAnimNode_KawaiiPhysics::CollectSyncBoneChildTargets(FKawaiiPhysicsSyncTargetRoot& TargetRoot)
+{
+	TargetRoot.ChildTargets.Empty();
+
+	if (!ModifyBones.IsValidIndex(TargetRoot.ModifyBoneIndex))
+	{
+		return;
+	}
+
+	// LengthRateFromSyncTargetRoot 計算用
+	const float StartLength = ModifyBones[TargetRoot.ModifyBoneIndex].LengthFromRoot;
+	float MaxLength = StartLength;
+
+	// 子ボーンを収集する。BoneSubdivision のダミーは内部計算用の点なので、走査はするが
+	// SyncBone のターゲットやエディタプレビュー項目としては公開しない。
+	TArray<int32> IndicesToProcess = ModifyBones[TargetRoot.ModifyBoneIndex].ChildIndices;
+	while (!IndicesToProcess.IsEmpty())
+	{
+		const int32 CurrentIndex = IndicesToProcess.Pop();
+		if (!ModifyBones.IsValidIndex(CurrentIndex))
 		{
-			const int32 CurrentIndex = IndicesToProcess.Pop();
-			if (!ModifyBones.IsValidIndex(CurrentIndex))
-			{
-				continue;
-			}
+			continue;
+		}
 
-			TargetRoot.ChildTargets.AddUnique({CurrentIndex});
+		const FKawaiiPhysicsModifyBone& ModifyBone = ModifyBones[CurrentIndex];
+		if (!IsExcludedFromSyncBoneChildTarget(ModifyBone))
+		{
+			const int32 TargetIndex = TargetRoot.ChildTargets.AddUnique({CurrentIndex});
 
 #if WITH_EDITORONLY_DATA
-			TargetRoot.ChildTargets.Last().PreviewBone = ModifyBones[CurrentIndex].BoneRef;
+			TargetRoot.ChildTargets[TargetIndex].PreviewBone = ModifyBone.BoneRef;
 #endif
 
-			IndicesToProcess.Append(ModifyBones[CurrentIndex].ChildIndices);
-			MaxLength = FMath::Max(MaxLength, ModifyBones[CurrentIndex].LengthFromRoot);
+			MaxLength = FMath::Max(MaxLength, ModifyBone.LengthFromRoot);
 		}
 
-		// Calculate LengthRateFromSyncTargetRoot
-		const float LengthRange = MaxLength - StartLength;
-		TargetRoot.LengthRateFromSyncTargetRoot = 0.0f;
+		IndicesToProcess.Append(ModifyBone.ChildIndices);
+	}
+
+	// LengthRateFromSyncTargetRoot を計算
+	const float LengthRange = MaxLength - StartLength;
+	TargetRoot.LengthRateFromSyncTargetRoot = 0.0f;
+	for (auto& Target : TargetRoot.ChildTargets)
+	{
+		if (LengthRange > KINDA_SMALL_NUMBER)
+		{
+			Target.LengthRateFromSyncTargetRoot =
+				(ModifyBones[Target.ModifyBoneIndex].LengthFromRoot - StartLength) / LengthRange;
+		}
+		else
+		{
+			Target.LengthRateFromSyncTargetRoot = 0.0f;
+		}
+	}
+
+	// 長さ比率とカーブで Alpha を更新
+	if (const FRichCurve* ScaleCurve = TargetRoot.ScaleCurveByBoneLengthRate.GetRichCurveConst();
+		ScaleCurve && !ScaleCurve->IsEmpty())
+	{
+		TargetRoot.UpdateScaleByLengthRate(ScaleCurve);
 		for (auto& Target : TargetRoot.ChildTargets)
 		{
-			if (LengthRange > KINDA_SMALL_NUMBER)
-			{
-				Target.LengthRateFromSyncTargetRoot =
-					(ModifyBones[Target.ModifyBoneIndex].LengthFromRoot - StartLength) / LengthRange;
-			}
-			else
-			{
-				Target.LengthRateFromSyncTargetRoot = 0.0f;
-			}
+			Target.UpdateScaleByLengthRate(ScaleCurve);
+		}
+	}
+}
+
+void FAnimNode_KawaiiPhysics::UpdateSubdivisionDummyPoseAfterSyncBones(const FBoneContainer& BoneContainer)
+{
+	// Pass 1: 分割された先端ダミーは実在の祖先ボーンのみに依存する。
+	for (FKawaiiPhysicsModifyBone& Bone : ModifyBones)
+	{
+		if (!Bone.bDummy || Bone.bInterBoneDummy || Bone.InterBoneRealParentIndex < 0)
+		{
+			continue;
 		}
 
-		// Update Alpha by Length Rate & Curve
-		if (const FRichCurve* ScaleCurve = TargetRoot.ScaleCurveByBoneLengthRate.GetRichCurveConst();
-			ScaleCurve && !ScaleCurve->IsEmpty())
+		UpdateTipDummyPose(Bone);
+	}
+
+	// Pass 2: ボーン間ダミーは SyncBone 適用後の端点同士を補間する点である。
+	// 共有ヘルパでLODフォールバックを UpdateModifyBonesPoseTransform と一致させる。
+	for (FKawaiiPhysicsModifyBone& Bone : ModifyBones)
+	{
+		if (!Bone.bInterBoneDummy)
 		{
-			TargetRoot.UpdateScaleByLengthRate(ScaleCurve);
-			for (auto& Target : TargetRoot.ChildTargets)
-			{
-				Target.UpdateScaleByLengthRate(ScaleCurve);
-			}
+			continue;
 		}
+
+		UpdateInterBoneDummyPose(Bone, BoneContainer);
 	}
 }
 
@@ -145,7 +194,7 @@ void FAnimNode_KawaiiPhysics::ApplySyncBones(FComponentSpacePoseContext& Output,
 			continue;
 		}
 
-		// Calculate Delta Movement in Component Space
+		// Component Space で移動差分を計算
 		const FCompactPoseBoneIndex SyncBoneIndex = SyncBone.Bone.GetCompactPoseIndex(BoneContainer);
 		FVector DeltaMovement = Output.Pose.GetComponentSpaceTransform(SyncBoneIndex).GetLocation() - SyncBone.
 			InitialPoseLocation;
@@ -154,21 +203,21 @@ void FAnimNode_KawaiiPhysics::ApplySyncBones(FComponentSpacePoseContext& Output,
 		SyncBone.DeltaDistance = DeltaMovement;
 #endif
 
-		// Apply Curve
+		// カーブを適用
 		if (const FRichCurve* ScaleCurve = SyncBone.ScaleCurveByDeltaDistance.GetRichCurveConst();
 			ScaleCurve && !ScaleCurve->IsEmpty())
 		{
 			DeltaMovement *= ScaleCurve->Eval(DeltaMovement.Length());
 		}
 
-		// Apply Global Alpha
+		// 全体スケールを適用
 		DeltaMovement *= SyncBone.GlobalScale;
 
 #if WITH_EDITORONLY_DATA
 		SyncBone.ScaledDeltaDistance = DeltaMovement;
 #endif
 
-		// Filter direction once per SyncBone in Component Space
+		// Component Space で SyncBone ごとに一度だけ方向をフィルタリング
 		auto CheckDirection = [](const float Val, const ESyncBoneDirection Dir)
 		{
 			return (Dir == ESyncBoneDirection::Both) ||
@@ -187,12 +236,12 @@ void FAnimNode_KawaiiPhysics::ApplySyncBones(FComponentSpacePoseContext& Output,
 			continue;
 		}
 
-		// Convert to Simulation Space
+		// Simulation Space へ変換
 		FilteredDeltaMovement = ConvertSimulationSpaceVector(Output,
 		                                                     EKawaiiPhysicsSimulationSpace::ComponentSpace,
 		                                                     SimulationSpace, FilteredDeltaMovement);
 
-		// Cache SyncBone location in Simulation Space for distance attenuation
+		// 距離減衰用に SyncBone の位置を Simulation Space でキャッシュ
 		const FVector SyncBoneLocationInSimulationSpace = ConvertSimulationSpaceLocation(
 			Output,
 			EKawaiiPhysicsSimulationSpace::ComponentSpace,
@@ -200,7 +249,7 @@ void FAnimNode_KawaiiPhysics::ApplySyncBones(FComponentSpacePoseContext& Output,
 			Output.Pose.GetComponentSpaceTransform(SyncBoneIndex).GetLocation()
 		);
 
-		// Helper: compute attenuation alpha for a distance
+		// ヘルパ: 距離に対する減衰 alpha を計算
 		auto CalcAttenuationAlpha = [&](const float Distance) -> float
 		{
 			if (!SyncBone.bEnableDistanceAttenuation)
@@ -212,7 +261,7 @@ void FAnimNode_KawaiiPhysics::ApplySyncBones(FComponentSpacePoseContext& Output,
 			const float Outer = SyncBone.AttenuationOuterRadius;
 			const float MaxAtten = SyncBone.MaxAttenuationRate;
 
-			// Safety: if outer <= inner, treat as step function at inner
+			// 安全策: outer <= inner の場合は inner でのステップ関数として扱う
 			const float EffectiveOuter = FMath::Max(Outer, Inner);
 
 			float AttenAmount;
@@ -231,15 +280,16 @@ void FAnimNode_KawaiiPhysics::ApplySyncBones(FComponentSpacePoseContext& Output,
 				AttenAmount = T * MaxAtten;
 			}
 
-			// Convert attenuation amount to alpha multiplier
+			// 減衰量を alpha 乗算値へ変換
 			return FMath::Max(0.0f, 1.0f - AttenAmount);
 		};
 
-		// Apply to Targets
+		// ターゲットへ適用
 		for (auto& TargetRoot : SyncBone.TargetRoots)
 		{
-			// Update Alpha by Length Rate & Curve
-			// TODO : Need flag to optimize for skip updating Scale after InitSyncBone
+			// LengthRate curve の Scale は CollectSyncBoneChildTargets で計算済み。
+			// editor では曲線のライブ編集に追従するため毎フレーム再計算する。
+#if WITH_EDITOR
 			if (const FRichCurve* ScaleCurve = TargetRoot.ScaleCurveByBoneLengthRate.GetRichCurveConst();
 				ScaleCurve && !ScaleCurve->IsEmpty())
 			{
@@ -249,8 +299,9 @@ void FAnimNode_KawaiiPhysics::ApplySyncBones(FComponentSpacePoseContext& Output,
 					Target.UpdateScaleByLengthRate(ScaleCurve);
 				}
 			}
+#endif
 
-			// Root target
+			// ルートターゲット
 			{
 				const int32 ModifyBoneIndex = TargetRoot.ModifyBoneIndex;
 				if (ModifyBones.IsValidIndex(ModifyBoneIndex))
@@ -266,7 +317,7 @@ void FAnimNode_KawaiiPhysics::ApplySyncBones(FComponentSpacePoseContext& Output,
 				}
 			}
 
-			// Child targets
+			// 子ターゲット
 			for (auto& Target : TargetRoot.ChildTargets)
 			{
 				const int32 ModifyBoneIndex = Target.ModifyBoneIndex;
@@ -284,4 +335,6 @@ void FAnimNode_KawaiiPhysics::ApplySyncBones(FComponentSpacePoseContext& Output,
 			}
 		}
 	}
+
+	UpdateSubdivisionDummyPoseAfterSyncBones(BoneContainer);
 }

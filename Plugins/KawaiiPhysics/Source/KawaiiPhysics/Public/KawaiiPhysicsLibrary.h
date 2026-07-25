@@ -46,7 +46,8 @@ struct FKawaiiPhysicsReference : public FAnimNodeReference
 };
 
 /**
- * Exposes operations to be performed on a blend space anim node.
+ * KawaiiPhysics アニメーションノードに対する Blueprint 操作を公開する関数ライブラリ。
+ * Blueprint function library exposing operations on a KawaiiPhysics anim node.
  */
 UCLASS()
 class KAWAIIPHYSICS_API UKawaiiPhysicsLibrary : public UBlueprintFunctionLibrary
@@ -648,7 +649,7 @@ ValueType UKawaiiPhysicsLibrary::GetExternalForceProperty(EKawaiiPhysicsAccessEx
                                                           const FKawaiiPhysicsReference& KawaiiPhysics,
                                                           int ExternalForceIndex, FName PropertyName)
 {
-	ValueType Result;
+	ValueType Result{};
 	ExecResult = EKawaiiPhysicsAccessExternalForceResult::NotValid;
 
 	KawaiiPhysics.CallAnimNodeFunction<FAnimNode_KawaiiPhysics>(
@@ -714,7 +715,7 @@ ValueType UKawaiiPhysicsLibrary::GetExternalForceStructProperty(EKawaiiPhysicsAc
                                                                 const FKawaiiPhysicsReference& KawaiiPhysics,
                                                                 int ExternalForceIndex, FName PropertyName)
 {
-	ValueType Result;
+	ValueType Result{};
 	ExecResult = EKawaiiPhysicsAccessExternalForceResult::NotValid;
 
 	KawaiiPhysics.CallAnimNodeFunction<FAnimNode_KawaiiPhysics>(

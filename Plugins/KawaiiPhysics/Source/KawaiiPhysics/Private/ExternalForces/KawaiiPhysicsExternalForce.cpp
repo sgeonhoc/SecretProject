@@ -42,7 +42,7 @@ void FKawaiiPhysics_ExternalForce::PostApply(FAnimNode_KawaiiPhysics& Node, FCom
 		Node.ExternalForces.RemoveAll([&](FInstancedStruct& InstancedStruct)
 		{
 			const auto* ExternalForcePtr = InstancedStruct.GetMutablePtr<FKawaiiPhysics_ExternalForce>();
-			return ExternalForcePtr == this;
+			return ExternalForcePtr && ExternalForcePtr == this;
 		});
 	}
 }
@@ -71,7 +71,6 @@ void FKawaiiPhysics_ExternalForce::AnimDrawDebug(FKawaiiPhysicsModifyBone& Bone,
 	if (IsDebugEnabled() && !Force.IsZero())
 	{
 		// BoneForceMapに該当ボーンが無い場合はnull参照を避ける（EditMode版と同様にガード）
-		// Guard against null deref when the bone is not in BoneForceMap (mirrors the EditMode path)
 		const FVector* ForcePtr = BoneForceMap.Find(Bone.BoneRef.BoneName);
 		if (!ForcePtr)
 		{

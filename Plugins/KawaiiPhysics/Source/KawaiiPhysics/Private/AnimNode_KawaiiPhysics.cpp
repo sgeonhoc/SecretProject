@@ -6,6 +6,9 @@
 #include "KawaiiPhysicsBoneConstraintsDataAsset.h"
 #include "KawaiiPhysicsCustomExternalForce.h"
 #include "ExternalForces/KawaiiPhysicsExternalForce.h"
+#if !UE_BUILD_SHIPPING && WITH_EDITORONLY_DATA
+#include "KawaiiPhysicsDeveloperSettings.h"
+#endif
 #include "KawaiiPhysicsLimitsDataAsset.h"
 #include "KawaiiPhysicsSharedCollisionSubsystem.h"
 #include "Animation/AnimInstanceProxy.h"
@@ -15,12 +18,14 @@
 #include "PhysicsEngine/PhysicsAsset.h"
 #include "Engine/World.h"
 #include "PhysicsEngine/PhysicsSettings.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "GameFramework/Actor.h"
 
-#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 5
+#if !UE_VERSION_OLDER_THAN(5, 5, 0)
 #include "PhysicsEngine/SkeletalBodySetup.h"
 #endif
 
-#if ENGINE_MAJOR_VERSION >= 5 && ENGINE_MINOR_VERSION >= 6
+#if !UE_VERSION_OLDER_THAN(5, 6, 0)
 #include "Animation/AnimInstance.h"
 #endif
 
@@ -33,6 +38,41 @@
 #include "AnimNode_KawaiiPhysicsInternal.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(AnimNode_KawaiiPhysics)
+
+// 警告ログ用：ノードを特定するコンテキスト文字列の生成とログ出力マクロ。
+// AnyThreadからUObjectに触れないよう、名前はPreUpdate(GameThread)でキャッシュ済みのものを使う。
+// マクロはメンバを非修飾参照するためメンバ関数内でのみ使用可。ファイル末尾で#undefする。
+#if !UE_BUILD_SHIPPING
+static FString BuildKawaiiNodeContextString(
+	const FName AnimBPName, const FName ComponentName,
+	const FName ActorName, const FName RootBoneName)
+{
+	return FString::Printf(
+		TEXT("AnimBP: %s, Component: %s, Actor: %s, RootBone: %s"),
+		*AnimBPName.ToString(), *ComponentName.ToString(),
+		*ActorName.ToString(), *RootBoneName.ToString());
+}
+
+// ノード特定情報を末尾に付与してWarningを出す（移植性のためFormatの後に最低1つの可変引数が必要）
+#define KAWAII_LOG_NODE_WARNING(CategoryName, Format, ...) \
+	UE_LOG(CategoryName, Warning, Format TEXT(" (%s)"), __VA_ARGS__, \
+		*BuildKawaiiNodeContextString(CachedAnimInstanceClassName, CachedComponentName, \
+			CachedOwnerActorName, RootBone.BoneName))
+
+// ノードごと1回だけWarning（GuardBoolはShipping除外メンバ）
+#define KAWAII_LOG_NODE_WARNING_ONCE(GuardBool, CategoryName, Format, ...) \
+	do { if (!(GuardBool)) { KAWAII_LOG_NODE_WARNING(CategoryName, Format, __VA_ARGS__); (GuardBool) = true; } } while (0)
+
+// 1回ガードのリセット
+#define KAWAII_RESET_NODE_WARNING_ONCE(GuardBool) (GuardBool) = false
+#else
+// Shipping：コンテキストなしの素のログ。GuardBool引数は展開で破棄され、除外メンバを参照しない
+#define KAWAII_LOG_NODE_WARNING(CategoryName, Format, ...) \
+	UE_LOG(CategoryName, Warning, Format, __VA_ARGS__)
+#define KAWAII_LOG_NODE_WARNING_ONCE(GuardBool, CategoryName, Format, ...) \
+	UE_LOG(CategoryName, Warning, Format, __VA_ARGS__)
+#define KAWAII_RESET_NODE_WARNING_ONCE(GuardBool) ((void)0)
+#endif
 
 #if ENABLE_ANIM_DEBUG
 TAutoConsoleVariable<bool> CVarAnimNodeKawaiiPhysicsEnable(
@@ -58,12 +98,13 @@ TAutoConsoleVariable<int32> CVarSharedCollisionCleanupMaxAge(
 TAutoConsoleVariable<int32> CVarSharedCollisionInitRetryThreshold(
 	TEXT("a.AnimNode.KawaiiPhysics.SharedCollision.InitRetryThreshold"), 60,
 	TEXT("警告ログを出すまでの初期化リトライ回数 / Number of init retries before logging a warning."));
+TAutoConsoleVariable<int32> CVarSharedCollisionInitRetryThrottleInterval(
+	TEXT("a.AnimNode.KawaiiPhysics.SharedCollision.InitRetryThrottleInterval"), 60,
+	TEXT("警告しきい値到達後の再初期化リトライ間隔（フレーム）。誤設定タグでの毎フレーム再試行を間引く / "
+		"Retry interval (frames) after the warning threshold; throttles per-frame re-init for misconfigured tags."));
 TAutoConsoleVariable<float> CVarSharedCollisionCleanupInterval(
 	TEXT("a.AnimNode.KawaiiPhysics.SharedCollision.CleanupInterval"), 1.0f,
 	TEXT("クリーンアップ間隔（秒） / Cleanup interval in seconds."));
-TAutoConsoleVariable<bool> CVarSharedCollisionUseLockFree(
-	TEXT("a.AnimNode.KawaiiPhysics.SharedCollision.UseLockFree"), false,
-	TEXT("Use the lock-free double-buffer path for SharedCollision slots. false uses short per-slot locks for safer reads/writes."));
 
 DEFINE_STAT(STAT_KawaiiPhysics_InitModifyBones);
 DEFINE_STAT(STAT_KawaiiPhysics_Eval);
@@ -97,7 +138,6 @@ DEFINE_STAT(STAT_KawaiiPhysics_NumBridgeDummyBones);
 DEFINE_STAT(STAT_KawaiiPhysics_InsertInterBoneDummyBones);
 DEFINE_STAT(STAT_KawaiiPhysics_BridgeDummy);
 DEFINE_STAT(STAT_KawaiiPhysics_AdjustByLimitsAndLength);
-DEFINE_STAT(STAT_KawaiiPhysics_PreUpdate);
 DEFINE_STAT(STAT_KawaiiPhysics_NumSphereColliders);
 DEFINE_STAT(STAT_KawaiiPhysics_NumCapsuleColliders);
 DEFINE_STAT(STAT_KawaiiPhysics_NumBoxColliders);
@@ -121,13 +161,13 @@ void FAnimNode_KawaiiPhysics::Initialize_AnyThread(const FAnimationInitializeCon
 	BoxLimitsData.Empty();
 	PlanarLimitsData.Empty();
 
-	// 旧Slotを即座に期限切れ化 / Mark old slot as immediately expired
+	// 旧Slotを即座に期限切れ化
 	if (CachedSourceSlot.IsValid())
 	{
-		CachedSourceSlot->LastPublishFrame.store(0, std::memory_order_release);
+		CachedSourceSlot->MarkExpired();
 	}
 
-	// 共有コリジョンのキャッシュをリセット / Reset shared collision cache
+	// 共有コリジョンのキャッシュをリセット
 	bSharedCollisionInitialized = false;
 	CachedSharedCollisionEntry.Reset();
 	CachedSourceSlot.Reset();
@@ -136,7 +176,7 @@ void FAnimNode_KawaiiPhysics::Initialize_AnyThread(const FAnimationInitializeCon
 	bSharedCollisionNeedsReinit = false;
 	bModifyBonesNeedsReinit = false;
 
-	// 共有コリジョンワーク配列をリセット / Reset shared collision working arrays
+	// 共有コリジョンワーク配列をリセット
 	SharedCollisionMergedData.Reset();
 	SharedSphericalLimits.Reset();
 	SharedCapsuleLimits.Reset();
@@ -149,10 +189,10 @@ void FAnimNode_KawaiiPhysics::Initialize_AnyThread(const FAnimationInitializeCon
 
 	ModifyBones.Empty();
 
-	// For Avoiding Zero Divide in the first frame
+	// 最初のフレームでのゼロ除算を回避するため
 	DeltaTimeOld = 1.0f / static_cast<float>(GetEffectiveTargetFramerate());
 
-	// サブステップ状態をリセット / Reset substep state
+	// サブステップ状態をリセット
 	SubstepAccumulator = 0.0f;
 	bSubstepPoseInitialized = false;
 
@@ -195,7 +235,6 @@ void FAnimNode_KawaiiPhysics::ResetDynamics(ETeleportType InTeleportType)
 	}
 
 	// サブステップ：未消費時間を破棄し、ポーズ補間の前フレーム値を次フレームで再初期化させる
-	// Substep: flush unconsumed time and re-seed the pose-interpolation previous-frame value next frame
 	SubstepAccumulator = 0.0f;
 	bSubstepPoseInitialized = false;
 }
@@ -215,223 +254,36 @@ void FAnimNode_KawaiiPhysics::GatherDebugData(FNodeDebugData& DebugData)
 	Super::GatherDebugData(DebugData);
 }
 
-#if ENABLE_ANIM_DEBUG
-void FAnimNode_KawaiiPhysics::AnimDrawDebug(FComponentSpacePoseContext& Output)
+bool FAnimNode_KawaiiPhysics::ShouldReinitModifyBones() const
 {
-	if (const UWorld* World = Output.AnimInstanceProxy->GetSkelMeshComponent()->GetWorld(); !World->IsPreviewWorld())
+	// 明示的なreinit要求
+	if (bModifyBonesNeedsReinit)
 	{
-		if (Output.AnimInstanceProxy->GetSkelMeshComponent()->bRecentlyRendered)
-		{
-			if (CVarAnimNodeKawaiiPhysicsDebug.GetValueOnAnyThread())
-			{
-				const auto AnimInstanceProxy = Output.AnimInstanceProxy;
-				const float LineThickness = FMath::Max(
-					0.0f, CVarAnimNodeKawaiiPhysicsDebugDrawThickness.GetValueOnAnyThread());
-
-				// Modify Bones
-				for (const auto& ModifyBone : ModifyBones)
-				{
-					const FVector LocationWS =
-						ConvertSimulationSpaceLocation(Output, SimulationSpace,
-						                               EKawaiiPhysicsSimulationSpace::WorldSpace, ModifyBone.Location);
-
-					auto Color = ModifyBone.bBridgeDummy
-					             ? FColor::Green
-					             : (ModifyBone.bInterBoneDummy ? FColor::Cyan : (ModifyBone.bDummy ? FColor::Red : FColor::Yellow));
-					AnimInstanceProxy->AnimDrawDebugSphere(LocationWS, ModifyBone.PhysicsSettings.Radius, 8,
-					                                       Color, false, -1, LineThickness, SDPG_Foreground);
-
-					AnimInstanceProxy->AnimDrawDebugInWorldMessage(
-						FString::Printf(TEXT("%.2f"), ModifyBone.LengthRateFromRoot),
-						ModifyBone.Location, FColor::White, 1.0f);
-					
-				}
-				// Sphere limit
-				for (const auto& SphericalLimit : SphericalLimits)
-				{
-					const FVector LocationWS =
-						ConvertSimulationSpaceLocation(Output, SimulationSpace,
-						                               EKawaiiPhysicsSimulationSpace::WorldSpace,
-						                               SphericalLimit.Location);
-
-					AnimInstanceProxy->AnimDrawDebugSphere(LocationWS, SphericalLimit.Radius, 8, FColor::Orange,
-					                                       false, -1, LineThickness, SDPG_Foreground);
-				}
-				for (const auto& SphericalLimit : SphericalLimitsData)
-				{
-					const FVector LocationWS =
-						ConvertSimulationSpaceLocation(Output, SimulationSpace,
-						                               EKawaiiPhysicsSimulationSpace::WorldSpace,
-						                               SphericalLimit.Location);
-					AnimInstanceProxy->AnimDrawDebugSphere(LocationWS, SphericalLimit.Radius, 8, FColor::Blue,
-					                                       false, -1, LineThickness, SDPG_Foreground);
-				}
-
-				// Box limit
-				for (const auto& BoxLimit : BoxLimits)
-				{
-					this->AnimDrawDebugBox(Output, BoxLimit.Location, BoxLimit.Rotation, BoxLimit.Extent,
-					                       FColor::Orange, LineThickness);
-				}
-				for (const auto& BoxLimit : BoxLimitsData)
-				{
-					this->AnimDrawDebugBox(Output, BoxLimit.Location, BoxLimit.Rotation, BoxLimit.Extent,
-					                       FColor::Blue, LineThickness);
-				}
-
-				// Planar limit
-				for (const auto& PlanarLimit : PlanarLimits)
-				{
-					FTransform TransformWS =
-						ConvertSimulationSpaceTransform(Output, SimulationSpace,
-						                                EKawaiiPhysicsSimulationSpace::WorldSpace,
-						                                FTransform(PlanarLimit.Rotation, PlanarLimit.Location));
-					AnimInstanceProxy->AnimDrawDebugPlane(TransformWS, 50.0f,
-					                                      FColor::Orange, false, -1, LineThickness, SDPG_Foreground);
-				}
-				for (const auto& PlanarLimit : PlanarLimitsData)
-				{
-					FTransform TransformWS =
-						ConvertSimulationSpaceTransform(Output, SimulationSpace,
-						                                EKawaiiPhysicsSimulationSpace::WorldSpace,
-						                                FTransform(PlanarLimit.Rotation, PlanarLimit.Location));
-					AnimInstanceProxy->AnimDrawDebugPlane(TransformWS, 50.0f,
-					                                      FColor::Blue, false, -1, LineThickness, SDPG_Foreground);
-				}
-
-#if	ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 6
-				// Capsule limit
-				for (const auto& CapsuleLimit : CapsuleLimits)
-				{
-					FTransform TransformWS =
-						ConvertSimulationSpaceTransform(Output, SimulationSpace,
-						                                EKawaiiPhysicsSimulationSpace::WorldSpace,
-						                                FTransform(CapsuleLimit.Rotation, CapsuleLimit.Location));
-
-					AnimInstanceProxy->AnimDrawDebugCapsule(TransformWS.GetTranslation(), CapsuleLimit.Length * 0.5f,
-					                                        CapsuleLimit.Radius, TransformWS.GetRotation().Rotator(),
-					                                        FColor::Orange, false, -1, LineThickness, SDPG_Foreground);
-				}
-				for (const auto& CapsuleLimit : CapsuleLimitsData)
-				{
-					FTransform TransformWS =
-						ConvertSimulationSpaceTransform(Output, SimulationSpace,
-						                                EKawaiiPhysicsSimulationSpace::WorldSpace,
-						                                FTransform(CapsuleLimit.Rotation, CapsuleLimit.Location));
-
-					AnimInstanceProxy->AnimDrawDebugCapsule(TransformWS.GetTranslation(), CapsuleLimit.Length * 0.5f,
-					                                        CapsuleLimit.Radius, TransformWS.GetRotation().Rotator(),
-					                                        FColor::Blue, false, -1, LineThickness, SDPG_Foreground);
-				}
-#endif
-
-				// Shared collision limits (green) / 共有コリジョン（緑）
-				if (bUseSharedCollision && !bSharedCollisionSource)
-				{
-					for (const auto& SphericalLimit : SharedSphericalLimits)
-					{
-						const FVector LocationWS =
-							ConvertSimulationSpaceLocation(Output, SimulationSpace,
-							                               EKawaiiPhysicsSimulationSpace::WorldSpace,
-							                               SphericalLimit.Location);
-						AnimInstanceProxy->AnimDrawDebugSphere(LocationWS, SphericalLimit.Radius, 8, FColor::Green,
-						                                       false, -1, LineThickness, SDPG_Foreground);
-					}
-
-					for (const auto& BoxLimit : SharedBoxLimits)
-					{
-						this->AnimDrawDebugBox(Output, BoxLimit.Location, BoxLimit.Rotation, BoxLimit.Extent,
-						                       FColor::Green, LineThickness);
-					}
-
-					for (const auto& PlanarLimit : SharedPlanarLimits)
-					{
-						FTransform PlanarTransformWS =
-							ConvertSimulationSpaceTransform(Output, SimulationSpace,
-							                                EKawaiiPhysicsSimulationSpace::WorldSpace,
-							                                FTransform(PlanarLimit.Rotation, PlanarLimit.Location));
-						AnimInstanceProxy->AnimDrawDebugPlane(PlanarTransformWS, 50.0f,
-						                                      FColor::Green, false, -1, LineThickness, SDPG_Foreground);
-					}
-
-#if	ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 6
-					for (const auto& CapsuleLimit : SharedCapsuleLimits)
-					{
-						FTransform CapsuleTransformWS =
-							ConvertSimulationSpaceTransform(Output, SimulationSpace,
-							                                EKawaiiPhysicsSimulationSpace::WorldSpace,
-							                                FTransform(CapsuleLimit.Rotation, CapsuleLimit.Location));
-						AnimInstanceProxy->AnimDrawDebugCapsule(CapsuleTransformWS.GetTranslation(),
-						                                        CapsuleLimit.Length * 0.5f,
-						                                        CapsuleLimit.Radius,
-						                                        CapsuleTransformWS.GetRotation().Rotator(),
-						                                        FColor::Green, false, -1, LineThickness,
-						                                        SDPG_Foreground);
-					}
-#endif
-				}
-			}
-		}
-	}
-}
-
-void FAnimNode_KawaiiPhysics::AnimDrawDebugBox(FComponentSpacePoseContext& Output, const FVector& CenterLocationSim,
-                                               const FQuat& RotationSim, const FVector& Extent,
-                                               const FColor& Color, float LineThickness) const
-{
-	const auto AnimInstanceProxy = Output.AnimInstanceProxy;
-	if (!AnimInstanceProxy)
-	{
-		return;
+		return true;
 	}
 
-	const FVector LocationWS =
-		ConvertSimulationSpaceLocation(Output, SimulationSpace,
-		                               EKawaiiPhysicsSimulationSpace::WorldSpace, CenterLocationSim);
-	const FQuat RotationWS =
-		ConvertSimulationSpaceRotation(Output, SimulationSpace,
-		                               EKawaiiPhysicsSimulationSpace::WorldSpace, RotationSim);
-
-	const FTransform BoxTransformWS(RotationWS, LocationWS);
-	const FVector E(FMath::Abs(Extent.X), FMath::Abs(Extent.Y), FMath::Abs(Extent.Z));
-
-	auto DrawFaceRect = [&](const FVector& FaceCenterLS, const FVector& FaceNormalLS, float HalfWidth, float HalfHeight)
+	// 配置トポロジ（生成されるダミー数）を左右する設定の変更
+	if (LastInitializedBoneSubdivisionCount != BoneSubdivisionCount ||
+		LastInitializedBoneConstraintSubdivisionCount != BoneConstraintSubdivisionCount ||
+		LastInitializedBoneSubdivisionDensifyByRadius != bBoneSubdivisionDensifyByRadius)
 	{
-		const FVector FaceCenterWS = BoxTransformWS.TransformPosition(FaceCenterLS);
-		const FVector NormalWS = RotationWS.RotateVector(FaceNormalLS).GetSafeNormal();
+		return true;
+	}
 
-		const FVector AnyUpWS = (FMath::Abs(NormalWS.Z) < 0.999f) ? FVector::UpVector : FVector::RightVector;
-		const FVector XAxisWS = FVector::CrossProduct(AnyUpWS, NormalWS).GetSafeNormal();
-		const FVector YAxisWS = FVector::CrossProduct(NormalWS, XAxisWS).GetSafeNormal();
+	// Densify=true時のみ、node Radius変更でダミー数が変わる
+	if (bBoneSubdivisionDensifyByRadius && !FMath::IsNearlyEqual(LastInitializedRadius, PhysicsSettings.Radius))
+	{
+		return true;
+	}
 
-		const FVector P0 = FaceCenterWS + (XAxisWS * HalfWidth) + (YAxisWS * HalfHeight);
-		const FVector P1 = FaceCenterWS - (XAxisWS * HalfWidth) + (YAxisWS * HalfHeight);
-		const FVector P2 = FaceCenterWS - (XAxisWS * HalfWidth) - (YAxisWS * HalfHeight);
-		const FVector P3 = FaceCenterWS + (XAxisWS * HalfWidth) - (YAxisWS * HalfHeight);
+	// DummyBoneLength変更
+	if (!FMath::IsNearlyEqual(LastInitializedDummyBoneLength, DummyBoneLength))
+	{
+		return true;
+	}
 
-		AnimInstanceProxy->AnimDrawDebugLine(P0, P1, Color, false, -1.0f,
-		                                     LineThickness, SDPG_Foreground);
-		AnimInstanceProxy->AnimDrawDebugLine(P1, P2, Color, false, -1.0f,
-		                                     LineThickness, SDPG_Foreground);
-		AnimInstanceProxy->AnimDrawDebugLine(P2, P3, Color, false, -1.0f,
-		                                     LineThickness, SDPG_Foreground);
-		AnimInstanceProxy->AnimDrawDebugLine(P3, P0, Color, false, -1.0f,
-		                                     LineThickness, SDPG_Foreground);
-	};
-
-	// +X / -X faces: cover YZ
-	DrawFaceRect(FVector(E.X, 0, 0), FVector(1, 0, 0), E.Y, E.Z);
-	DrawFaceRect(FVector(-E.X, 0, 0), FVector(-1, 0, 0), E.Y, E.Z);
-
-	// +Y / -Y faces: cover XZ
-	DrawFaceRect(FVector(0, E.Y, 0), FVector(0, 1, 0), E.X, E.Z);
-	DrawFaceRect(FVector(0, -E.Y, 0), FVector(0, -1, 0), E.X, E.Z);
-
-	// +Z / -Z faces: cover XY
-	DrawFaceRect(FVector(0, 0, E.Z), FVector(0, 0, 1), E.X, E.Y);
-	DrawFaceRect(FVector(0, 0, -E.Z), FVector(0, 0, -1), E.X, E.Y);
+	return false;
 }
-#endif
 
 void FAnimNode_KawaiiPhysics::EvaluateSkeletalControl_AnyThread(FComponentSpacePoseContext& Output,
                                                                 TArray<FBoneTransform>& OutBoneTransforms)
@@ -440,10 +292,35 @@ void FAnimNode_KawaiiPhysics::EvaluateSkeletalControl_AnyThread(FComponentSpaceP
 
 	check(OutBoneTransforms.Num() == 0);
 
+	// ランタイム変更（BP setter等でのreinit要求）時の遅延リセット。ポーズに依存せず、無効ルートボーン等での
+	// 早期returnより前に必ず実行する（無効化/タグクリア時に旧Source Slotと古いマージ配列を確実に始末するため）。
+	if (bSharedCollisionNeedsReinit)
+	{
+		// 旧Slotを即座に期限切れ化（Targetが無効化したSourceのコリジョンを次フレームで参照しないように）
+		if (CachedSourceSlot.IsValid())
+		{
+			CachedSourceSlot->MarkExpired();
+		}
+		bSharedCollisionInitialized = false;
+		CachedSharedCollisionEntry.Reset();
+		CachedSourceSlot.Reset();
+		SharedCollisionInitRetryCount = 0;
+		bSharedCollisionInitWarningLogged = false;
+		bSharedCollisionNeedsReinit = false;
+
+		// マージ済み共有コリジョン配列もクリア。無効化/タグクリア後はUpdateSharedCollisionLimitsが呼ばれず
+		// 再populateされないため、ここでクリアしないと古いコリジョン形状がSimulateで使われ続ける。
+		SharedCollisionMergedData.Reset();
+		SharedSphericalLimits.Reset();
+		SharedCapsuleLimits.Reset();
+		SharedBoxLimits.Reset();
+		SharedPlanarLimits.Reset();
+	}
+
 	const FBoneContainer& BoneContainer = Output.Pose.GetPose().GetBoneContainer();
 	FTransform ComponentTransform = Output.AnimInstanceProxy->GetComponentTransform();
 
-	// save prev frame BaseBoneSpace2ComponentSpace
+	// 前フレームの BaseBoneSpace2ComponentSpace を保存
 	if (SimulationSpace == EKawaiiPhysicsSimulationSpace::BaseBoneSpace)
 	{
 		if (SimulationBaseBone.IsValidToEvaluate(BoneContainer))
@@ -453,11 +330,13 @@ void FAnimNode_KawaiiPhysics::EvaluateSkeletalControl_AnyThread(FComponentSpaceP
 		else
 		{
 			PrevBaseBoneSpace2ComponentSpace = FTransform::Identity;
-			UE_LOG(LogKawaiiPhysics, Warning, TEXT("SimulationBaseBone is invalid. Reverting to Identity transform."));
+			KAWAII_LOG_NODE_WARNING_ONCE(bSimBaseBoneInvalidWarned, LogKawaiiPhysics,
+				TEXT("SimulationBaseBone [%s] is invalid. Reverting to Identity transform."),
+				*SimulationBaseBone.BoneName.ToString());
 		}
 	}
 
-	// Build per-evaluate caches AFTER PrevBaseBoneSpace2ComponentSpace is updated.
+	// PrevBaseBoneSpace2ComponentSpace の更新後に評価ごとのキャッシュを構築する
 	CurrentEvalSimSpaceCache = BuildSimulationSpaceCache(Output, SimulationSpace);
 	bHasCurrentEvalSimSpaceCache = true;
 	CurrentEvalWorldSpaceCache = BuildSimulationSpaceCache(Output, EKawaiiPhysicsSimulationSpace::WorldSpace);
@@ -482,28 +361,29 @@ void FAnimNode_KawaiiPhysics::EvaluateSkeletalControl_AnyThread(FComponentSpaceP
 	}
 	LastSimulationSpace = SimulationSpace;
 
-	if (ModifyBones.Num() > 0 &&
-		(bModifyBonesNeedsReinit ||
-		 LastInitializedBoneSubdivisionCount != BoneSubdivisionCount ||
-		 LastInitializedBoneConstraintSubdivisionCount != BoneConstraintSubdivisionCount ||
-		 LastInitializedBoneSubdivisionCollisionOnly != bBoneSubdivisionCollisionOnly ||
-		 !FMath::IsNearlyEqual(LastInitializedDummyBoneLength, DummyBoneLength)))
+	if (ModifyBones.Num() > 0 && ShouldReinitModifyBones())
 	{
 		ModifyBones.Empty(ModifyBones.Num());
 		bInitPhysicsSettings = false;
 		bModifyBonesNeedsReinit = false;
+
+		// 再構築で新規ボーンのPrevPoseLocationが0に戻りsubstep補間が原点へ引かれチラつくため、
+		// flagを戻し次フレーム冒頭で現在ポーズから再開させる
+		bSubstepPoseInitialized = false;
+
+		// 再初期化（設定変更）時はSimulationBaseBone無効警告を再通知できるようガードを戻す
+		KAWAII_RESET_NODE_WARNING_ONCE(bSimBaseBoneInvalidWarned);
 	}
 
 #if WITH_EDITOR
-	// sync editing on other Nodes
+	// 他のNodeでの編集を同期する
 	ApplyLimitsDataAsset(BoneContainer);
 	ApplyPhysicsAsset(BoneContainer);
 	ApplyBoneConstraintDataAsset(BoneContainer);
 
-
+	// ライブ編集用（コンパイル前に同期）
 	if (GUnrealEd && !GUnrealEd->IsPlayingSessionInEditor())
 	{
-		// for live editing ( sync before compile )
 		InitializeBoneReferences(BoneContainer);
 	}
 
@@ -528,38 +408,59 @@ void FAnimNode_KawaiiPhysics::EvaluateSkeletalControl_AnyThread(FComponentSpaceP
 		InitBoneConstraints();
 		LastInitializedBoneSubdivisionCount = BoneSubdivisionCount;
 		LastInitializedBoneConstraintSubdivisionCount = BoneConstraintSubdivisionCount;
-		LastInitializedBoneSubdivisionCollisionOnly = bBoneSubdivisionCollisionOnly;
+		LastInitializedBoneSubdivisionDensifyByRadius = bBoneSubdivisionDensifyByRadius;
+		LastInitializedRadius = PhysicsSettings.Radius;
 		LastInitializedDummyBoneLength = DummyBoneLength;
 		bModifyBonesNeedsReinit = false;
 		PreSkelCompTransform = ComponentTransform;
 
-		// STAT更新 & パフォーマンス警告 / STAT update & performance warning
+#if !UE_BUILD_SHIPPING
+		// STAT更新 & パフォーマンス警告
 		SET_DWORD_STAT(STAT_KawaiiPhysics_NumModifyBones, ModifyBones.Num());
 		int32 InterBoneDummyCount = 0;
 		int32 BridgeDummyCount = 0;
 		for (const auto& Bone : ModifyBones)
 		{
-			if (Bone.bInterBoneDummy) InterBoneDummyCount++;
-			if (Bone.bBridgeDummy) BridgeDummyCount++;
+			if (Bone.bInterBoneDummy)
+			{
+				InterBoneDummyCount++;
+			}
+			if (Bone.bBridgeDummy)
+			{
+				BridgeDummyCount++;
+			}
 		}
 		SET_DWORD_STAT(STAT_KawaiiPhysics_NumInterBoneDummyBones, InterBoneDummyCount);
 		SET_DWORD_STAT(STAT_KawaiiPhysics_NumBridgeDummyBones, BridgeDummyCount);
-		if (InterBoneDummyCount > 50)
+		
+#if WITH_EDITORONLY_DATA
+		int32 InterBoneDummyWarningThreshold = 100;
+		int32 BridgeDummyWarningThreshold = 200;
+
+		if (const UKawaiiPhysicsDeveloperSettings* KawaiiSettings = GetDefault<UKawaiiPhysicsDeveloperSettings>())
 		{
-			UE_LOG(LogAnimation, Warning,
-				TEXT("KawaiiPhysics: %d inter-bone dummy bones generated. This may impact performance. Consider reducing BoneSubdivisionCount."),
-				InterBoneDummyCount);
+			InterBoneDummyWarningThreshold = KawaiiSettings->InterBoneDummyWarningThreshold;
+			BridgeDummyWarningThreshold = KawaiiSettings->BridgeDummyWarningThreshold;
 		}
-		if (BridgeDummyCount > 100)
+
+		if (InterBoneDummyWarningThreshold > 0 && InterBoneDummyCount > InterBoneDummyWarningThreshold)
 		{
-			UE_LOG(LogAnimation, Warning,
-				TEXT("KawaiiPhysics: %d bridge collision-proxy dummy bones and %d merged bone constraints generated. This may impact performance. Consider reducing BoneConstraintSubdivisionCount."),
-				BridgeDummyCount, MergedBoneConstraints.Num());
+			KAWAII_LOG_NODE_WARNING(LogAnimation,
+				TEXT("KawaiiPhysics: %d inter-bone dummy bones generated (warning threshold: %d). This may impact performance. Consider reducing BoneSubdivisionCount or raising InterBoneDummyWarningThreshold in Kawaii Physics project settings."),
+				InterBoneDummyCount, InterBoneDummyWarningThreshold);
 		}
+		if (BridgeDummyWarningThreshold > 0 && BridgeDummyCount > BridgeDummyWarningThreshold)
+		{
+			KAWAII_LOG_NODE_WARNING(LogAnimation,
+				TEXT("KawaiiPhysics: %d bridge collision-proxy dummy bones and %d merged bone constraints generated (warning threshold: %d). This may impact performance. Consider reducing BoneConstraintSubdivisionCount or raising BridgeDummyWarningThreshold in Kawaii Physics project settings."),
+				BridgeDummyCount, MergedBoneConstraints.Num(), BridgeDummyWarningThreshold);
+		}
+#endif
+#endif
 
 	}
 
-	// Update each parameter and collision
+	// 各パラメータとコリジョンを更新する
 	if (!bInitPhysicsSettings || bUpdatePhysicsSettingsInGame)
 	{
 		UpdatePhysicsSettingsOfModifyBones();
@@ -571,6 +472,8 @@ void FAnimNode_KawaiiPhysics::EvaluateSkeletalControl_AnyThread(FComponentSpaceP
 			bInitPhysicsSettings = true;
 		}
 	}
+
+	// 各コリジョンの更新
 	UpdateSphericalLimits(SphericalLimits, Output, BoneContainer, ComponentTransform);
 	UpdateSphericalLimits(SphericalLimitsData, Output, BoneContainer, ComponentTransform);
 	UpdateCapsuleLimits(CapsuleLimits, Output, BoneContainer, ComponentTransform);
@@ -580,22 +483,56 @@ void FAnimNode_KawaiiPhysics::EvaluateSkeletalControl_AnyThread(FComponentSpaceP
 	UpdatePlanerLimits(PlanarLimits, Output, BoneContainer, ComponentTransform);
 	UpdatePlanerLimits(PlanarLimitsData, Output, BoneContainer, ComponentTransform);
 
-	// 共有コリジョンの更新（初期化はPreUpdateでGameThread実行済み）
-	// Update shared collision (initialization done in PreUpdate on GameThread)
+	// 共有コリジョンの初期化と更新（有効時のみ）。reinit処理は関数冒頭で実行済み。
+	// subsystemはロックでスレッドセーフ化済みのためWorker(AnyThread)で実行でき、PreUpdate(GameThread)を介さない。
+	// これによりランタイム有効化(BP setter)も全ビルド構成で正しく動作する。
 	if ((bSharedCollisionSource || bUseSharedCollision) && SharedCollisionGroupTag.IsValid())
 	{
+		// 初期化（未初期化時のみ。Subsystem側のロックでWorkerから安全に呼べる）
+		if (!bSharedCollisionInitialized)
+		{
+			const int32 RetryThreshold = CVarSharedCollisionInitRetryThreshold.GetValueOnAnyThread();
+			const int32 ThrottleInterval = FMath::Max(1, CVarSharedCollisionInitRetryThrottleInterval.GetValueOnAnyThread());
+
+			if (!bSharedCollisionInitWarningLogged)
+			{
+				// 警告前: 毎フレーム試行（正常な起動ウィンドウでの即接続を維持）。しきい値到達で1回だけ警告し間引きへ移行
+				InitializeSharedCollision();
+				if (!bSharedCollisionInitialized)
+				{
+					SharedCollisionInitRetryCount++;
+					if (SharedCollisionInitRetryCount > RetryThreshold)
+					{
+						KAWAII_LOG_NODE_WARNING(LogKawaiiPhysics,
+							TEXT("SharedCollision: Target could not find source entry for tag [%s]. "
+								"Ensure a source node with matching tag exists in the same actor/child-actor family."),
+							*SharedCollisionGroupTag.ToString());
+						bSharedCollisionInitWarningLogged = true;
+						SharedCollisionInitRetryCount = 0; // 間引きフェーズ用にカウンタを0起点で再利用
+					}
+				}
+			}
+			else
+			{
+				// 警告後(Sourceが見つからない誤設定の可能性大): ThrottleInterval間隔で試行。カウンタは[0, ThrottleInterval]に
+				// 収まりオーバーフローしない。誤設定タグでの毎フレームのfamily-root walk/registry lock取得を削減しつつ、
+				// Sourceが後から現れた場合の接続は維持する（最大ThrottleInterval遅れ）。
+				if (++SharedCollisionInitRetryCount >= ThrottleInterval)
+				{
+					SharedCollisionInitRetryCount = 0;
+					InitializeSharedCollision();
+				}
+			}
+		}
+
+		// Target: 全Sourceのコリジョンをマージして取得
 		if (bUseSharedCollision && !bSharedCollisionSource && CachedSharedCollisionEntry.IsValid())
 		{
 			UpdateSharedCollisionLimits(Output);
 		}
 	}
 
-	// 入力規模カウンタ & メモリの更新（毎フレーム。負荷=N×L等の相関とダミー膨張の可視化用）。
-	// コライダ配列はここまでに更新済み（Update*Limits / UpdateSharedCollisionLimits）。
-	// 注: 既存のNum*系と同じくSET（複数ノード時は最後にSETしたノード値が表示される）。
-	// Per-frame input-size counters & memory (correlate load = N×L, visualize dummy growth).
-	// Collider arrays are already updated above (Update*Limits / UpdateSharedCollisionLimits).
-	// Note: SET semantics like the existing Num* stats (last node wins when multiple nodes exist).
+	// 入力規模カウンタ & メモリの更新（毎フレーム。負荷=N×L等の相関とダミー膨張の可視化用）
 	SET_DWORD_STAT(STAT_KawaiiPhysics_NumSphereColliders, SphericalLimits.Num() + SphericalLimitsData.Num());
 	SET_DWORD_STAT(STAT_KawaiiPhysics_NumCapsuleColliders, CapsuleLimits.Num() + CapsuleLimitsData.Num());
 	SET_DWORD_STAT(STAT_KawaiiPhysics_NumBoxColliders, BoxLimits.Num() + BoxLimitsData.Num());
@@ -607,23 +544,20 @@ void FAnimNode_KawaiiPhysics::EvaluateSkeletalControl_AnyThread(FComponentSpaceP
 	SET_MEMORY_STAT(STAT_KawaiiPhysics_ModifyBonesMemory,
 	                ModifyBones.GetAllocatedSize() + MergedBoneConstraints.GetAllocatedSize());
 
-	// Update Bone Pose Transform
 	UpdateModifyBonesPoseTransform(Output, BoneContainer);
-
-	// Apply Sync Bones
 	ApplySyncBones(Output, BoneContainer);
 
-	// Update SkeletalMeshComponent movement in World Space
+	// World SpaceでのSkeletalMeshComponentの移動を更新する
 	UpdateSkelCompMove(Output, ComponentTransform);
 
-	// Simulate Physics and Apply
+	// 物理の荒ぶりを回避するための空回し処理
 	if (bNeedWarmUp && WarmUpFrames > 0)
 	{
 		WarmUp(Output, BoneContainer, ComponentTransform);
 		bNeedWarmUp = false;
 	}
 
-	// SkipSimulate if Teleport in WorldSpace
+	// WorldSpaceでテレポートした場合はシミュレートをスキップする
 	if (SimulationSpace == EKawaiiPhysicsSimulationSpace::WorldSpace &&
 		TeleportType == ETeleportType::TeleportPhysics)
 	{
@@ -636,16 +570,16 @@ void FAnimNode_KawaiiPhysics::EvaluateSkeletalControl_AnyThread(FComponentSpaceP
 		}
 
 		// テレポート時はサブステップの未消費時間を破棄し、ポーズ補間を次フレームで再初期化
-		// On teleport, flush unconsumed substep time and re-seed pose interpolation next frame
 		SubstepAccumulator = 0.0f;
 		bSubstepPoseInitialized = false;
+		PreSkelCompTransformConsumeFraction = 1.0f;
 	}
 	else
 	{
 		SimulateModifyBones(Output, ComponentTransform);
 	}
 
-	// 計算済みコリジョンをSubsystemに書き込み / Write computed collision to subsystem
+	// 計算済みコリジョンをSubsystemに書き込み
 	if (bSharedCollisionSource && SharedCollisionGroupTag.IsValid() && CachedSourceSlot.IsValid())
 	{
 		WriteSharedCollisionToSubsystem(Output, ComponentTransform);
@@ -654,7 +588,22 @@ void FAnimNode_KawaiiPhysics::EvaluateSkeletalControl_AnyThread(FComponentSpaceP
 	ApplySimulateResult(Output, BoneContainer, OutBoneTransforms);
 
 	TeleportType = ETeleportType::None;
-	PreSkelCompTransform = ComponentTransform;
+	// サブステップで未消費の実時間がある場合、PreSkelCompTransform を消費割合だけ前進させ、
+	// 未適用のComponent移動を次にステップが走るフレームへ繰り越す（NumSteps==0 では割合0で据え置き）。
+	const float PreSkelCompConsumeFrac = FMath::Clamp(PreSkelCompTransformConsumeFraction, 0.0f, 1.0f);
+	if (PreSkelCompConsumeFrac >= 1.0f - KINDA_SMALL_NUMBER)
+	{
+		PreSkelCompTransform = ComponentTransform;
+	}
+	else
+	{
+		PreSkelCompTransform.SetLocation(
+			FMath::Lerp(PreSkelCompTransform.GetLocation(), ComponentTransform.GetLocation(), PreSkelCompConsumeFrac));
+		PreSkelCompTransform.SetRotation(
+			FQuat::Slerp(PreSkelCompTransform.GetRotation(), ComponentTransform.GetRotation(), PreSkelCompConsumeFrac).GetNormalized());
+		PreSkelCompTransform.SetScale3D(
+			FMath::Lerp(PreSkelCompTransform.GetScale3D(), ComponentTransform.GetScale3D(), PreSkelCompConsumeFrac));
+	}
 
 #if ENABLE_ANIM_DEBUG
 
@@ -692,69 +641,51 @@ bool FAnimNode_KawaiiPhysics::IsValidToEvaluate(const USkeleton* Skeleton, const
 	return true;
 }
 
-bool FAnimNode_KawaiiPhysics::HasPreUpdate() const
+void FAnimNode_KawaiiPhysics::OnInitializeAnimInstance(const FAnimInstanceProxy* InProxy, const UAnimInstance* InAnimInstance)
 {
-	// CDO上でキャッシュされるため無条件true（共有コリジョン初期化にGameThread PreUpdateが必要）
-	// Must return true unconditionally: cached on CDO at load time (AnimBlueprintGeneratedClass).
-	// Shared collision initialization requires GameThread PreUpdate.
-	return true;
-}
+	FAnimNode_SkeletalControlBase::OnInitializeAnimInstance(InProxy, InAnimInstance);
 
-void FAnimNode_KawaiiPhysics::PreUpdate(const UAnimInstance* InAnimInstance)
-{
-	SCOPE_CYCLE_COUNTER(STAT_KawaiiPhysics_PreUpdate);
-
-#if WITH_EDITOR
-	if (const UWorld* World = InAnimInstance->GetWorld())
+	// 共有コリジョン初期化で使うSubsystemとowner ActorをGameThreadで1回だけ解決してキャッシュする。
+	// （Evaluate(AnyThread)でのGetWorld/GetSubsystem/GetOwner回避。ファミリーrootはアタッチ変更追従のためEvaluate側でownerから都度解決）
+	if (InAnimInstance)
 	{
-		if (World->WorldType == EWorldType::Editor ||
-			World->WorldType == EWorldType::EditorPreview)
+		if (const UWorld* World = InAnimInstance->GetWorld())
 		{
-			bEditing = true;
+			CachedSharedCollisionSubsystem = World->GetSubsystem<UKawaiiPhysicsSharedCollisionSubsystem>();
+		}
+		if (const USkeletalMeshComponent* SkelComp = InAnimInstance->GetSkelMeshComponent())
+		{
+			CachedSharedCollisionOwnerActor = SkelComp->GetOwner();
+		}
+	}
+
+#if !UE_BUILD_SHIPPING
+	// 警告ログ用のノード識別名を収集（名前はノード生存中に不変なのでGameThread初期化時に1回だけ取得）
+	if (InAnimInstance)
+	{
+		CachedAnimInstanceClassName = InAnimInstance->GetClass()->GetFName();
+		if (const USkeletalMeshComponent* SkelComp = InAnimInstance->GetSkelMeshComponent())
+		{
+			CachedComponentName = SkelComp->GetFName();
+			const AActor* OwnerActor = SkelComp->GetOwner();
+			CachedOwnerActorName = OwnerActor ? OwnerActor->GetFName() : NAME_None;
 		}
 	}
 #endif
 
-	// BP APIランタイム変更時の遅延リセット / Deferred reinit from Blueprint API runtime changes
-	if (bSharedCollisionNeedsReinit)
+#if WITH_EDITOR
+	if (InAnimInstance)
 	{
-		// 旧Slotを即座に期限切れ化 / Mark old slot as immediately expired
-		if (CachedSourceSlot.IsValid())
+		if (const UWorld* World = InAnimInstance->GetWorld())
 		{
-			CachedSourceSlot->LastPublishFrame.store(0, std::memory_order_release);
-		}
-		bSharedCollisionInitialized = false;
-		CachedSharedCollisionEntry.Reset();
-		CachedSourceSlot.Reset();
-		SharedCollisionInitRetryCount = 0;
-		bSharedCollisionInitWarningLogged = false;
-		bSharedCollisionNeedsReinit = false;
-	}
-
-	// 共有コリジョンの初期化（GameThreadで実行、TMapへの書き込みはスレッドセーフでないため）
-	// Initialize shared collision on GameThread (TMap mutation is not thread-safe)
-	if ((bSharedCollisionSource || bUseSharedCollision) && SharedCollisionGroupTag.IsValid())
-	{
-		if (!bSharedCollisionInitialized)
-		{
-			InitializeSharedCollision(InAnimInstance);
-
-			// 初期化リトライが続く場合に警告ログ（1回のみ）
-			// Warn once if target init keeps retrying (source not found)
-			if (!bSharedCollisionInitialized && !bSharedCollisionInitWarningLogged)
+			if (World->WorldType == EWorldType::Editor ||
+				World->WorldType == EWorldType::EditorPreview)
 			{
-				SharedCollisionInitRetryCount++;
-				if (SharedCollisionInitRetryCount > CVarSharedCollisionInitRetryThreshold.GetValueOnGameThread())
-				{
-					UE_LOG(LogKawaiiPhysics, Warning,
-						TEXT("SharedCollision: Target could not find source entry for tag [%s]. "
-							"Ensure a source node with matching tag exists on this actor."),
-						*SharedCollisionGroupTag.ToString());
-					bSharedCollisionInitWarningLogged = true;
-				}
+				bEditing = true;
 			}
 		}
 	}
+#endif
 }
 
 const FVector& FAnimNode_KawaiiPhysics::GetSkelCompMoveVector() const
@@ -791,3 +722,7 @@ FVector FAnimNode_KawaiiPhysics::GetBoneForwardVector(const FQuat& Rotation) con
 		return -Rotation.GetAxisZ();
 	}
 }
+
+#undef KAWAII_LOG_NODE_WARNING
+#undef KAWAII_LOG_NODE_WARNING_ONCE
+#undef KAWAII_RESET_NODE_WARNING_ONCE
