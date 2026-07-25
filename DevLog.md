@@ -6273,3 +6273,85 @@ DevLog (5) 참조 + 실기 검증됨. `EStageKind{Hub,Episode}`·목적지 이�
   (다만 방향은 명확하다: 사용자가 "레벨로 끊지 말라"고 못박았으므로 낱개 맵은 *공간 안의 자리*로 다시 앉히는 쪽.)
 - L01 문 5개 소실 건은 그대로. 도시 뼈대가 섰으니 이제 큰길 자리(원점)에서 배선을 다시 건다.
 - 아래층 조명 없음(지금은 형태만) · 성벽이 매끈한 링이라 "무너진" 결이 아직 없음.
+
+---
+
+## 🧹 2026-07-25 (저녁) — 프로젝트 용량 58.9GB → 12.4GB · 깃 재생성 · 루트 폴더 구조 정리
+> 사용자: "secretproject 대용량 레벨들 제거했는데 용량 얼마나 줄었어?" → "아직 20gb라고? 뭐가 그렇게 무거워?"
+> → "팀레포아닌데? 나 공유하는 팀원없어. 내 개인프로젝트야." → **"c로 가자"**(깃 새로 시작)
+> → "paragon·mixamo 이 2개가 가장 크다는거지? 그것들도 그냥 없애자. 옜날 lfs도 다 없애버리고.
+>    지금 우리가 실제로 작업하는데 만지고 있는 vroid 캐릭터들, ui, 레벨들은 가지고 있고"
+> → "옜날 안쓰던 레벨이나 각종 우리가 없애려 했던거 깃에 없애고. 그냥 진짜 우리가 저장해야하는거만 저장해"
+
+### ★진단 — 60GB의 정체는 "남의 에셋 + 그 깃 사본"이었다
+- `.git` 28.8GB(그중 LFS 26.4GB) + `Content` 20.2GB. **같은 에셋을 두 벌 들고 있었다.**
+- LFS 26.4GB를 `git lfs ls-files HEAD` 로 뜯어보니 **20.2GB가 "프로젝트엔 이미 없는데 깃이 붙들고 있던 것"**
+  — 앞서 워킹트리에서만 지우고 커밋 안 한 외부 레벨 팩 9.56GB + FBX 8.06GB + Fab 2.59GB.
+  파일을 지워도 `.git`이 안 줄던 이유가 이것.
+- **우리가 만든 것(Maps+Rasel+UI+VFX+_GENERATED)은 80MB뿐.** 라셀 도시 뼈대(액터 3,447)가 6.9MB.
+
+### 프로젝트 밖으로 뺀 것 (`C:\Secret_Project_ArtSource\_removed\` — 전부 참조 0 확인 후)
+| | 용량 | 참조 검사 |
+|---|---:|---|
+| Content 내 `.fbx` 임포트 원본 4,529개 | 8.54GB | 엔진이 로드·쿠킹 안 함 |
+| Fab 마켓 팩 + Untitled.umap + `_GENERATED/hellp` | 2.68GB | 우리 맵 참조 **0** |
+| paragonanimationsretargetedtomanny | 2.07GB | 참조 **0** (아무도 안 씀) |
+| Free_Magic | 0.50GB | 참조 0 |
+| 스크래치 맵(1·SChool·cafe·Title·TestBattle·_diag/_probe) + 고아 ExternalActors | 0.14GB | 참조 0 |
+| FancyDev · StarterContent · TripoTest | 0.07GB | 참조 0 |
+
+### ★깃 추적만 제외한 것 (디스크엔 그대로 — 지우면 게임이 깨진다)
+- `Content/ABP`(MIXAMO) 1.32GB — **BP_PlayerCharacter 포함 9개가 참조**
+- `Content/paragonanimRTGtoCharacters` 1.23GB — **BP_ANPCCharacter 30개가 참조**
+→ 사용자는 "그냥 없애자"라 했으나 참조 검사에서 캐릭터 애니메이션이 통째로 걸려 나와 삭제하지 않았다.
+   Adobe·Epic에서 다시 받을 수 있으므로 **백업 대상에서만** 뺐다. 진짜로 지우려면 애님을 먼저 갈아끼워야 한다.
+- 남긴 것: `Free_Spells`(VFX/NS_buff·debuff·heal·turnmark가 재질·메시 참조) · `TestCharacter`(VRoid 작업물)
+  · `SFX_ORGANIZED`(직접 분류한 음원) · `Content/Splash`(엔진이 경로 참조 없이 읽음)
+
+### 깃 재생성 (개인 레포·단일 브랜치·15커밋이라 히스토리보다 용량을 택함)
+- 옛 `.git` → `C:\Secret_Project_git_old\` (28.77GB, **검증 후 삭제 대기 — 사용자 확인 필요**)
+- 새 `.git` = **3.99GB** (LFS 파일 5,825). `.gitignore` 재작성(옛 파일엔 `cat <<EOF` heredoc이 통째로 박혀 있었음)
+- ★**삽질 1건:** `.git_old`를 프로젝트 *안*에 두고 `git add` → git이 그 26GB를 통째로 스테이징하려 해
+  10분 타임아웃. 새 `.git`이 11.8GB로 오염돼 갈아엎고, `.git_old`를 프로젝트 밖으로 옮긴 뒤 재시작.
+  **교훈: 옛 .git 은 반드시 워킹트리 밖으로.**
+
+### 루트 폴더 구조 정리 (다른 세션이 md 290개를 `기획/`으로 옮긴 것을 이어받음)
+```
+루트 파일 180개 → 7개
+웹/     html 49 + 데이터 js 4      (열람 산출물 — 손대지 말 것)
+도구/웹빌더/  node 빌더·도해 18
+도구/언리얼/  UE 파이썬 48   도구/진단/ 25   도구/보관/ 36 (citoon·Tripo·test7)
+```
+- 경로 수정: node 빌더 8개의 `__dirname` 기준 → `path.join(__dirname,'..','..')` · html 입출력 → `웹/`
+  · `_rasel_common` 쓰는 py 9개의 `sys.path` · sh 2개 · `_rasel_plan.json`(웹 도면 ↔ UE 빌더 공유 원본)
+- ★**`_build_노트북LM_통합.js`가 깨져 있던 것 발견·수정** — md를 맨 파일명으로 찾다가 `기획/` 이동에 깨짐.
+  이제 `기획/` 아래를 재귀 탐색해 찾는다(앞으로 md를 옮겨도 안 깨짐). 59개 소스 병합 확인.
+- 새로 만든 것: **루트 `열람.html`**(웹 49장 진입점, `node 도구/웹빌더/_build_열람index.js`로 재생성)
+  · `기획/03_규약/폴더구조와_빌드_파이프라인.md`(무엇이 무엇을 만드는가 + 훅이 읽는 절대경로 목록)
+- `CLAUDE.md` 갱신 — "Blueprint 전용"(실제는 C++ 기반)·폐기된 paragon 경로·낡은 구조를 고침
+
+### 검증 (전부 실행해서 확인, 추측 아님)
+- node 빌더 10개 rc=0 · 산출물이 `웹/`에 떨어짐 · 루트 html 0개
+- 파이썬 109개 문법 통과(**시스템 python은 WindowsApps 스텁이라 UE 내장 python으로**) · `_rasel_common` import 해석 확인
+- `웹/` 내부 링크 105개 · `열람.html` 링크 49개 — 깨진 것 **0**
+- 세이브 3개(FlowSave·PlayerSave·StorySave) 보존 · 우리 맵 39개 무사
+
+### ▷남은 것 / 사용자만 할 수 있는 것
+1. **`C:\Secret_Project_git_old` 28.77GB 삭제 여부** — 새 레포 검증 끝났으니 지우면 즉시 회수
+2. **GitHub 레포 삭제·재생성** — 강제 푸시로는 원격 LFS 사용량이 안 줄어든다(GitHub은 끊긴 LFS 객체를 GC 안 함)
+3. **UE 5.8 설치**(런처) — Revvy가 `EngineVersion 5.8.0` 을 요구. 아래 참조
+4. L번호 충돌 5쌍(L11·L12·L15·L21·L22) 정리 — 설계 결정이라 손대지 않음
+5. L01 문 5개 소실 건 여전히 미해결
+
+### UE 5.8 / Revvy 사전 조사 (엔진 없이 할 수 있는 것까지 해둠)
+- `C:\Revvy` 실재 · `Revvy.uplugin` = **`"EngineVersion": "5.8.0"`** · 5.8 API에 붙은 C++ 다수
+  (`UAnimGraphService` `UGameplayCueService` `UChaosClothService` 등) → 5.7 백포트는 며칠짜리, 5.8 업그레이드가 정답
+- 설치된 엔진: **5.3(41G) · 5.5(74G) · 5.6(341M 껍데기) · 5.7(30G)** · C: 여유 148.6GB → 아무것도 안 지우고 5.8 설치 가능
+- 현재 플러그인: VRM4U(EngineVersion 5.7.0) · KawaiiPhysics 1.20.0 · VRoidSdk 1.8.0(uproject에서 Enabled:false)
+  → 5.8판이 이미 나와 있음(VRM4U 2026-06-22 · KawaiiPhysics v1.21.0 2026-06-23). 교체 필요.
+- **`UE_5.7` 경로가 박힌 파일 8개** — 5.8 전환 시 함께 고칠 것:
+  `Build_Editor.bat` `PLAY.bat` `DevLog.md` `기획/03_규약/캐릭터_셀룩_파이프라인.md`
+  `도구/언리얼/grid_tool.py` `도구/언리얼/setup_test_battle.py`
+  `도구/언리얼/_make_rasel_maps.sh` `도구/언리얼/_wire_rasel_maps.sh`
+- ★**되돌릴 수 없는 지점:** 5.8 에디터로 한 번 열고 저장하면 에셋 버전이 올라 5.7로 못 돌아온다.
+  다만 **지금은 전부 커밋돼 있어 그 위험이 사라졌다**(앞서 미커밋 3,371개가 걸림돌이던 상태를 해소).
