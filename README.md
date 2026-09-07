@@ -1,4 +1,4 @@
-(https://github.com/PPIONN/22Devils_end) (첫번째 팀플 지원서에 링크 잘못올라감. 제대로된 링크)
+https://github.com/PPIONN/22Devils-Text_Console_RPG (첫번째 팀플 지원서에 링크 잘못올라감. 제대로된 링크)
 # Secret Project — 작업 파이프라인
 
 스토리 진행형 게임을 만들면서 쓰는 **캐릭터 · 레벨 제작 파이프라인**을 정리한 문서다.
